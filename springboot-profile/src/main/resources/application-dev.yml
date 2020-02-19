@@ -1,0 +1,6 @@
+# 开发环境
+server:
+  port: 8081
+spring:
+  profiles:
+    active: test
