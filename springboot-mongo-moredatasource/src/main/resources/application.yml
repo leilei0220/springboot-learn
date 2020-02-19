@@ -1,0 +1,19 @@
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+  data:
+    mongodb:
+      one:
+        uri: mongodb://leilei:root@47.97.118.22:27017/dev1   #mongodb://账户:密码@ip:端口/数据库名
+      two:
+        uri: mongodb://leilei:root@47.97.118.22:27017/dev2
+      three:
+        uri: mongodb://leilei:root@47.97.118.22:27017/dev3
+server:
+  port: 8099
