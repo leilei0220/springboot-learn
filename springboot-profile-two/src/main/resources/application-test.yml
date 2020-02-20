@@ -1,0 +1,6 @@
+#测试环境
+server:
+  port: 8082
+spring:
+  profiles:
+    active: test

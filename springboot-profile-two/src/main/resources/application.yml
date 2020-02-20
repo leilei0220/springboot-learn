@@ -1,0 +1,7 @@
+server:
+  port: ${server.port}
+spring:
+  application:
+    name: springboot-profile
+  profiles:
+    active: @package.environment@
