@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("profile")
 public class TestProfileController {
-    @Value("${server.port}")
-    private Integer port;
+    @Value("${author.name}")
+    private String name;
     @GetMapping("/port")
-    public Integer getPort() {
-        return port;
+    public String getPort() {
+        return name;
     }
 }

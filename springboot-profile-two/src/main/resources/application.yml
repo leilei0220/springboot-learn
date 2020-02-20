@@ -1,5 +1,5 @@
 server:
-  port: ${server.port}
+  port: 8080
 spring:
   application:
     name: springboot-profile
