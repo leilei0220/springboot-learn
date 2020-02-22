@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>poi导入测试页面</title>
+</head>
+<body>
+<h2><p> poi导入测试页面</p></h2>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/import/import1">
+        <p>
+            文件：<input type="file" name="file"/>
+            <input type="submit" value="导入1 普通导入"/>
+        </p>
+    </form>
+</div>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/import/import2">
+        <p>
+            文件：<input type="file" name="file"/>
+            <input type="submit" value="导入2 文件内容校验"/>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+#HTML页面配置
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    #设置文件单次上传与请求无大小限制
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
