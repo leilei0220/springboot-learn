@@ -1,0 +1,10 @@
+server:
+  port: 8088
+app:
+  base:
+    url: http://192.168.86.134:8888/
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
