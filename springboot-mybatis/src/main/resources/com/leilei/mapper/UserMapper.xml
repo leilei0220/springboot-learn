@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leilei.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.leilei.entity.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="card_id" jdbcType="VARCHAR" property="cardId"/>
+        <!--一对多方式一-->
+        <collection property="realEseates" ofType="com.leilei.entity.RealEseate">
+            <id column="rid" jdbcType="BIGINT" property="id"/>
+            <result column="rproname" jdbcType="VARCHAR" property="projectName"/>
+            <result column="raddress" jdbcType="VARCHAR" property="address"/>
+            <result column="rhouse" jdbcType="VARCHAR" property="houseType"/>
+            <result column="rarea" jdbcType="INTEGER" property="area"/>
+            <result column="rtime" jdbcType="TIMESTAMP" property="buildTime"/>
+        </collection>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <!--批量删除数据-->
+    <delete id="rmMore" parameterType="list">
+    delete from user where id in
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+    </delete>
+
+    <insert id="insert" parameterType="com.leilei.entity.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user (id, username, card_id)
+        values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR})
+    </insert>
+    <!--批量新增-->
+    <insert id="insertMore" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user(username, card_id) values
+        <foreach collection="list" separator="," item="user">
+            (#{user.username},#{user.cardId})
+        </foreach>
+
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.leilei.entity.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, username, card_id
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select u.id, u.username, u.card_id,re.id rid,re.project_name rproname,re.house_type rhouse,re.address raddress,re.area rarea,re.build_time rtime
+    from user u left join real_eseate re on u.id = re.user_id
+  </select>
+</mapper>

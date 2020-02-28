@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leilei.mapper.RealEseateMapper">
+    <resultMap id="BaseResultMap" type="com.leilei.entity.RealEseate">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="house_type" jdbcType="VARCHAR" property="houseType"/>
+        <result column="area" jdbcType="INTEGER" property="area"/>
+        <result column="build_time" jdbcType="TIMESTAMP" property="buildTime"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <!--多对一方式一-->
+        <association property="user" javaType="com.leilei.entity.User">
+            <id column="user_id" property="id"/>
+            <result column="uname" property="username"/>
+            <result column="ucard" property="cardId"/>
+        </association>
+
+        <!--多对一方式二-->
+        <!--        <result column="uid" jdbcType="BIGINT" property="user.id"/>-->
+        <!--        <result column="uname" jdbcType="VARCHAR" property="user.username"/>-->
+        <!--        <result column="ucard" jdbcType="VARCHAR" property="user.cardId"/>-->
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from real_eseate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.leilei.entity.RealEseate" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into real_eseate (id, project_name, address,
+        house_type, area, build_time,
+        user_id)
+        values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{houseType,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{buildTime,jdbcType=TIMESTAMP},
+        #{userId,jdbcType=BIGINT})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.leilei.entity.RealEseate">
+    update real_eseate
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      area = #{area,jdbcType=INTEGER},
+      build_time = #{buildTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, project_name, address, house_type, area, build_time, user_id
+    from real_eseate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+   SELECT re.id,re.project_name,re.address,re.user_id,re.house_type,re.area,re.build_time,u.username uname,u.card_id ucard,u.id uid
+        FROM real_eseate re LEFT JOIN user u ON re.user_id=u.id
+  </select>
+
+    <!--多条件分页查询-->
+    <select id="selectAllByQuery" resultMap="BaseResultMap">
+        SELECT re.id,re.project_name,re.address,re.user_id,re.house_type,re.area,re.build_time,u.username
+        uname,u.card_id ucard,u.id uid
+        FROM real_eseate re
+        LEFT JOIN user u ON re.user_id=u.id
+        <where>
+            <if test="projectName !=null and projectName !=''">
+                AND re.project_name=#{projectName}
+            </if>
+            <if test="address !=null and address !=''">
+                AND re.address=#{address}
+            </if>
+                OR re.area > 126
+        </where>
+    </select>
+</mapper>
