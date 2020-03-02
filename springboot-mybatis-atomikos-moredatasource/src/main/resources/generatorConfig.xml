@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 自动生成器的配置(根目录，不做过多介绍)-->
+<generatorConfiguration>
+    <!--
+    	classPathEntry：可以配置多个，也不配置
+    	数据库驱动:这里找到相应的驱动jar包就可以了(注:不同数据库的jar不一样)
+    		location:里面的是路径(也可以直接写绝对路径 -> 如:E:\mybatis\mysql-connector-java-5.1.26-bin.jar)
+    -->
+    <!--    <classPathEntry   location="D:/Program Files/repository/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar"/>-->
+    <!--
+    	context：用于生成一组对象的环境(至少配置1个，可以配置多个)
+    	id:表达唯一的名称
+    	targetRuntime：用于指定生成的代码的运行环境(MyBatis3/MyBatis3Simple)
+    		MyBatis3:默认值
+    		MyBatis3Simple：不会生成与Example(案例)相关的方法
+    -->
+    <context id="DB2Tables"   targetRuntime="MyBatis3Simple" >
+        <!--
+            用于配置如果生成注释信息(最多可以配置一下)
+            suppressAllComments:阻止生成注释 ，默认为false
+            suppressDate:阻止生成的注释 时间戳，默认为false
+            addRemarkComments：注释是否添加数据库表的备注信息，默认为false
+         -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--
+        	这个应该比较清楚，配置连接数据库的基本信息
+        -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/two"
+                        userId="root" password="root">
+        </jdbcConnection>
+        <!--
+        	用于指定JDBC类型和Java类型如何转换，最多可以配置一个
+        	forceBigDecimals:控制是否强制将DECIMAL和NUMERIC类型的JDBC字段转换成Java类型的 BigDecimal
+        					 默认为false,一般不需要配置
+        -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--
+        	javaModelGenerator:用来控制生成的实体类
+	        	targetPackage：生成Model类存放位置(包名)
+	        	targetProject：指定目标项目路径(根目录)
+        		对应的子属性:
+	        		trimStrings：判断是否对数据库查询结果进行trim操作(默认false)
+        -->
+        <javaModelGenerator targetPackage="com.leilei.entity.two" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--
+        	sqlMapGenerator：生成映射文件存放位置(Mapper.xml文件)
+        		targetPackage:生成SQL映射文件(XML文件)在哪个包中
+        		targetProject:指定目标项目路径(根目录)
+        -->
+        <sqlMapGenerator targetPackage="com.leilei.mapper.two" targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <!--
+        	javaClientGenerator：Java客户端生成器(生成Dao/Mapper的接口)
+        						该 标签可选(最多配置一个)，如果不配置，就不会生成Mapper接口
+        		type:选择客户端代码生成器
+        			MyBatis3
+        				ANNOTATEDMAPPER：基于注解的Mapper接口，不会有对应的XML映射文件
+        				MIXEDMAPPER:XML和注解混合形式
+        				XMLMAPPER：所有方法都在XML中(接口调用依赖XML)
+        			MyBatis3Simple
+        				ANNOTATEDMAPPER：基于注解的Mapper接口，不会有对应的XML映射文件
+        				XMLMAPPER：所有方法都在XML中(接口调用依赖XML)
+        		targetPackage：生成Mapper接口存放的包名
+        		targetProject：指定目标项目路径
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.leilei.mapper.two" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--
+        	table：生成对应表及类名
+	        	tableName：对应表名(注:%代表所有)
+	        	domainObjectName:对应的类名
+        		generatedKey：主键自增的id字段(针对当前 数据库配置MySQL)
+        -->
+        <table tableName="user" domainObjectName="User">
+            <generatedKey column="id" sqlStatement="MySql" />
+        </table>
+    </context>
+</generatorConfiguration>

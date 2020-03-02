@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leilei.mapper.one.RealEseateMapper">
+    <resultMap id="BaseResultMap" type="com.leilei.entity.one.RealEseate">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="house_type" jdbcType="VARCHAR" property="houseType"/>
+        <result column="area" jdbcType="INTEGER" property="area"/>
+        <result column="build_time" jdbcType="TIMESTAMP" property="buildTime"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <!--关联对象结果映射-->
+        <result column="id" jdbcType="BIGINT" property="user.id"/>
+        <result column="username" jdbcType="VARCHAR" property="user.username"/>
+        <result column="card_id" jdbcType="VARCHAR" property="user.cardId"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from real_eseate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.leilei.entity.one.RealEseate" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+    insert into real_eseate (id, project_name, address, 
+      house_type, area, build_time, 
+      user_id)
+    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{buildTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.leilei.entity.one.RealEseate">
+    update real_eseate
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      area = #{area,jdbcType=INTEGER},
+      build_time = #{buildTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, project_name, address, house_type, area, build_time, user_id
+    from real_eseate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, project_name, address, house_type, area, build_time, user_id
+    from real_eseate
+  </select>
+    <select id="findMoreDatasource" resultMap="BaseResultMap">
+        SELECT onere.id, onere.project_name, onere.address, onere.house_type, onere.area, onere.build_time, onere.user_id ,
+               twouser.id ,twouser.username ,twouser.card_id
+        FROM one.real_eseate onere
+        LEFT JOIN two.`user` twouser
+        ON onere.user_id=twouser.id
+    </select>
+</mapper>
