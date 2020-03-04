@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leilei.mapper.RealEseateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.leilei.entity.RealEseate">
+        <id column="id" property="id" />
+        <result column="project_name" property="projectName" />
+        <result column="address" property="address" />
+        <result column="house_type" property="houseType" />
+        <result column="area" property="area" />
+        <result column="build_time" property="buildTime" />
+        <result column="user_id" property="userId" />
+        <result column="uid" property="user.id"/>
+        <result column="uname" property="user.username"/>
+        <result column="upwd" property="user.password"/>
+    </resultMap>
+    <select id="selectJoinTablePage" resultMap="BaseResultMap">
+        select re.*,u.id uid ,u.username uname,u.password upwd from user u join real_eseate re on u.id = re.user_id
+        <where>
+            <if test="query!=null and query!=''">
+                and u.username=#{query};
+            </if>
+        </where>
+    </select>
+
+</mapper>

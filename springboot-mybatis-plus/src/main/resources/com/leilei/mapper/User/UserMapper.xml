@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leilei.mapper.UserMapper">
+
+    <!-- 多对多查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.leilei.entity.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <!--关联对象 角色-->
+        <collection property="roleList" javaType="list" ofType="com.leilei.entity.Role">
+            <id column="roleId" property="id"/>
+            <result column="roleName" property="roleName"/>
+            <!--内嵌关联  权限-->
+            <collection property="permissionList" javaType="list" ofType="com.leilei.entity.Permission">
+                <id column="perId" jdbcType="BIGINT" property="id"/>
+                <result column="perName" jdbcType="VARCHAR" property="permissionName"/>
+                <result column="perSn" jdbcType="VARCHAR" property="permissionSn"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!-- 一对多查询映射结果 -->
+    <resultMap id="twoResultMap" type="com.leilei.entity.User">
+        <id column="id" jdbcType="BIGINT"  property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <!--关联对象 房产-->
+        <!--一对多方式一-->
+        <collection property="realEseateList" ofType="com.leilei.entity.RealEseate">
+            <id column="rid" jdbcType="BIGINT" property="id"/>
+            <result column="rproname" jdbcType="VARCHAR" property="projectName"/>
+            <result column="raddress" jdbcType="VARCHAR" property="address"/>
+            <result column="rhouse" jdbcType="VARCHAR" property="houseType"/>
+            <result column="rarea" jdbcType="INTEGER" property="area"/>
+            <result column="rtime" jdbcType="TIMESTAMP" property="buildTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectOneDetail" resultMap="BaseResultMap">
+        select distinct u.id,u.username,u.password,r.id roleId,r.role_name roleName,p.id perId,p.permission_name perName,p.permission_sn perSn
+        from user u,user_role ur ,role r,role_permission rp ,permission p
+        where ur.user_id=u.id and ur.role_id=r.id
+        and rp.role_id=r.id and rp.permission_id=p.id
+         and u.id=#{uid}
+    </select>
+    <select id="selectOneDetailByReal" resultMap="twoResultMap">
+        select  u.id, u.username, u.password,re.id rid,re.project_name rproname,
+        re.house_type rhouse,re.address raddress,re.area rarea,re.build_time rtime
+        from user u join real_eseate re on u.id = re.user_id
+        where u.id=#{userid}
+    </select>
+
+
+</mapper>
