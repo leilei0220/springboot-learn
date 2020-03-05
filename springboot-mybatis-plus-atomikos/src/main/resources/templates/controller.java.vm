@@ -1,0 +1,114 @@
+package ${package.Controller};
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.leilei.util.response.JsonReturn;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * <p>
+ *  ${table.entityPath}前端控制器  RestController注解 将结果以JSON形式返回
+ * </p>
+ *
+ * @author ${${author}}
+ * @since ${date}
+ */
+@RestController
+@RequestMapping("/${table.entityPath}")
+public class ${entity}Controller {
+    @Autowired
+    public ${table.serviceName} ${table.entityPath}Service;
+
+    /**
+     * 保存修改公用 POST请求方式
+     * @param ${table.entityPath} 修改或保存的对象
+     * @return JsonReturn
+     */
+    @PostMapping("/save")
+    public JsonReturn save(${entity} ${table.entityPath}) {
+        if (${table.entityPath}.getId() != null){
+            try {
+                ${table.entityPath}Service.updateById(${table.entityPath});
+                return JsonReturn.buildSuccess(${table.entityPath}, "操作成功");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return JsonReturn.buildFailure("操作失败" + e.getMessage());
+            }
+        }
+        try {
+            ${table.entityPath}Service.save(${table.entityPath});
+            return JsonReturn.buildSuccess(${table.entityPath}, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+
+    }
+
+    /**批量删除 支持POST GET
+     * @param ids Long 类型 List 集合
+     * @return JsonReturn
+     */
+    @RequestMapping("remove")
+    public JsonReturn delete(@RequestBody List<Long> ids) {
+        try {
+            ${table.entityPath}Service.removeByIds(ids);
+            return JsonReturn.buildSuccess(ids, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+
+    /**
+     * 查询一个  支持POST GET
+     *
+     * @param id 查找对象的主键ID
+     * @return JsonReturn
+     */
+    @RequestMapping("findOne")
+    public JsonReturn findOne(Long id) {
+        try {
+            ${entity} ${table.entityPath} = ${table.entityPath}Service.getById(id);
+            return JsonReturn.buildSuccess(${table.entityPath}, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+
+
+    /**查询所有 支持POST GET ,未传当前页以及分页长度 则默认1页 10条数据
+     * @param pageNum 当前页
+     * @param pageSize 每页最大数据数
+     * @return JsonReturn
+     */
+    @RequestMapping("findAll")
+    public JsonReturn findAll(Integer pageNum, Integer pageSize) {
+
+        if (pageNum != null && pageSize != null) {
+            try {
+                Page<${entity}> page = ${table.entityPath}Service.page(new Page<${entity}>(pageNum, pageSize));
+                return JsonReturn.buildSuccess(page, "操作成功");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return JsonReturn.buildFailure("操作失败" + e.getMessage());
+            }
+        }
+        try {
+            Page<${entity}> page = ${table.entityPath}Service.page(new Page<>());
+            return JsonReturn.buildSuccess(page, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+}
