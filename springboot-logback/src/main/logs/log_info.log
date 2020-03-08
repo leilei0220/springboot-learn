@@ -1,0 +1,29 @@
+2020-03-08 21:23:36.416 [main] INFO  com.leilei.SpringbootLogbackApplication - Starting SpringbootLogbackApplication on leileicool with PID 7172 (E:\ideawork\springboot-learn\springboot-logback\target\classes started by leilei in E:\ideawork\springboot-learn)
+2020-03-08 21:23:36.461 [main] INFO  com.leilei.SpringbootLogbackApplication - No active profile set, falling back to default profiles: default
+2020-03-08 21:23:37.712 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-03-08 21:23:37.724 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2020-03-08 21:23:37.725 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-03-08 21:23:37.726 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-03-08 21:23:37.840 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-03-08 21:23:37.841 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1315 ms
+2020-03-08 21:23:38.178 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-08 21:23:38.428 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2020-03-08 21:23:38.456 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-03-08 21:23:38.460 [main] INFO  com.leilei.SpringbootLogbackApplication - Started SpringbootLogbackApplication in 2.927 seconds (JVM running for 4.369)
+2020-03-08 21:23:43.948 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-03-08 21:23:43.948 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-03-08 21:23:43.960 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 12 ms
+2020-03-08 21:23:44.014 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求开始时间：2020-03-08T21:23:44.014
+2020-03-08 21:23:44.016 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求Url : http://localhost:8080/log/test
+2020-03-08 21:23:44.016 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求方式 : GET
+2020-03-08 21:23:44.017 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求ip : 0:0:0:0:0:0:0:1
+2020-03-08 21:23:44.017 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求内容类型 : null
+2020-03-08 21:23:44.017 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求参数 : [123456789]
+2020-03-08 21:23:44.017 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 浏览器 : CHROME
+2020-03-08 21:23:44.018 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 浏览器版本 : 75.0.3770.100
+2020-03-08 21:23:44.018 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 操作系统: WINDOWS_10
+2020-03-08 21:23:44.031 [http-nio-8080-exec-1] INFO  com.leilei.controller.LogTestController - info日志：【123456789】
+2020-03-08 21:23:44.032 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求结束时间 : 2020-03-08T21:23:44.032
+2020-03-08 21:23:44.032 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求耗时 : 22
+2020-03-08 21:23:44.032 [http-nio-8080-exec-1] INFO  com.leilei.aop.LogAop - 请求返回 : 123456789
+2020-03-08 21:24:14.425 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
