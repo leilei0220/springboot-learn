@@ -1,0 +1,15 @@
+#自定义二维码 设置 后续使用进行读取
+qrcode:
+  info:
+    #二维码编码
+    charset: utf-8
+    #二维码宽度
+    qrWidth: 300
+    #二维码高度
+    qrHeight: 300
+    #logo宽度
+    logoWidth: 80
+    #logo高度
+    logoHeight: 80
+    #二维码图片类型
+    qrPicType: jpg
