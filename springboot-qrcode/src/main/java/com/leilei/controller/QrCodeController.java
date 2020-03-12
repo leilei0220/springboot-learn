@@ -49,9 +49,7 @@ public class QrCodeController {
         ServletOutputStream stream = null;
         try {
             stream = response.getOutputStream();
-            String path = ResourceUtils.getURL("classpath:").getPath();
-            log.info("项目logo资源classpath ： {}", path);
-            //logo图片地址
+            //当前是获取本地logo图片地址  也可以修改方法获取网络中图片
             String  logoPath= ResourceUtils.getURL("classpath:").getPath()+"static/images/"+"logo.jpg";
             log.info("logo完整url地址：{}", logoPath);
             //使用工具类生成带logo二维码
