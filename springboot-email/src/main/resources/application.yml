@@ -1,0 +1,20 @@
+spring:
+  mail:
+    #邮箱服务商的protocol服务器主机
+    host: smtp.163.com
+    #邮件协议
+    protocol: smtp
+    # 编码格式
+    default-encoding: UTF-8
+    #短信服务发送的账号
+    username: xxxxx@163.com
+    #邮箱账号密码或者三方登录授权码
+    password: xxxxx
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
