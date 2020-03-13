@@ -102,6 +102,16 @@ public class SpringBootredisTest {
      */
     @Test
     public void testFastJson (){
+        //String对象转Json字符串
+        String str = "a=1&b=2&c=e";
+
+        str = str.replace("=","\":\"");
+        System.out.println(str);
+        str = str.replace("&","\",\"");
+        System.out.println(str);
+        str = "{\"" + str +"\"}";
+        System.out.println(str);
+        System.out.println(JSON.parseObject(str).toJSONString());
 
         //Java对象转json字符串
         User aa = new User("aa", "123456", 15);
