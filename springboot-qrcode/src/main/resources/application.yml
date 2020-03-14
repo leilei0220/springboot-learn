@@ -1,15 +1,15 @@
-#�Զ����ά�� ���� ����ʹ�ý��ж�ȡ
+#自定义二维码 设置 后续使用进行读取
 qrcode:
   info:
-    #��ά�����
+    #二维码编码
     charset: utf-8
-    #��ά�����
+    #二维码宽度
     qrWidth: 300
-    #��ά��߶�
+    #二维码高度
     qrHeight: 300
-    #logo����
+    #logo宽度
     logoWidth: 80
-    #logo�߶�
+    #logo高度
     logoHeight: 80
-    #��ά��ͼƬ����
+    #二维码图片类型
     qrPicType: jpg
