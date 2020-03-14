@@ -1,7 +1,7 @@
 spring:
   redis:
     timeout: 15000  #连接超时时间
-    password: Redis123  #密碼
+    password: xxx  #密碼
     cluster:
       max-redirects: 6   # 获取失败 最大重定向次数
       nodes:  #Redis集群的节点
