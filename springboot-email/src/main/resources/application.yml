@@ -1,14 +1,14 @@
 spring:
   mail:
-    #ÓÊÏä·şÎñÉÌµÄprotocol·şÎñÆ÷Ö÷»ú
+    #smtpæœåŠ¡ä¸»æœº
     host: smtp.163.com
-    #ÓÊ¼şĞ­Òé
+    #æœåŠ¡åè®®
     protocol: smtp
-    # ±àÂë¸ñÊ½
+    # ç¼–ç é›†
     default-encoding: UTF-8
-    #¶ÌĞÅ·şÎñ·¢ËÍµÄÕËºÅ
+    #å‘é€é‚®ä»¶çš„è´¦æˆ·
     username: xxxxx@163.com
-    #ÓÊÏäÕËºÅÃÜÂë»òÕßÈı·½µÇÂ¼ÊÚÈ¨Âë
+    #æˆæƒç 
     password: xxxxx
     test-connection: true
     properties:
