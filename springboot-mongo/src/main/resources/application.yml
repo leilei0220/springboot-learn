@@ -1,4 +1,4 @@
 spring:
-             data:
-               mongodb:
-                 uri: mongodb://47.97.118.22:27017/lei
+  data:
+    mongodb:
+      uri: mongodb://47.97.118.22:27017/lei

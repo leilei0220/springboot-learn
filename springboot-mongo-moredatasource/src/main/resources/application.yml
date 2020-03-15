@@ -10,10 +10,10 @@ spring:
   data:
     mongodb:
       one:
-        uri: mongodb://leilei:root@47.97.118.22:27017/dev1   #mongodb://账户:密码@ip:端口/数据库名
+        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev1   #mongodb://账户:密码@ip:端口/数据库名
       two:
-        uri: mongodb://leilei:root@47.97.118.22:27017/dev2
+        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev2
       three:
-        uri: mongodb://leilei:root@47.97.118.22:27017/dev3
+        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev3
 server:
   port: 8099

@@ -3,14 +3,11 @@ package com.leilei;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author leilei
- */
 @SpringBootApplication
-public class SpringbootMongoApplication {
+public class SpringbootMongoLinkedlistApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootMongoApplication.class, args);
+        SpringApplication.run(SpringbootMongoLinkedlistApplication.class, args);
     }
 
 }
