@@ -2,7 +2,7 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  # 服务模块
+  # 服务模块 
   devtools:
     restart:
       # 热部署开关
