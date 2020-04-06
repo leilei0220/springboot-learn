@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author : leilei
@@ -30,5 +31,10 @@ public class RoleServiceImpl implements IRoleService {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return twoMongoTemplate.findAll(Role.class);
     }
 }
