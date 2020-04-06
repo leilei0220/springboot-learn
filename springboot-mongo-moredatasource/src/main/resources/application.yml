@@ -2,7 +2,7 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  # 服务模块 
+  # 服务模块
   devtools:
     restart:
       # 热部署开关
@@ -10,7 +10,7 @@ spring:
   data:
     mongodb:
       #mongodb://账户:密码@ip:端口/数据库名    此链接方式为链接每一个数据的用户和密码
-      # 统一到admin 库认证方式    mongodb://账户:密码%40@localhost:27017/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
+      # 统一到admin 库认证方式    mongodb://账户:密码%40@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
       one:
         uri: mongodb://xx:xx@xxx:27017/dev1?authSource=admin&authMechanism=SCRAM-SHA-1
       two:
