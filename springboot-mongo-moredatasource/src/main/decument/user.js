@@ -42,13 +42,13 @@ db.getCollection("user").insert([ {
     _id: NumberLong("6"),
     userName: "aaa",
     age: NumberInt("13"),
-    creatTime: "2020-02-17 08:53:18.035",
+    creatTime:  ISODate("2020-03-16T10:33:29.977Z"),
     sex: "女"
 } ]);
 db.getCollection("user").insert([ {
     _id: 3,
     age: 14,
-    creatTime: "2020-03-17 08:53:18.035",
+    creatTime: ISODate("2020-03-17 08:53:18.035"),
     userName: 111,
     sex: "女"
 } ]);

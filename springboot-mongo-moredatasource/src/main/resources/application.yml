@@ -9,11 +9,13 @@ spring:
       enabled: true
   data:
     mongodb:
+      #mongodb://账户:密码@ip:端口/数据库名    此链接方式为链接每一个数据的用户和密码
+      # 统一到admin 库认证方式    mongodb://账户:密码%40@localhost:27017/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
       one:
-        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev1   #mongodb://账户:密码@ip:端口/数据库名
+        uri: mongodb://xx:xx@xxx:27017/dev1?authSource=admin&authMechanism=SCRAM-SHA-1
       two:
-        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev2
+        uri: mongodb://xx:xx@xxx:27017/dev2?authSource=admin&authMechanism=SCRAM-SHA-1
       three:
-        uri: mongodb://xxx:xxx@47.97.118.22:27017/dev3
+        uri: mongodb://xx:xx@xxx:27017/dev3?authSource=admin&authMechanism=SCRAM-SHA-1
 server:
   port: 8099
