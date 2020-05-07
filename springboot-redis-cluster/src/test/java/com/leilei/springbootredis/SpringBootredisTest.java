@@ -5,16 +5,24 @@ import com.alibaba.fastjson.JSONObject;
 import com.leilei.SpringbootRedisApplication;
 import com.leilei.entity.User;
 import com.leilei.util.RedisUtil;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cglib.beans.BeanMap;
+import org.springframework.data.redis.core.DefaultTypedTuple;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * @author : leilei
@@ -24,9 +32,15 @@ import java.util.*;
 @SpringBootTest(classes = SpringbootRedisApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringBootredisTest {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Autowired
     private RedisUtil redisUtil;
 
+    /**
+     * String
+     */
     @Test
     public void testString() {
         redisUtil.set("a", 11111);
@@ -35,6 +49,9 @@ public class SpringBootredisTest {
         redisUtil.del("a");
     }
 
+    /**
+     * hash
+     */
     @Test
     public void testMap() {
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
@@ -55,6 +72,9 @@ public class SpringBootredisTest {
         redisUtil.hdel("Map测试", "qweqwr");
     }
 
+    /**
+     * hash
+     */
     @Test
     public void testMapSuper() {
         HashMap<String, Object> map = new HashMap<>();
@@ -91,11 +111,130 @@ public class SpringBootredisTest {
         beanMap.putAll(map);
         return bean;
     }
-
+//-----------------set----------------
+    /**
+     * set
+     */
     @Test
     public void testSet() {
-        redisUtil.sSet("Set排序测试", 3, 1, 2, 5, 12, 666);
+        redisUtil.sSet("Set集合", 3, 1, 2, 5, 12, 666);
     }
+    /**
+     * test
+     */
+    @Test
+    public void testSet1() {
+      long size = redisUtil.sGetSetSize("Set集合");
+      System.out.println(size);
+    }
+
+
+
+    //------------zSet-----------------
+  /**
+   * test 添加
+   */
+  @Test
+  public void test() {
+    redisUtil.sZset("天梯排行榜", "张三", 2);
+    redisUtil.sZset("天梯排行榜", "逍遥子", 1);
+    redisUtil.sZset("天梯排行榜", "无崖子", 3);
+  }
+  /**
+   * test zset 批量添加
+   */
+  @Test
+  public void test1() {
+
+    DefaultTypedTuple<Object> a = new DefaultTypedTuple<>("张三丰大弟子", 3.2);
+    DefaultTypedTuple<Object> b = new DefaultTypedTuple<>("宋青书", 9.8);
+    DefaultTypedTuple<Object> c = new DefaultTypedTuple<>("时间刺客罗", 8.5);
+    Set<TypedTuple<Object>> defaultTypedTuples = new HashSet<>(Arrays.asList(a, b, c));
+    Long add = redisUtil.sZsetList("天梯排行榜", defaultTypedTuples);
+    System.out.println(add);
+  }
+
+  /**
+   * test 获取排名 （返回位于zset集合中的索引值!!!!!）
+   */
+  @Test
+  public void test2() {
+    Long aLong = redisUtil.zRank("天梯排行榜", "无崖子");
+    System.out.println(aLong);
+  }
+  /**
+   * test
+   */
+  @Test
+  public void test3() {
+    redisUtil.zIncrScore("天梯排行榜", "无崖子", -0.5);
+  }
+  /**
+   * test 删除 可填入多个value
+   */
+  @Test
+  public void test4() {
+    Long aLong = redisUtil.zRemove("天梯排行榜", "无崖子");
+    System.out.println(aLong);
+  }
+  /**
+   * test 获取score值
+   */
+  @Test
+  public void test5() {
+    Double aDouble = redisUtil.zScore("天梯排行榜", "逍遥子");
+    System.out.println(aDouble);
+  }
+  /**
+   * test 获取zset集合大小
+   */
+  @Test
+  public void test6() {
+    Long size = redisUtil.zSize("天梯排行榜");
+    System.out.println(size);
+  }
+  /**
+   * test 获取集合中的数据 正序倒序 获取指定范围数据
+   */
+  @Test
+  public void test7() {
+    //正序
+    Set<Object> set = redisUtil.zRange("天梯排行榜", 0, -1);
+    set.forEach(e-> System.out.println(e));
+    System.out.println("---------");
+    //倒序
+    Set<Object> set1 = redisUtil.reverseRange("天梯排行榜", 0, -1);
+    set1.forEach(e-> System.out.println(e));
+  }
+
+  /**
+   * test 根据索引范围 获取某zset集合中  value 和 score
+   */
+  @Test
+  public void test8() {
+    Set<TypedTuple<Object>> set = redisUtil.rangeWithScore("天梯排行榜", 0, -1);
+    for (TypedTuple<Object> objectTypedTuple : set) {
+      System.out.println(objectTypedTuple.getValue() + " == " + objectTypedTuple.getScore());
+    }
+  }
+  /**
+   * test 根据分数最大最小值获取set集合后再根据 索引以及显示个数返回全新set集合
+   */
+  @Test
+  public void test9() {
+
+    Set<Object> set = redisUtil.rangeByScore("天梯排行榜", 1, 10);
+    //[逍遥子, 张三, 张三丰大弟子, 时间刺客罗, 宋青书]
+    System.out.println(set);
+    Set<Object> set1 = redisUtil.rangeByScore("天梯排行榜", 1, 10, 2L, 2L);
+    //[张三丰大弟子, 时间刺客罗]
+    System.out.println(set1);
+  }
+
+
+
+
+
 
     /**
      * fastjson 部分使用
@@ -163,6 +302,9 @@ public class SpringBootredisTest {
 
     }
 
+    /**
+     * list
+     */
     @Test
     public void testList() {
         redisUtil.lSet("LIst测试", 1);
