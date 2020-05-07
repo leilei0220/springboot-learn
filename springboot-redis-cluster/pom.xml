@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leilei</groupId>
-    <artifactId>springboot-redis</artifactId>
+    <artifactId>springboot-redis-cluster</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-redis</name>
     <description>Demo project for Spring Boot</description>
