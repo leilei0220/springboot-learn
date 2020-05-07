@@ -6,6 +6,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.leilei.config.QrCodeConfig;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,10 +14,12 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 
 /**
  * @author leilei
@@ -142,6 +145,36 @@ public class QrCodeUtil {
      */
     public static void encode(String url, OutputStream output) throws Exception {
         QrCodeUtil.encode(url, null, output, false);
+    }
+
+    /**
+     * 生成base64编码 图片传null 则二维码不包含图片 否则反之
+     * @param url
+     * @param imgPath
+     * @param stream
+     * @param needCompress
+     * @return
+     * @throws Exception
+     */
+    public static String encodeBase64(String url, String imgPath, ServletOutputStream stream, boolean needCompress)
+        throws Exception {
+        String resultImage = null;
+        ByteArrayOutputStream os = null;
+        try {
+            os = new ByteArrayOutputStream();
+            BufferedImage image = QrCodeUtil.createQrCodeImage(url, imgPath, needCompress);
+            ImageIO.write(image, QrCodeConfig.getQrPicType(), os);
+            resultImage = new String("data:image/"+QrCodeConfig.getQrPicType()+";base64," + Base64.encode(os.toByteArray()));
+            return resultImage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                stream.flush();
+                stream.close();
+            }
+        }
+        return null;
     }
 
 }
