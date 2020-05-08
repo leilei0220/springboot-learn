@@ -23,6 +23,7 @@ import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author : leilei
@@ -48,6 +49,18 @@ public class SpringBootredisTest {
     redisUtil.set("过期时间测试", 123, 50);
     redisUtil.del("a");
   }
+
+  /**
+   * test redis单机版  事务测试
+   */
+  @Test
+  @Transactional
+  public void testa() {
+    redisUtil.lSet("事务", 123456);
+    int a = 1 / 0;
+    redisUtil.set("事务", 456789);
+  }
+
 
   /**
    * hash
