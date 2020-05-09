@@ -1,7 +1,7 @@
 ##springboot 项目中 支持 http 和 https 双协议
-1.从阿里云下载ssl证书 tomcat版本 （可选择免费的）下
+1.从阿里云下载ssl证书 tomcat版本 （可选择免费的）
 
-2.载完成后解压 包含 xxx.pfx 和一个txt文件，我们要做的就是将 .pfx文件拷贝到 咱们的resource目录
+2.下载完成后解压 包含 xxx.pfx 和一个txt文件，我们要做的就是将 .pfx文件拷贝到 咱们的resource目录
 
 3.yml文件中 配置证书路径 以及https 端口
 
