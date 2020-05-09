@@ -1,6 +1,7 @@
 package com.leilei.web.controller;
 
 import com.leilei.annotation.LoginUserParam;
+import com.leilei.annotation.NotNeedLogin;
 import com.leilei.entity.vo.LoginUser;
 import com.leilei.utils.ajax.JsonReturn;
 import com.leilei.web.service.LoginAndLoginOutService;
@@ -27,8 +28,8 @@ public class LoginAndLoginOutController {
   }
 
   @PostMapping("/loginOut")
-  public JsonReturn loginOut(HttpServletRequest request,@LoginUserParam LoginUser loginUser) {
-    return loginAndLoginOutService.loginOut(request,loginUser);
+  public JsonReturn loginOut(HttpServletRequest request, @LoginUserParam LoginUser loginUser) {
+    return loginAndLoginOutService.loginOut(request, loginUser);
 
   }
 
@@ -36,5 +37,10 @@ public class LoginAndLoginOutController {
   @GetMapping("getMyInfo")
   public JsonReturn getMyInfo(@LoginUserParam LoginUser loginUser) {
     return JsonReturn.buildSuccess(loginUser);
+  }
+  @NotNeedLogin //此注解打上表示此接口 不需要登录即可访问
+  @GetMapping("/test")
+  public JsonReturn test() {
+    return JsonReturn.buildSuccess("通过@NotNeedLogin注解 我成功匿名访问了");
   }
 }
