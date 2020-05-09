@@ -1,0 +1,16 @@
+# token配置
+token:
+  header: Authorization
+spring:
+  redis:
+    host: 192.168.10.72
+    port: 6379
+    password: # 密码 没有则可以不填
+    database: 1  # 单机可以选择数据库 默认为0 redis集群不支持存储库选择 只能为0
+    # 使用lettuce连接池
+    lettuce:
+      pool:
+        max-active: 8  # 最大活跃链接数 默认8（使用负值表示没有限制）
+        max-idle: 8 # 最大空闲连接数 默认8
+        min-idle: 0 # 最小空闲连接数 默认0
+        max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制）
