@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
   @RequestMapping("/test")
-  public String test(@Validated User user) {
-    return "aa";
+  public User test(@Validated User user) {
+    return user;
   }
 
 }
