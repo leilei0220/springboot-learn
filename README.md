@@ -7,6 +7,8 @@ springboot-email   整合邮件（可自行选择邮件客户端）普通文本 
 
 springboot-fastdfs 整合 fdfs文件存储服务器（单机） 文件上传下载 fdfs安装在Linux 虚拟机中
 
+springboot-file-upload-download springboot 中对文件进行上传下载 删除 （文件存放在本地 位使用fastdfs 或者七牛云）
+
 springboot-https springboot 项目同时支持 http 和 https 两种协议 并解决 https协议中 post请求变变为get的问题
 
 springboot-interceptor  自定义注解实现登录拦截与放行场景 并获取登录用户信息 自定义NotNeedLogin注解 进行接口放行

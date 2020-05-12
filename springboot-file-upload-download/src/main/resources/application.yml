@@ -1,0 +1,18 @@
+file:
+  urlPath: /lei
+  uploadPath: D://aa/
+
+spring:
+  # \u8BF7\u6C42\u4EE5/** \u8BBF\u95EE\u7684\u90FD\u4F1A\u5230\u4E0B\u65B9\u7684  static-locations \u4E2D\u5BFB\u627E
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:${file.uploadPath}
+  # \u6587\u4EF6\u4E0A\u4F20
+  servlet:
+    multipart:
+      # \u5355\u4E2A\u6587\u4EF6\u5927\u5C0F
+      max-file-size:  10MB
+      # \u8BBE\u7F6E\u603B\u4E0A\u4F20\u7684\u6587\u4EF6\u5927\u5C0F
+      max-request-size:  100MB
+
