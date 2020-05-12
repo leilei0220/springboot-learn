@@ -4,6 +4,7 @@ import com.leilei.util.QiNiuSupport;
 import com.qiniu.common.QiniuException;
 import java.io.File;
 import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,5 +76,24 @@ public class QiNiuController {
     InputStream inputStream = file.getInputStream();
     return qiNiuSupport.uploadFileInputStream(inputStream, fileName);
   }
+  /**
+   * 七牛云文件下载
+   *
+   * @param filename 文件名
+   * @return
+   */
+  @RequestMapping("/file/{filename}")
+  public void download(@PathVariable("filename") String filename, HttpServletResponse response) {
+    if (filename.isEmpty()) {
+      return;
+    }
+    try {
+      String privateFile = qiNiuSupport.getPublicFile(filename);
+      response.sendRedirect(privateFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
 
 }

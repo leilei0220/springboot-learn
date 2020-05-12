@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -154,6 +155,32 @@ public class QiNiuSupport {
     stringMap.put("returnBody",
         "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
     return stringMap;
+  }
+
+  /**
+   * 获取公共空间文件
+   * @param fileKey  要下载的文件名
+   * @return
+   */
+  public String getPublicFile(String fileKey) throws Exception{
+    String encodedFileName = URLEncoder.encode(fileKey, "utf-8").replace("+", "%20");
+    String url = String.format("%s%s/%s", QiNiuConfigBean.getProtocol(),QiNiuConfigBean.getCdnProfile(), encodedFileName);
+    log.info("下载地址：{}", url);
+    return url;
+  }
+
+  /**
+   * 获取私有空间文件
+   * @param fileKey 要下载的文件名
+   * @return
+   */
+  public String getPrivateFile(String fileKey) throws Exception{
+    String encodedFileName = URLEncoder.encode(fileKey, "utf-8").replace("+", "%20");
+    String publicUrl = String.format("%s/%s", QiNiuConfigBean.getCdnProfile(), encodedFileName);
+    //1小时，可以自定义链接过期时间
+    long expireInSeconds = 3600;
+    String privateUrl = auth.privateDownloadUrl(publicUrl, expireInSeconds);
+    return privateUrl;
   }
 
 
