@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
@@ -35,13 +37,16 @@ public class UserServiceImpl implements IUserService {
     private MongoTemplate oneMongoTemplate;
 
     @Override
+    @Transactional(transactionManager = "statisTransactionManager",rollbackFor = Exception.class)
     public int insertUser(User user) {
         user.setCreatTime(LocalDateTime.now());
         try {
             oneMongoTemplate.insert(user);
+            int a = 1 / 0;
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return -1;
         }
     }

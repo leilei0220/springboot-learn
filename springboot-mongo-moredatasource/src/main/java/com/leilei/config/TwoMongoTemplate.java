@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -36,5 +37,12 @@ public class TwoMongoTemplate {
 
         return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
     }
+
+    @Bean(name = "listFactoryTransactionManager")
+    MongoTransactionManager listFactoryTransactionManager() throws Exception {
+        MongoDbFactory mongoDbFactory = listFactory(this.mongoProperties);
+        return new MongoTransactionManager(mongoDbFactory);
+    }
+
 }
 

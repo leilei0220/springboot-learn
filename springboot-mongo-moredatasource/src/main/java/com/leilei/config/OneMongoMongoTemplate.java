@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -37,6 +38,12 @@ public class OneMongoMongoTemplate {
     @Primary
     public MongoDbFactory statisFactory(MongoProperties mongoProperties) throws Exception {
         return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
+    }
+
+    @Bean(name = "statisTransactionManager")
+    MongoTransactionManager statisTransactionManager() throws Exception {
+        MongoDbFactory mongoDbFactory = statisFactory(this.mongoProperties);
+        return new MongoTransactionManager(mongoDbFactory);
     }
 }
 

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -18,23 +19,29 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  */
 @Configuration
 @EnableMongoRepositories(
-        basePackages = "com.leilei.entity.three",
-        mongoTemplateRef = "threeMongo")
+    basePackages = "com.leilei.entity.three",
+    mongoTemplateRef = "threeMongo")
 public class ThreeMongoTemplate {
 
-    @Autowired
-    @Qualifier("threeMongoProperties")
-    private MongoProperties mongoProperties;
+  @Autowired
+  @Qualifier("threeMongoProperties")
+  private MongoProperties mongoProperties;
 
-    @Bean(name = "threeMongo")//第三个数据源名字oneMongo
-    public MongoTemplate listTemplate() throws Exception {
-        return new MongoTemplate(ThreeFactory(this.mongoProperties));
-    }
+  @Bean(name = "threeMongo")//第三个数据源名字oneMongo
+  public MongoTemplate listTemplate() throws Exception {
+    return new MongoTemplate(ThreeFactory(this.mongoProperties));
+  }
 
-    @Bean
-    public MongoDbFactory ThreeFactory(MongoProperties mongoProperties) throws Exception {
+  @Bean
+  public MongoDbFactory ThreeFactory(MongoProperties mongoProperties) throws Exception {
 
-        return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
-    }
+    return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
+  }
+
+  @Bean(name = "ThreeFactoryTransactionManager")
+  MongoTransactionManager ThreeFactoryTransactionManager() throws Exception {
+    MongoDbFactory mongoDbFactory = ThreeFactory(this.mongoProperties);
+    return new MongoTransactionManager(mongoDbFactory);
+  }
 }
 

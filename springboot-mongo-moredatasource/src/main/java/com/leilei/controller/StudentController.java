@@ -21,7 +21,7 @@ public class StudentController {
     @PostMapping("add")
     public String add(Student student) {
         int i = studentService.insertStudent(student);
-        if (i==i) {
+        if (i==1) {
             return "success";
         }
         return "false";

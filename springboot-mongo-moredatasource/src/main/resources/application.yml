@@ -10,12 +10,17 @@ spring:
   data:
     mongodb:
       #mongodb://账户:密码@ip:端口/数据库名    此链接方式为链接每一个数据的用户和密码
-      # 统一到admin 库认证方式    mongodb://账户:密码%40@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
+
+      # 统一到admin 库认证方式    mongodb://账户:密码@ip:端口/数据库名?authSource=admin&authMechanism=SCRAM-SHA-1
+
+      #若是使用副本集    mongodb://账户:密码@ip:端口/数据库名?replicaSet=副本集名&authSource=admin&authMechanism=SCRAM-SHA-1
+
+      #为什么使用副本集  因为目前mongodb 事务当前仅在 副本集或者分片中才能使用 （分片暂未了解 我这是在一台服务器上搭建了一个副本集 用以支持事务）
       one:
-        uri: mongodb://xx:xx@xxx:27017/dev1?authSource=admin&authMechanism=SCRAM-SHA-1
+        uri: mongodb://xx:xx@xx:27017/dev1?replicaSet=lei&authSource=admin&authMechanism=SCRAM-SHA-1
       two:
-        uri: mongodb://xx:xx@xxx:27017/dev2?authSource=admin&authMechanism=SCRAM-SHA-1
+        uri: mongodb://xx:xx@xx:27017/dev2?replicaSet=lei&authSource=admin&authMechanism=SCRAM-SHA-1
       three:
-        uri: mongodb://xx:xx@xxx:27017/dev3?authSource=admin&authMechanism=SCRAM-SHA-1
+        uri: mongodb://xx:xx@xx:27017/dev3?replicaSet=lei&authSource=admin&authMechanism=SCRAM-SHA-1
 server:
   port: 8099
