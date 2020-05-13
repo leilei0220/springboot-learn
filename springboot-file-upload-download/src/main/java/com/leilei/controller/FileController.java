@@ -25,7 +25,7 @@ public class FileController {
    * 实现单个文件上传
    */
   @PostMapping("uploadOne")
-  public Boolean fileUpload(@RequestParam("fileName") MultipartFile file) {
+  public Boolean fileUpload(@RequestParam("file") MultipartFile file) {
     return FileUtils.uploadOne(file);
   }
 

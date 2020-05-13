@@ -7,11 +7,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * @author lei
@@ -32,10 +30,16 @@ public class FileUtils {
       return false;
     }
     Long time = System.currentTimeMillis();
-    String fileName = time + file.getOriginalFilename();
+    String fullSpell = Chines2PingUtils.getFullSpell(file.getOriginalFilename());
+    String fileName = time + fullSpell;
     int size = (int) file.getSize() / 1024;
-    log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}KB", file.getOriginalFilename(), time,
-        fileName, size);
+    if (size<1){
+      log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}B", file.getOriginalFilename(), time,
+          fileName, file.getSize());
+    }else {
+      log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}KB", file.getOriginalFilename(), time,
+          fileName, size);
+    }
     File dest = new File(FileConfigBean.getUploadPath() + "/" + fileName);
     //判断文件父目录是否存在 不存在则创建
     if (!dest.getParentFile().exists()) {
@@ -64,10 +68,16 @@ public class FileUtils {
         MultipartFile file = files.get(i);
         if (!file.isEmpty()) {
           Long time = System.currentTimeMillis();
-          String fileName = time + file.getOriginalFilename();
+          String fullSpell = Chines2PingUtils.getFullSpell(file.getOriginalFilename());
+          String fileName = time + fullSpell;
           int size = (int) file.getSize() / 1024;
-          log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}KB", file.getOriginalFilename(), time,
-              fileName, size);
+          if (size<1){
+            log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}B", file.getOriginalFilename(), time,
+                fileName, file.getSize());
+          }else {
+            log.info("当前上传文件名：{}，上传时间戳：{},保存后文件名：{},-->文件大小为：{}KB", file.getOriginalFilename(), time,
+                fileName, size);
+          }
           File dest = new File(FileConfigBean.getUploadPath() + "/" + fileName);
           //判断文件父目录是否存在 不存在则创建
           if (!dest.getParentFile().exists()) {

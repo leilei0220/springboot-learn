@@ -1,18 +1,20 @@
+#自定义 file 访问配置 以及下载上传地址
 file:
   urlPath: /lei
+  #上传路径 win  D://aa/  linux: /web/c/a/d
   uploadPath: D://aa/
 
 spring:
-  # \u8BF7\u6C42\u4EE5/** \u8BBF\u95EE\u7684\u90FD\u4F1A\u5230\u4E0B\u65B9\u7684  static-locations \u4E2D\u5BFB\u627E
+  # url  以 /** 开头的静态资源访问都会 到 resource 下 配置的地方去找
   mvc:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:${file.uploadPath}
-  # \u6587\u4EF6\u4E0A\u4F20
+  # 文件上传下载配置
   servlet:
     multipart:
-      # \u5355\u4E2A\u6587\u4EF6\u5927\u5C0F
+      # 单个文件最大限制 10M
       max-file-size:  10MB
-      # \u8BBE\u7F6E\u603B\u4E0A\u4F20\u7684\u6587\u4EF6\u5927\u5C0F
+      # 上传总文件总共 100Mb
       max-request-size:  100MB
 
