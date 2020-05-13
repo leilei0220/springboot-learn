@@ -9,6 +9,7 @@ import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
@@ -49,8 +50,8 @@ public class QiNiuSupport {
 
   /**
    * 以文件的形式上传 并设置文件上传类型
-   *
    * @param file
+   * @param fileName 七牛云上文件存储的名字 自定义
    * @return
    * @throws QiniuException
    */
@@ -62,7 +63,7 @@ public class QiNiuSupport {
         mime, false);
     int retry = 0;
     while (response.needRetry() && retry < maxReTry) {
-      log.info("当前操作需要进行重试，目前重试第{}次",retry+1);
+      log.info("当前操作需要进行重试，目前重试第{}次", retry + 1);
       response = this.uploadManager.put(file, fileName, getUploadToken(), getPutPolicy(),
           mime, false);
       retry++;
@@ -75,40 +76,49 @@ public class QiNiuSupport {
   }
 
   /**
-   * 以文件的形式上传
+   * 以文件的形式上传 自定获取文件名转换为拼音形式 存储到七牛云
    *
-   * @param file
+   * @param multipartFile
    * @return
    * @throws QiniuException
    */
-  public String uploadFile(File file, String fileName) throws QiniuException {
-    Response response = this.uploadManager.put(file, fileName, getUploadToken());
+  public String uploadFile(MultipartFile multipartFile) throws Exception {
+    File file = multipartFileToFile(multipartFile);
+    String name = file.getName();
+    String pinyinName = Chines2PingUtils.getFullSpell(name);
+    log.info("转为拼音后文件名-->{}", pinyinName);
+    Response response = this.uploadManager.put(file, pinyinName, getUploadToken());
     int retry = 0;
     while (response.needRetry() && retry < maxReTry) {
-      log.info("当前操作需要进行重试，目前重试第{}次",retry+1);
-      response = this.uploadManager.put(file, fileName, getUploadToken());
+      log.info("当前操作需要进行重试，目前重试第{}次", retry + 1);
+      response = this.uploadManager.put(file, pinyinName, getUploadToken());
       retry++;
     }
     if (response.statusCode == successCode) {
       return new StringBuffer().append(QiNiuConfigBean.getProtocol())
-          .append(QiNiuConfigBean.getCdnProfile()).append("/").append(fileName).toString();
+          .append(QiNiuConfigBean.getCdnProfile()).append("/").append(pinyinName).toString();
     }
     return "上传失败!";
   }
 
   /**
-   * 以流的形式上传
+   * 以流的形式上传 自定获取文件名转换为拼音形式 存储到七牛云
    *
-   * @param inputStream
    * @return
    * @throws QiniuException
    */
-  public String uploadFileInputStream(InputStream inputStream, String fileName)
-      throws QiniuException {
+  public String uploadFileInputStream(MultipartFile file)
+      throws Exception {
+    InputStream inputStream = file.getInputStream();
+    //获取文件名
+    File toFile = multipartFileToFile(file);
+    String name = toFile.getName();
+    String fileName = Chines2PingUtils.getFullSpell(name);
+    log.info("转为拼音后文件名-->{}", fileName);
     Response response = this.uploadManager.put(inputStream, fileName, getUploadToken(), null, null);
     int retry = 0;
     while (response.needRetry() && retry < maxReTry) {
-      log.info("当前操作需要进行重试，目前重试第{}次",retry+1);
+      log.info("当前操作需要进行重试，目前重试第{}次", retry + 1);
       response = this.uploadManager.put(inputStream, fileName, getUploadToken(), null, null);
       retry++;
     }
@@ -131,7 +141,7 @@ public class QiNiuSupport {
     int retry = 0;
     //判断是否需要 重试 删除 且重试次数为3
     while (response.needRetry() && retry++ < maxReTry) {
-      log.info("当前操作需要进行重试，目前重试第{}次",retry+1);
+      log.info("当前操作需要进行重试，目前重试第{}次", retry + 1);
       response = bucketManager.delete(QiNiuConfigBean.getBucket(), key);
     }
     return response.statusCode == successCode ? "删除成功!" : "删除失败!";
@@ -159,22 +169,26 @@ public class QiNiuSupport {
 
   /**
    * 获取公共空间文件
-   * @param fileKey  要下载的文件名
+   *
+   * @param fileKey 要下载的文件名
    * @return
    */
-  public String getPublicFile(String fileKey) throws Exception{
+  public String getPublicFile(String fileKey) throws Exception {
     String encodedFileName = URLEncoder.encode(fileKey, "utf-8").replace("+", "%20");
-    String url = String.format("%s%s/%s", QiNiuConfigBean.getProtocol(),QiNiuConfigBean.getCdnProfile(), encodedFileName);
+    String url = String
+        .format("%s%s/%s", QiNiuConfigBean.getProtocol(), QiNiuConfigBean.getCdnProfile(),
+            encodedFileName);
     log.info("下载地址：{}", url);
     return url;
   }
 
   /**
    * 获取私有空间文件
+   *
    * @param fileKey 要下载的文件名
    * @return
    */
-  public String getPrivateFile(String fileKey) throws Exception{
+  public String getPrivateFile(String fileKey) throws Exception {
     String encodedFileName = URLEncoder.encode(fileKey, "utf-8").replace("+", "%20");
     String publicUrl = String.format("%s/%s", QiNiuConfigBean.getCdnProfile(), encodedFileName);
     //1小时，可以自定义链接过期时间

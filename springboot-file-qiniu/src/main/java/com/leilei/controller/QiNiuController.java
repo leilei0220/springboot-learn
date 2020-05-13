@@ -38,17 +38,28 @@ public class QiNiuController {
   }
 
   /**
-   * 直接传输文件 到七牛云
+   * 直接传输文件 到七牛
    * @param file
-   * @param fileName
    * @return
    * @throws Exception
    */
-  @PostMapping("upload/{fileName}")
-  public String upload(@RequestParam("file")MultipartFile file, @PathVariable("fileName") String fileName) throws Exception {
-    File file1 = qiNiuSupport.multipartFileToFile(file);
-    return qiNiuSupport.uploadFile(file1, fileName);
+  @PostMapping("upload")
+  public String upload(@RequestParam("file")MultipartFile file) throws Exception {
+    return qiNiuSupport.uploadFile(file);
   }
+
+  /**
+   * 以流的形式进行上传
+   * @param file
+   * @return
+   * @throws Exception
+   */
+  @PostMapping("uploadByStream")
+  public String uploadInputStream(@RequestParam("file")MultipartFile file) throws Exception {
+
+    return qiNiuSupport.uploadFileInputStream(file);
+  }
+
 
   /**
    * 直接传输文件 到七牛云 读取文件类型 传输 MIME 保存
@@ -64,18 +75,6 @@ public class QiNiuController {
   }
 
 
-  /**
-   * 以流的形式进行上传
-   * @param file
-   * @param fileName
-   * @return
-   * @throws Exception
-   */
-  @PostMapping("uploadByStream/{fileName}")
-  public String uploadInputStream(@RequestParam("file")MultipartFile file, @PathVariable("fileName") String fileName) throws Exception {
-    InputStream inputStream = file.getInputStream();
-    return qiNiuSupport.uploadFileInputStream(inputStream, fileName);
-  }
   /**
    * 七牛云文件下载
    *
