@@ -39,6 +39,13 @@ public class MongoInit {
     return new MongoProperties();
   }
 
+  /**
+   * 配置统一的事务管理器
+   * @param ds1
+   * @param ds2
+   * @param ds3
+   * @return
+   */
   @Bean(name = "chainedTransactionManager")
   public ChainedTransactionManager transactionManager(
       @Qualifier("oneTransactionManager") PlatformTransactionManager ds1,

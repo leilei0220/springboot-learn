@@ -38,7 +38,7 @@ public class StudentServiceImpl implements IStudentService {
 
   /**
    * 说明  当前 学习深度不够 目前只会回滚 当前事务管理器下 数据源中的数据 这里仅仅只会回滚 threeMongoTemplate
-   *
+   * 2020/05/18 已完成多数据源同一事务管理器配置
    * @param student
    * @return
    */
@@ -62,7 +62,5 @@ public class StudentServiceImpl implements IStudentService {
       e.printStackTrace();
       throw new LeileiException("多数据源操作失败，查看对应库数据是否回滚");
     }
-
-
   }
 }
