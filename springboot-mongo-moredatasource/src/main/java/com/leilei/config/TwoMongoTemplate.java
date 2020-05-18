@@ -28,19 +28,19 @@ public class TwoMongoTemplate {
     private MongoProperties mongoProperties;
 
     @Bean(name = "twoMongo")//第二个数据源名字oneMongo
-    public MongoTemplate listTemplate() throws Exception {
-        return new MongoTemplate(listFactory(this.mongoProperties));
+    public MongoTemplate tqoTemplate() throws Exception {
+        return new MongoTemplate(twoFactory(this.mongoProperties));
     }
 
     @Bean
-    public MongoDbFactory listFactory(MongoProperties mongoProperties) throws Exception {
+    public MongoDbFactory twoFactory(MongoProperties mongoProperties) throws Exception {
 
         return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
     }
 
-    @Bean(name = "listFactoryTransactionManager")
-    MongoTransactionManager listFactoryTransactionManager() throws Exception {
-        MongoDbFactory mongoDbFactory = listFactory(this.mongoProperties);
+    @Bean(name = "twoTransactionManager")
+    MongoTransactionManager twoFactoryTransactionManager() throws Exception {
+        MongoDbFactory mongoDbFactory = twoFactory(this.mongoProperties);
         return new MongoTransactionManager(mongoDbFactory);
     }
 

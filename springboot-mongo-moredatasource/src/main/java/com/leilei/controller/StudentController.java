@@ -1,5 +1,6 @@
 package com.leilei.controller;
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.three.Student;
 import com.leilei.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-    @Autowired
-    private IStudentService studentService;
 
-    @PostMapping("add")
-    public String add(Student student) {
-        int i = studentService.insertStudent(student);
-        if (i==1) {
-            return "success";
-        }
-        return "false";
-    }
+  @Autowired
+  private IStudentService studentService;
+
+  @PostMapping("add")
+  public AjaxResult add(Student student) throws Exception {
+
+    return studentService.insertStudent(student);
+  }
 }

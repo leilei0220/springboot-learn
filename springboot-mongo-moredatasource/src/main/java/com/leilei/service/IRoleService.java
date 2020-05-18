@@ -1,5 +1,6 @@
 package com.leilei.service;
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.two.Role;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface IRoleService {
 
-    int insertRole(Role role);
+    AjaxResult insertRole(Role role) throws Exception;
 
     List<Role> findAll();
 }

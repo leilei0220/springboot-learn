@@ -1,6 +1,7 @@
 package com.leilei.entity.three;
 
 import lombok.Data;
+import org.bson.BsonTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

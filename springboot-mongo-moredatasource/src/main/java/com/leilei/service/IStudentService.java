@@ -1,5 +1,6 @@
 package com.leilei.service;
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.three.Student;
 
 /**
@@ -8,5 +9,5 @@ import com.leilei.entity.three.Student;
  * @desc :
  */
 public interface IStudentService {
-    int insertStudent(Student student);
+    AjaxResult insertStudent(Student student) throws Exception;
 }

@@ -1,6 +1,9 @@
 package com.leilei.entity.two;
 
+import lombok.Builder;
 import lombok.Data;
+import org.bson.BsonDateTime;
+import org.bson.types.BSONTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Document("role")
+@Builder
 public class Role {
     @Id
     private Long id;

@@ -28,19 +28,19 @@ public class ThreeMongoTemplate {
   private MongoProperties mongoProperties;
 
   @Bean(name = "threeMongo")//第三个数据源名字oneMongo
-  public MongoTemplate listTemplate() throws Exception {
-    return new MongoTemplate(ThreeFactory(this.mongoProperties));
+  public MongoTemplate threeTemplate() throws Exception {
+    return new MongoTemplate(threeFactory(this.mongoProperties));
   }
 
   @Bean
-  public MongoDbFactory ThreeFactory(MongoProperties mongoProperties) throws Exception {
+  public MongoDbFactory threeFactory(MongoProperties mongoProperties) throws Exception {
 
     return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
   }
 
-  @Bean(name = "ThreeFactoryTransactionManager")
-  MongoTransactionManager ThreeFactoryTransactionManager() throws Exception {
-    MongoDbFactory mongoDbFactory = ThreeFactory(this.mongoProperties);
+  @Bean(name = "threeTransactionManager")
+  MongoTransactionManager threeFactoryTransactionManager() throws Exception {
+    MongoDbFactory mongoDbFactory = threeFactory(this.mongoProperties);
     return new MongoTransactionManager(mongoDbFactory);
   }
 }

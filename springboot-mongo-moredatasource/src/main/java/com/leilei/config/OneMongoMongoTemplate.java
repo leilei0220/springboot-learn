@@ -30,19 +30,19 @@ public class OneMongoMongoTemplate {
 
     @Primary
     @Bean(name = "oneMongo") //第一个数据源名字oneMongo
-    public MongoTemplate statisMongoTemplate() throws Exception {
-        return new MongoTemplate(statisFactory(this.mongoProperties));
+    public MongoTemplate oneMongoTemplate() throws Exception {
+        return new MongoTemplate(oneFactory(this.mongoProperties));
     }
 
     @Bean
     @Primary
-    public MongoDbFactory statisFactory(MongoProperties mongoProperties) throws Exception {
+    public MongoDbFactory oneFactory(MongoProperties mongoProperties) throws Exception {
         return new SimpleMongoDbFactory(new MongoClientURI(mongoProperties.getUri()));
     }
 
-    @Bean(name = "statisTransactionManager")
-    MongoTransactionManager statisTransactionManager() throws Exception {
-        MongoDbFactory mongoDbFactory = statisFactory(this.mongoProperties);
+    @Bean(name = "oneTransactionManager")
+    MongoTransactionManager oneTransactionManager() throws Exception {
+        MongoDbFactory mongoDbFactory = oneFactory(this.mongoProperties);
         return new MongoTransactionManager(mongoDbFactory);
     }
 }

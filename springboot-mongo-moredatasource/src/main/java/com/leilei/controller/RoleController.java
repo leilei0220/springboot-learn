@@ -1,5 +1,6 @@
 package com.leilei.controller;
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.two.Role;
 import com.leilei.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,18 @@ import java.util.List;
 @RestController
 @RequestMapping("role")
 public class RoleController {
-    @Autowired
-    private IRoleService roleService;
 
-    @PostMapping("add")
-    public String add(Role role) {
+  @Autowired
+  private IRoleService roleService;
 
-        int i = roleService.insertRole(role);
-        if (i == 1) {
-            return "success";
-        }
-        return "false";
-    }
+  @PostMapping("add")
+  public AjaxResult add(Role role) throws Exception {
+    return roleService.insertRole(role);
 
-    @GetMapping("/findAll")
-    public List<Role> findAll() {
-        return roleService.findAll();
-    }
+  }
+
+  @GetMapping("/findAll")
+  public List<Role> findAll() {
+    return roleService.findAll();
+  }
 }

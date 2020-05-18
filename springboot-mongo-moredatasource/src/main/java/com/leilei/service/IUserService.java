@@ -1,5 +1,6 @@
 package com.leilei.service;
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.one.User;
 import com.leilei.entity.one.vo.CountUser;
 import com.leilei.entity.one.vo.MonthByUser;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface IUserService {
 
-    int insertUser(User user);
+    AjaxResult insertUser(User user) throws Exception;
 
     List<User> findAll();
 

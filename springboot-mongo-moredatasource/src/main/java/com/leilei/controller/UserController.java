@@ -6,6 +6,7 @@ package com.leilei.controller;
  * @desc :
  */
 
+import com.leilei.config.AjaxResult;
 import com.leilei.entity.one.User;
 import com.leilei.entity.one.vo.CountUser;
 import com.leilei.entity.one.vo.MonthByUser;
@@ -26,12 +27,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("add")
-    public String add(User user) {
-        int i = userService.insertUser(user);
-        if (i == 1) {
-            return "success";
-        }
-        return "false";
+    public AjaxResult add(User user) throws Exception {
+       return userService.insertUser(user);
     }
 
     @GetMapping("findAll")
