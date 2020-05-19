@@ -39,6 +39,8 @@ springboot-profile-two springboot下多环境配置 打包二 使用mvn 命令�
 
 springboot-qrcode 整合 zxing 生成二维码 直接生成有无img 二维码 或者 二维码 base64编码
 
+springboot-read-yml springboot 读取配置文件 自定义配置文件 以及POM.xml 文件内容
+
 springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型 （String，set，zset,hash,list)使用 以及单机版事务测试
 
 springboot-sms 整合阿里云短信发送工具
