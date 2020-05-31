@@ -5,6 +5,9 @@
     <title>super</title>
 </head>
 <body>
+<p>控制器访问</p>
+<a th:href="@{/index}">点击跳到首页</a>
+-----------------------------------
 <p>thymeleaf 中循环取值</p>
 <div th:each="user:${users}">
     <div th:text="${user.name}"></div>
