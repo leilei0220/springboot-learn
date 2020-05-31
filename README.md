@@ -46,3 +46,5 @@ springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型
 springboot-sms 整合阿里云短信发送工具
 
 springboot-swagger 整合swagger 接口文档工具
+
+springboot-thymeleaf 整合 thymeleaf  thymeleaf语法的使用 以及整合 echarts 图形报表

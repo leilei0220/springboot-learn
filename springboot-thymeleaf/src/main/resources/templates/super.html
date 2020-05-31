@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>super</title>
+</head>
+<body>
+<p>thymeleaf 中循环取值</p>
+<div th:each="user:${users}">
+    <div th:text="${user.name}"></div>
+    <div th:text="${user.age}"></div>
+    <div th:text="${user.sex}?'男':'女'"></div>
+    <div th:text="${user.birthDay}"></div>
+    --------------------------------------
+</div>
+<p>分支控制switch</p>
+<div th:switch="${role.name}">
+    <p th:case="'凯多'">海贼王</p>
+    <p th:case="'二柱子'">火影</p>
+    <p th:case="*">鬼知道啊</p>
+</div>
+</body>
+</html>

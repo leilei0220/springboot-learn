@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>user</title>
+</head>
+<style type="text/css">
+    .ss{
+        color: red;
+    }
+</style>
+<body style="text-align: center">
+<p class="ss">前缀方式取值</p>
+<span th:text="${user.name}"></span><br/>
+<span th:text="${user.age}"></span><br/>
+<span th:text="${user.sex}"></span><br/>
+<span th:text="${user.birthDay}"></span><br/>
+----------------------------------------
+<p>th:object 使用 其包裹层级直接以*{属性} 取值 ，可省略前缀写法</p>
+<div th:object="${user}">
+    <div th:text="*{name}"></div>
+    <div th:text="*{age}"></div>
+    <div th:text="*{sex}"></div>
+    <div th:text="*{birthDay}"></div>
+</div>
+----------------------------------------
+<p class="ss">ognl表达式中方法调用</p>
+<h2 th:object="${user}">
+    <p>FirstName: <span th:text="*{name.split(',')[0]}"></span></p>
+    <p>LastName: <span th:text="*{name.split(',')[1]}"></span>.</p>
+</h2>
+
+<p class="ss">使用字面意思 即不会被解析</p>
+----------------------------------------
+<div th:text="'aa'"></div>
+<div th:text="'12312312'"></div>
+<div th:text="'666666'"></div>
+--------------------------------
+<p class="ss">布尔值判断 方式一</p>
+<div th:object="${user}">
+    <div th:text="*{age}"></div>
+    <div th:if="*{sex}">
+        <span >性别为男</span>
+    </div>
+    <div th:unless="*{sex}">
+        <span >性别为女</span>
+    </div>
+    <div th:text="*{birthDay}"></div>
+</div>
+--------------------------------
+<p class="ss">布尔值判断 方式二</p>
+<span th:text="${user.sex}==true? 'yes':'no'"></span>
+</body>
+</html>

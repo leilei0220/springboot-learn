@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <script th:src="@{/echarts/echarts.min.js}"></script>
+</head>
+<body>
+<div th:text="${dayCount}"></div>
+  <div class="row">
+      <div id="mainechats" style="height: 400px;margin-top: 35px"></div>
+  </div>
+</body>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    let myChart = echarts.init(document.getElementById('mainechats'));
+    let dayCount = "[[${dayCount}]]";
+    let weekCount = "[[${weekCount}]]";
+    let monthCount = "[[${monthCount}]]";
+    let quarterCount = "[[${quarterCount}]]";
+    let yearCount = "[[${yearCount}]]";
+    let totalCount = "[[${totalCount}]]";
+
+    let option = {
+        title: {
+            text: '访问统计'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['访问统计']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['今日访问', '本周访问', '本月访问', '本季访问', '本年访问', '总访问']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '访问',
+                type: 'line',
+                stack: '总量',
+                data: [dayCount, weekCount, monthCount, quarterCount, yearCount, totalCount]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>
