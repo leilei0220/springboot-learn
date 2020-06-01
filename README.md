@@ -43,6 +43,8 @@ springboot-read-yml springboot 读取配置文件 自定义配置文件 以及PO
 
 springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型 （String，set，zset,hash,list)使用 以及单机版事务测试
 
+springboot-shiro 整合siro 实现 动态授权 认证 记住我功能 结合thymeleaf 动态显示菜单页等
+
 springboot-sms 整合阿里云短信发送工具
 
 springboot-swagger 整合swagger 接口文档工具

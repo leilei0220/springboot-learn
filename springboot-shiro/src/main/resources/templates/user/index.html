@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="text-align: center">
+
+<h2>user----index</h2>
+<a th:href="@{/}">返回首页</a>
+<br/>
+<div shiro:hasPermission="user:edit">
+    <a th:href="@{/user/edit}">edit</a>
+</div>
+<div shiro:hasPermission="user:add">
+    <a th:href="@{/user/add}">add</a>
+</div>
+</body>
+</html>

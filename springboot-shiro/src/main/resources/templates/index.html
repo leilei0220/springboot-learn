@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>aaaa</title>
+</head>
+<body style="text-align: center">
+<h2>后台主页面 你可查看菜单如下</h2><br/>
+
+<span shiro:principal property="username"/> 欢迎您的登录！ <a th:href="@{/logout}">注销登录</a>
+----------------------------------------<br/>
+<div shiro:hasPermission="index:main">
+    <a th:href="@{/user}">用户列表</a>
+</div>
+
+</body>
+</html>
