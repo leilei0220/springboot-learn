@@ -8,6 +8,10 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
 
 /**
  * @author : leilei
@@ -46,5 +50,14 @@ public class RedisConfig {
         // 开启事务 需注意 redis 事务仅仅对单机有效，集群目前是不支持事务的
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setConnectionFactory(factory);
+    }
+
+
+    /**
+     * description 配置事务管理器
+     **/
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
     }
 }

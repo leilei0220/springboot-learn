@@ -40,6 +40,15 @@ public class SpringBootredisTest {
   private RedisUtil redisUtil;
 
   /**
+   * 锁测试
+   */
+  @Test
+  public void testLock() {
+    System.out.println(redisUtil.lock("myLock", 1000));
+  }
+
+
+  /**
    * String
    */
   @Test
