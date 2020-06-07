@@ -1,6 +1,7 @@
 package com.leilei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
@@ -9,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +24,35 @@ public class RedisUtil {
 
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
+
+  /**
+   * 获取一个redis分布锁
+   *
+   * @param lockKey        锁住的key
+   * @param lockExpireMils 锁住的时长。如果超时未解锁，视为加锁线程死亡，其他线程可夺取锁
+   * @return
+   */
+  public boolean lock(String lockKey, long lockExpireMils) {
+    return (Boolean) redisTemplate.execute((RedisCallback) connection -> {
+      long nowTime = System.currentTimeMillis();
+      Boolean acquire = connection.setNX(lockKey.getBytes(), String.valueOf(nowTime + lockExpireMils + 1).getBytes());
+      if (acquire) {
+        return Boolean.TRUE;
+      } else {
+        byte[] value = connection.get(lockKey.getBytes());
+        if (Objects.nonNull(value) && value.length > 0) {
+          long oldTime = Long.parseLong(new String(value));
+          if (oldTime < nowTime) {
+            //connection.getSet：返回这个key的旧值并设置新值。
+            byte[] oldValue = connection.getSet(lockKey.getBytes(), String.valueOf(nowTime + lockExpireMils + 1).getBytes());
+            //当key不存时会返回空，表示key不存在或者已在管道中使用
+            return oldValue == null ? false : Long.parseLong(new String(oldValue)) < nowTime;
+          }
+        }
+      }
+      return Boolean.FALSE;
+    });
+  }
 
   /**
    * 指定缓存失效时间
