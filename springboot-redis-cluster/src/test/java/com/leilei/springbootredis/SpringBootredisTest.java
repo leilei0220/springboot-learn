@@ -5,15 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.leilei.SpringbootRedisApplication;
 import com.leilei.entity.User;
 import com.leilei.util.RedisUtil;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +15,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * @author : leilei
@@ -155,9 +150,41 @@ public class SpringBootredisTest {
         new User("许褚", "qq", 55),
         new User("张辽", "dd", 62),
         new User("典韦", "123", 49));
+
+    long l2 = redisUtil.sSet("蜀将",
+            new User("关羽", "qqa", 55),
+            new User("赵飞", "dda", 625),
+            new User("赵云", "123a", 495));
     System.out.println(l);
+    System.out.println(l2);
   }
 
+  /**
+   * 测试并集
+   */
+  @Test
+  public void unionALl() {
+    Set<Object> objects = redisUtil.unionAll("魏将", "蜀将");
+    objects.forEach(e-> System.out.println(e));
+  }
+
+  /**
+   * 测试交集
+   */
+  @Test
+  public void testInse() {
+
+    long l = redisUtil.sSet("三国人物传1",
+            new User("吕布", "qq", 55),
+            new User("典韦", "123", 49));
+
+    long l2 = redisUtil.sSet("三国人物传2",
+            new User("吕布", "qq", 55),
+            new User("赵云", "123a", 495));
+    System.out.println(l);
+    System.out.println(l2);
+    redisUtil.intersect("三国人物传2", "三国人物传1").forEach(e-> System.out.println(e));
+  }
   /**
    * test
    */

@@ -438,6 +438,36 @@ public class RedisUtil {
     }
   }
 
+  /**
+   * set 骚操作  并集
+   * @param key1
+   * @param key2
+   * @return
+   */
+  public Set<Object> unionAll(String key1, String key2) {
+    try {
+      return redisTemplate.opsForSet().union(key1, key2);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * set 骚操作  交集
+   * @param key1
+   * @param key2
+   * @return
+   */
+  public Set<Object> intersect(String key1, String key2) {
+    try {
+      return redisTemplate.opsForSet().intersect(key1, key2);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
   //=================================zSet=============================
 
   /**
