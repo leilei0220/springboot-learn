@@ -64,6 +64,8 @@ mybatis-plus:
       field-strategy: NOT_EMPTY
       #数据库类型
       db-type: MYSQL
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   configuration:
     # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
     map-underscore-to-camel-case: true

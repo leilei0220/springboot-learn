@@ -57,7 +57,7 @@ public class CodeGenerator {
         /** 表名生成策略*/
         strategy.setNaming(NamingStrategy.underline_to_camel);
         /** 需要生成的表*/
-        strategy.setInclude(new String[]{"dept"});
+        strategy.setInclude(new String[]{"student"});
         mpg.setStrategy(strategy);
 
         // 包配置

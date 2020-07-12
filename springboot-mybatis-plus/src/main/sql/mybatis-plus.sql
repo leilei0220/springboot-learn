@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : leilei
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 50718
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 04/03/2020 18:31:24
+ Date: 12/07/2020 21:37:14
 */
 
 SET NAMES utf8mb4;
@@ -96,6 +96,25 @@ INSERT INTO `role_permission` VALUES (1, 2);
 INSERT INTO `role_permission` VALUES (1, 3);
 INSERT INTO `role_permission` VALUES (2, 2);
 INSERT INTO `role_permission` VALUES (2, 3);
+
+-- ----------------------------
+-- Table structure for student
+-- ----------------------------
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名字',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `del_flag` tinyint(255) NULL DEFAULT 0 COMMENT '是否删除',
+  `version` int(255) NULL DEFAULT 0 COMMENT '版本号',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of student
+-- ----------------------------
+INSERT INTO `student` VALUES (1, '小明', 1332, 0, 0);
+INSERT INTO `student` VALUES (2, '小红', 14, 0, 0);
 
 -- ----------------------------
 -- Table structure for user
