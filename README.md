@@ -7,6 +7,8 @@ springboot-easypoi  整合easypoi 导入导出 以及 导入数据校验
 
 springboot-elasticsearch-one-client springboot 中 使用es客户端命令操作
 
+springboot-elasticsearch-two-jpa springboot2.3.1 gradle构建  使用 jpa 操作ES
+
 springboot-email   整合邮件（可自行选择邮件客户端）普通文本 html  附件 静态资源 四种类型
 
 springboot-fastdfs 整合 fdfs文件存储服务器（单机） 文件上传下载 fdfs安装在Linux 虚拟机中
