@@ -1,11 +1,11 @@
 package com.leilei;
 
+import com.leilei.confirm.ConfirmServer;
 import com.leilei.directexchange.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanoutexchange.FanoutExchangeProvider;
 import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.work.WorkProviderServer;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +22,8 @@ class SpringbootRabbitmqApplicationTests {
     private DirectExchangeProvider directExchangeProvider;
     @Autowired
     private TopicRabbitProvider topicRabbitProvider;
+    @Autowired
+    private ConfirmServer confirmServer;
     @Test
     void contextLoads() {
         /**
@@ -50,12 +52,12 @@ class SpringbootRabbitmqApplicationTests {
      * 路由模式 测试发送到  lei_routingKey_one 键  ，按道理来说则会被我们的队列rabbit_direct_queue_one 监听到
      *  结果正确  rabbit_direct_queue_one 的两个消费者轮流接收消费到了五条消息 一个消费者三条 一个消费者两条 共五条
      *
-     *  rabbit_direct_queue_one队列 消费者1：收到消息---Vehicle(id=1, name=1理由键lei_routingKey_one车车)
-     * rabbit_direct_queue_one队列 消费者2：收到消息---Vehicle(id=0, name=0理由键lei_routingKey_one车车)
-     * rabbit_direct_queue_one队列 消费者1：收到消息---Vehicle(id=3, name=3理由键lei_routingKey_one车车)
-     * 2020-07-14 22:58:23.786  INFO 18280 --- [extShutdownHook] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
-     * rabbit_direct_queue_one队列 消费者2：收到消息---Vehicle(id=2, name=2理由键lei_routingKey_one车车)
-     * rabbit_direct_queue_one队列 消费者2：收到消息---Vehicle(id=4, name=4理由键lei_routingKey_one车车)
+     rabbit_direct_queue_one队列 消费者1：收到消息---Vehicle(id=0, name=0路由键lei_routingKey_one车车)
+     rabbit_direct_queue_one队列 消费者2：收到消息---Vehicle(id=2, name=2路由键lei_routingKey_one车车)
+     rabbit_direct_queue_one队列 消费者1：收到消息---Vehicle(id=1, name=1路由键lei_routingKey_one车车)
+
+     rabbit_direct_queue_one队列 消费者2：收到消息---Vehicle(id=3, name=3路由键lei_routingKey_one车车)
+     rabbit_direct_queue_one队列 消费者1：收到消息---Vehicle(id=4, name=4路由键lei_routingKey_one车车)
      *
      */
     @Test
@@ -102,7 +104,14 @@ class SpringbootRabbitmqApplicationTests {
         topicRabbitProvider.sendTopMessage();
     }
 
-
+    /**
+     * confirm 消息发送确认成功...消息ID为：1594825498345
+     * 正常收到消息：Optional[Vehicle(id=1, name=confirm功能的车车)]
+     */
+    @Test
+    void testConfirm() {
+        confirmServer.sendConfirm();
+    }
 
 
 }
