@@ -23,7 +23,7 @@ public class DirectExchangeProvider {
         for (int i = 0; i < 5; i++) {
             rabbitTemplate.convertAndSend("direct_exchange",
                     "lei_routingKey_one",
-                    new Vehicle(i, i + "理由键lei_routingKey_one车车"));
+                    new Vehicle(i, i + "路由键lei_routingKey_one车车"));
         }
     }
 
@@ -34,7 +34,7 @@ public class DirectExchangeProvider {
         for (int i = 0; i < 5; i++) {
             rabbitTemplate.convertAndSend("direct_exchange",
                     "lei_routingKey_two",
-                    new Vehicle(i, i + "理由键lei_routingKey_two车车"));
+                    new Vehicle(i, i + "路由键lei_routingKey_two车车"));
         }
     }
 }

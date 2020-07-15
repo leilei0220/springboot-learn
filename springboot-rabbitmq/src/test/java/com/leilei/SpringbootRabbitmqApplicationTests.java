@@ -3,7 +3,9 @@ package com.leilei;
 import com.leilei.directexchange.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanoutexchange.FanoutExchangeProvider;
+import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.work.WorkProviderServer;
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,8 @@ class SpringbootRabbitmqApplicationTests {
     private FanoutExchangeProvider fanoutExchangeProvider;
     @Autowired
     private DirectExchangeProvider directExchangeProvider;
+    @Autowired
+    private TopicRabbitProvider topicRabbitProvider;
     @Test
     void contextLoads() {
         /**
@@ -37,7 +41,7 @@ class SpringbootRabbitmqApplicationTests {
     @Test
     void FanoutExchange() {
         /**
-         * 发布订阅模式 订阅到交换机的队列 都会获取发布的消息，每一个队列都会被消费者消费设置次数 例如我生产者生产消息循环20次 则 队列一 队列二会被消费二十次
+         * 发布订阅模式 订阅到交换机的队列 都会获取发布的消息，例如我生产者生产消息循环20次 则 队列一 队列二均会被消费二十次
          */
         fanoutExchangeProvider.sendFanoutExchangeMessage();
     }
@@ -71,6 +75,34 @@ class SpringbootRabbitmqApplicationTests {
     void DirectExchange2() {
         directExchangeProvider.sendDirectMessageTwo();
     }
+
+    /**
+     * 监听到队列二消息Vehicle(id=0, name=0一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=0, name=0一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=1, name=1多个词路由键车车)
+     * 监听到队列二消息Vehicle(id=2, name=2一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=2, name=2一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=3, name=3多个词路由键车车)
+     * 监听到队列二消息Vehicle(id=4, name=4一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=4, name=4一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=5, name=5多个词路由键车车)
+     * 监听到队列一消息Vehicle(id=6, name=6一个词路由键车车)
+     * 监听到队列二消息Vehicle(id=6, name=6一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=7, name=7多个词路由键车车)
+     * 监听到队列二消息Vehicle(id=8, name=8一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=8, name=8一个词路由键车车)
+     * 监听到队列一消息Vehicle(id=9, name=9多个词路由键车车)
+     *
+     * 队列一绑定的是 topic.# ,其结果 发送到 路由键 topic.lei.xxl 与 topic.lei 的消息都被接受了  一个词多个词消息都被队列一监听到消费者消费了
+     * 队列二 绑定路由键是 * 其结果只有%2==0的消息被接受了，即 topic.lei  仅仅监听到了一个词路由键的消息
+     */
+
+    @Test
+    void Topic() {
+        topicRabbitProvider.sendTopMessage();
+    }
+
+
 
 
 }
