@@ -1,4 +1,5 @@
+
 spring:
   data:
     mongodb:
-      uri: mongodb://47.97.118.22:27017/lei
+      uri: mongodb://xxxxx:xxx@xxxxxx:27017/lei?authSource=admin&authMechanism=SCRAM-SHA-1
