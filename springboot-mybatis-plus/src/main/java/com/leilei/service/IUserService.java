@@ -16,5 +16,7 @@ public interface IUserService extends IService<User> {
     User selectOneDetail(Long uid);
 
     User selectOneDetailByReal(Long userid);
+
+    User selectOne(Long userid);
 }
 

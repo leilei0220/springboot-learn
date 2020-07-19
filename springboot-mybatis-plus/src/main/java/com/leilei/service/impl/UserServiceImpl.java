@@ -30,4 +30,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.selectOneDetailByReal(userid);
     }
 
+    @Override
+    public User selectOne(Long userid) {
+        return userMapper.selectOneByAnon(userid);
+    }
+
 }

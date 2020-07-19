@@ -6,10 +6,7 @@ import com.leilei.entity.Student;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.leilei.util.response.JsonReturn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -74,8 +71,8 @@ public class StudentController {
      * @param id 查找对象的主键ID
      * @return JsonReturn
      */
-    @RequestMapping("findOne")
-    public JsonReturn findOne(Long id) {
+    @RequestMapping("findOne/{id}")
+    public JsonReturn findOne(@PathVariable("id") Long id) {
         try {
             Student student = studentService.getById(id);
             return JsonReturn.buildSuccess(student, "操作成功");
