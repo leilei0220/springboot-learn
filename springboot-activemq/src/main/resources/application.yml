@@ -1,7 +1,7 @@
 spring:
   activemq:
     #ActiveMQ
-    broker-url: tcp://47.97.118.22:61616
+    broker-url: tcp://xxx:61616
     user: admin
     password: 123456
     #默认包名安全 （支持序列化反序列化）

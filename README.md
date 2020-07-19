@@ -1,7 +1,9 @@
 # springboot-learn
-leilei -springboot学习小营地
+###leilei -springboot学习小营地
 
 lei-springboot-starter 自定义简单的自动装配
+
+springboot-activemq active简单使用 点对点 topic 以及virtualtopic 使用
 
 springboot-easypoi  整合easypoi 导入导出 以及 导入数据校验
 
@@ -44,6 +46,8 @@ springboot-profile springboot下多环境配置 打包一 使用yml 选择打包
 springboot-profile-two springboot下多环境配置 打包二 使用mvn 命令打包对应配置文件 灵活打包 不用进入项目修改Yml   exmaple:打包命令 idea 进入项目目录下 使用Terminal终端   mvn clean install -P test  此命令就会打包test环境
 
 springboot-qrcode 整合 zxing 生成二维码 直接生成有无img 二维码 或者 二维码 base64编码
+
+springboot-rabbitmq 整合rabbitmq 点对点,work,topic_routking topic_drict 发送确认，ack应答
 
 springboot-read-yml springboot 读取配置文件 自定义配置文件 以及POM.xml 文件内容
 
