@@ -35,7 +35,7 @@ public class ActiveTopicConfig {
     public JmsListenerContainerFactory leiTopicFactory(ConnectionFactory connectionFactory){
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
-        //这里必须设置为true，false则表示是queue类型
+        //这里必须设置为true，false则表示是queue类型 虚拟主题（virtual则必须设为false）
         factory.setPubSubDomain(true);
         return factory;
     }
