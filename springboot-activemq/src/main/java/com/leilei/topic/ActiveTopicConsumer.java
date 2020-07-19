@@ -23,6 +23,6 @@ public class ActiveTopicConsumer {
     }
     @JmsListener(destination="lei_topic",concurrency = "1", containerFactory = "leiTopicFactory")
     public void ListenTopic2(Driver driver){
-        System.out.println(Thread.currentThread().getName()+"消费者2接收到topic消息：" + driver);
+        System.out.println(Thread.currentThread().getName()+"--消费者--2--接收到topic消息：" + driver);
     }
 }

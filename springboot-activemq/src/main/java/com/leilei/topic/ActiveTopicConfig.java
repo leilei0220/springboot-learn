@@ -28,7 +28,7 @@ public class ActiveTopicConfig {
     }
     /**
      * springboot默认只配置queue类型消息，如果要使用topic类型的消息，则需要配置该bean
-     * @param connectionFactory
+     * @param connectionFactory  factory.setPubSubDomain(true);
      * @return
      */
     @Bean

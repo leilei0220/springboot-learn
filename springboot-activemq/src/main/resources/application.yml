@@ -1,13 +1,12 @@
 spring:
   activemq:
-    #ActiveMQ\u901A\u8BAF\u5730\u5740
-    broker-url: tcp://xxxxx:61616
+    #ActiveMQ
+    broker-url: tcp://47.97.118.22:61616
     user: admin
     password: 123456
-    #\u5F00\u542F\u652F\u6301\u5BF9\u8C61\u5E8F\u5217\u5316 \u82E5\u4E0D\u8BBE\u7F6E \u65E0\u6CD5\u4F20\u9012 \u5E8F\u5217\u5316\u53CD\u5E8F\u5217\u5316\u5BF9\u8C61
+    #默认包名安全 （支持序列化反序列化）
     packages:
-      #\u4FE1\u4EFB\u6240\u6709\u7684\u5305
       trust-all: true
-  #\u652F\u6301topic\u6A21\u5F0F
+  #支持topic模式
   jms:
     pub-sub-domain: true

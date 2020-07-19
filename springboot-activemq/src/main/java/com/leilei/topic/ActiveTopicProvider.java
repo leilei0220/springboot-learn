@@ -16,7 +16,7 @@ public class ActiveTopicProvider {
     private JmsMessagingTemplate jmsMessagingTemplate;
 
     public void sendMessage() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 30; i++) {
         jmsMessagingTemplate.convertAndSend("lei_topic",new Driver((long)i,"司机"+i));
         }
     }
