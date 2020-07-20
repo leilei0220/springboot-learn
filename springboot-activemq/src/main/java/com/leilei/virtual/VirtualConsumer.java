@@ -5,9 +5,11 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
- 
+
 /**
- * Created by wl on 2017/12/28.
+ * @author PengLei
+ * @date 2020-07-17 21:48
+ * @desc
  */
 @Component
 @Slf4j
@@ -43,8 +45,4 @@ public class VirtualConsumer {
         log.info("Consumer.B-----Orders:{}",receiveStr);
 
     }
- 
-  
- 
- 
 }

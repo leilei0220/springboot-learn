@@ -8,9 +8,11 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 
 import javax.jms.ConnectionFactory;
- 
+
 /**
- * Created by wl on 2017/12/28.
+ * @author PengLei
+ * @date 2020-07-17 21:32
+ * @desc
  */
 @Configuration
 @EnableJms

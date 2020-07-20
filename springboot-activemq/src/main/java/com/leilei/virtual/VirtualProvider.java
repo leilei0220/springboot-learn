@@ -5,9 +5,11 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
- 
+
 /**
- * Created by wl on 2017/12/28.
+ * @author PengLei
+ * @date 2020-07-17 22:00
+ * @desc
  */
 @Component
 @Slf4j
