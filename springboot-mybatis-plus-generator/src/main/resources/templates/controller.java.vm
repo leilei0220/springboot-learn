@@ -1,0 +1,116 @@
+package ${package.Controller};
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.leilei.util.response.JsonReturn;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+/**
+ * <p>
+ *  ${table.entityPath}前端控制器  RestController注解 将结果以JSON形式返回
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@RestController
+@RequestMapping("/${table.entityPath}")
+public class ${entity}Controller {
+    @Autowired
+    public ${table.serviceName} ${table.entityPath}Service;
+
+    /**
+     * POST请求方式
+     *
+     * @param ${table.entityPath} 保存的对象
+     * @return JsonReturn
+     */
+    @PostMapping
+    public JsonReturn insert(${entity} ${table.entityPath}) {
+        try {
+            ${table.entityPath}.setVersion(0);
+            return JsonReturn.buildSuccess(${table.entityPath}Service.save(${table.entityPath}) ? ${table.entityPath} :
+            "${table.entityPath}--新增失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+
+    }
+
+    /**
+     * PUT请求方式
+     *
+     * @param  ${table.entityPath} 要修改的对象
+     * @return JsonReturn
+     */
+    @PutMapping
+    public JsonReturn update(${entity} ${table.entityPath}) {
+        try {
+            ${table.entityPath}.setVersion(${table.entityPath}Service.getById(${table.entityPath}.getId()).getVersion());
+            return JsonReturn.buildSuccess(${table.entityPath}Service.updateById(${table.entityPath}) ? ${table.entityPath}:
+            "${table.entityPath}--修改失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+
+    }
+
+    /**
+     * 批量删除 DELETE请求方式
+     *
+     * @param ids Long 类型 List 集合
+     * @return JsonReturn
+     */
+    @DeleteMapping("remove")
+    public JsonReturn delete(@RequestBody List<Long> ids) {
+        try {
+                ${table.entityPath}Service.removeByIds(ids);
+            return JsonReturn.buildSuccess(ids, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+
+    /**
+     * 查询一个 GET请求
+     *
+     * @param id 查找对象的主键ID
+     * @return JsonReturn
+     */
+    @GetMapping("findOne/{id}")
+    public JsonReturn findOne(@PathVariable("id") Long id) {
+        try {
+            ${entity} ${table.entityPath} =${table.entityPath}Service.getById(id);
+            return JsonReturn.buildSuccess(${table.entityPath}, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+
+    /**
+     * 查询所有 GET
+     *
+     * @param pageNum  当前页
+     * @param pageSize 每页最大数据数
+     * @return JsonReturn
+     */
+    @GetMapping("findAll/{pageNum}/{pageSize}")
+    public JsonReturn findAll(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+        try {
+            Page<${entity}> page = ${table.entityPath}Service.page(new Page<${entity}>(pageNum, pageSize));
+            return JsonReturn.buildSuccess(page, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonReturn.buildFailure("操作失败" + e.getMessage());
+        }
+    }
+
+}
