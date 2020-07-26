@@ -53,6 +53,15 @@ public class SpringBootredisTest {
     redisUtil.set("过期时间测试", 123, 50);
     redisUtil.del("a");
   }
+  /**
+   * String
+   */
+  @Test
+  public void testString2() {
+    redisUtil.set("user:1", JSON.toJSONString(new User("zs1","11",11)));
+    redisUtil.set("user:2", JSON.toJSONString(new User("zs2","11",11)));
+    redisUtil.set("user:3", JSON.toJSONString(new User("zs3","11",11)));
+  }
 
   /**
    * test redis单机版  事务测试
