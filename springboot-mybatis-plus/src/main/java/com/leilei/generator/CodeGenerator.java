@@ -26,7 +26,7 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setOutputDir("E:\\2020work\\springboot-learn\\springboot-mybatis-plus" + "/src/main/java");
         gc.setFileOverride(true);
         // 开启 activeRecord 模式
         gc.setActiveRecord(true);
@@ -57,7 +57,7 @@ public class CodeGenerator {
         /** 表名生成策略*/
         strategy.setNaming(NamingStrategy.underline_to_camel);
         /** 需要生成的表*/
-        strategy.setInclude(new String[]{"student"});
+        strategy.setInclude(new String[]{"class"});
         mpg.setStrategy(strategy);
 
         // 包配置
