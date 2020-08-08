@@ -41,6 +41,10 @@ springboot-mybatis-plus 整合mybatis-plus mybatis-plus 基本使用 Druid数据
 
 springboot-mybatis-plus-atomikos 多数据源下 Druid多数据源监控 以及mybatisplus 中使用XXXapper.xml 
 
+springboot-mybatis-plus-generator 整合mybatis-plus代码生成器
+
+springboot-mybatis-plus-senior 整合mybatis-plus高级用法 AR模式 、乐观锁、逻辑删除、自动填充、数据保护
+
 springboot-profile springboot下多环境配置 打包一 使用yml 选择打包配置文件
 
 springboot-profile-two springboot下多环境配置 打包二 使用mvn 命令打包对应配置文件 灵活打包 不用进入项目修改Yml   exmaple:打包命令 idea 进入项目目录下 使用Terminal终端   mvn clean install -P test  此命令就会打包test环境
@@ -62,3 +66,7 @@ springboot-sms 整合阿里云短信发送工具
 springboot-swagger 整合swagger 接口文档工具
 
 springboot-thymeleaf 整合 thymeleaf  thymeleaf语法的使用 以及整合 echarts 图形报表
+
+springboot-vue 整合 若依框架 删除多余配置 快速开发
+
+springboot-xxl boot项目 引入分布式调度平台 xxl-job
