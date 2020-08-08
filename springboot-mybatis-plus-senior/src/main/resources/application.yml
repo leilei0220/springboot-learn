@@ -1,0 +1,32 @@
+# 配置端口
+server:
+  port: 8080
+spring:
+  # 配置数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis-plus?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: mpw:IQlqGiwPBCu70fEoTf4ohA==
+    password: root
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # mp 全局配置 设置了全局有效
+  global-config:
+    db-config:
+      #主键类型  auto:"数据库ID自增"
+      id-type: auto
+      #设为逻辑删除的字段名
+      logic-delete-field: del_tag
+      #设置逻辑删除时 字段对应值  默认为1 其实无更改可不编写此配置
+      logic-delete-value: 1
+      #设置未删除时 字段对应值  默认为0  其实无更改可不编写此配置
+      logic-not-delete-value: 0
+  configuration:
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
