@@ -1,0 +1,19 @@
+#定义阿里云oss 配置
+aliyun:
+  #自己当初选择云存储地域节点
+  endpoint: oss-cn-chengdu.aliyuncs.com
+  #自己ak
+  accessKeyId: xxxxxxxx
+  #自己sk
+  accessKeySecret: xxxxxxxxx
+  #目录名
+  fileHost: xxxx
+  #桶名
+  bucketName: xxx
+spring:
+  servlet:
+    multipart:
+      #单个文件上传最大为10m
+      max-file-size: 10MB
+      #单次http请求文件上传最大为10m
+      max-request-size: 50MB

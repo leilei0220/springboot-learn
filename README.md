@@ -15,6 +15,8 @@ springboot-email   整合邮件（可自行选择邮件客户端）普通文本 
 
 springboot-fastdfs 整合 fdfs文件存储服务器（单机） 文件上传下载 fdfs安装在Linux 虚拟机中
 
+springboot-file-qiniu springboot2.3 整合阿里云oss 存储
+
 springboot-file-qiniu springboot 中 整合七牛云 文件存储 
 
 springboot-file-upload-download springboot 中对文件进行上传下载 删除 （文件存放在本地 未使用fastdfs 或者七牛云）
