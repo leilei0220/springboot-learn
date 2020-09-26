@@ -1,0 +1,11 @@
+canal:
+  # instance 实例所在ip
+  host: 192.168.96.129
+  # tcp通信端口
+  port: 11111
+  # 账号  canal-admin application.yml 设置的
+  username: admin
+  # 密码
+  password: leitest
+  #实例名称
+  instance: test
