@@ -2,6 +2,7 @@ package com.leilei;
 
 import com.leilei.entity.User;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
   @RequestMapping("/test")
-  public User test(@Validated User user) {
+  public User test(@Validated @RequestBody User user) {
     return user;
   }
 

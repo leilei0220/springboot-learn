@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,21 +20,28 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionsHandler {
 
+  @ExceptionHandler(value = {MethodArgumentNotValidException.class ,BindException.class})
+  public AjaxResult runtimeExceptionHandler(Exception ex) {
+    log.error("参数异常：{}", ex.getMessage());
+    BindingResult bindingResult = null;
+    if (ex instanceof MethodArgumentNotValidException) {
+      bindingResult = ((MethodArgumentNotValidException)ex).getBindingResult();
+    } else if (ex instanceof BindException) {
+      bindingResult = ((BindException)ex).getBindingResult();
+    }
+    StringBuilder errorMessage = new StringBuilder();
+    if (bindingResult != null) {
+      bindingResult.getFieldErrors().parallelStream().forEach(e -> errorMessage.append(e.getDefaultMessage()).append(" !"));
+    }
+
+    return AjaxResult.error(errorMessage.toString(), 400);
+  }
+
   /** 运行时异常 */
   @ExceptionHandler(RuntimeException.class)
   public AjaxResult runtimeExceptionHandler(RuntimeException ex) {
     log.error("运行时异常：{}", ex.getMessage(), ex);
     return AjaxResult.error("服务器异常",500);
-  }
-  @ExceptionHandler(BindException.class)
-  public AjaxResult runtimeExceptionHandler(BindException ex) {
-    log.error("参数异常：{}", ex.getMessage());
-    BindingResult bindingResult = ex.getBindingResult();
-    StringBuilder errorMessage = new StringBuilder();
-    for (FieldError fieldError : bindingResult.getFieldErrors()) {
-      errorMessage.append(fieldError.getDefaultMessage()).append("! ");
-    }
-    return AjaxResult.error(errorMessage.toString(), 400);
   }
 
 
