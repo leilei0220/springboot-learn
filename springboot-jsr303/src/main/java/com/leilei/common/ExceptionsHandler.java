@@ -1,4 +1,4 @@
-package com.leilei;
+package com.leilei.common;
 
 
 import com.leilei.common.AjaxResult;
