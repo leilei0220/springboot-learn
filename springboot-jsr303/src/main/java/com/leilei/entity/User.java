@@ -4,7 +4,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,6 +18,8 @@ import org.springframework.validation.annotation.Validated;
  */
 @Data
 @Validated
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
   @NotBlank(message = "账户不能为空")
