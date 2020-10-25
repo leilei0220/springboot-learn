@@ -5,6 +5,8 @@ lei-springboot-starter 自定义简单的自动装配
 
 springboot-activemq active简单使用 点对点 topic 以及virtualtopic 使用
 
+springboot-canal  整合canal 对于跨机房数据库进行数据同步监听......
+
 springboot-easypoi  整合easypoi 导入导出 以及 导入数据校验
 
 springboot-elasticsearch-one-client springboot 中 使用es客户端命令操作
@@ -15,7 +17,7 @@ springboot-email   整合邮件（可自行选择邮件客户端）普通文本 
 
 springboot-fastdfs 整合 fdfs文件存储服务器（单机） 文件上传下载 fdfs安装在Linux 虚拟机中
 
-springboot-file-qiniu springboot2.3 整合阿里云oss 存储
+springboot-file-aliyun springboot2.3 整合阿里云oss 存储
 
 springboot-file-qiniu springboot 中 整合七牛云 文件存储 
 
