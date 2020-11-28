@@ -22,9 +22,9 @@
 #---Redis 单机版------------
 spring:
   redis:
-    host: 192.168.146.131
+    host: 127.0.0.1
     port: 6379
-    password: 123456 # 密码 没有则可以不填
+    password:  # 密码 没有则可以不填
     database: 1  # 单机可以选择数据库 默认为0 redis集群不支持存储库选择 只能为0
     # 使用lettuce连接池
     lettuce:
