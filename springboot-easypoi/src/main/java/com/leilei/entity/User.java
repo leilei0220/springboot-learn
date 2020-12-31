@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * @author : leilei
  * @date : 11:29 2020/2/22
- * @desc : name为在excel 名字 width：表格宽度  orderNum：处于excel第几行 默认为0   replace:替换 例如我的  true 替换为男  suffix：后缀  男生 女生
+ * @desc : name为在excel 名字 width：表格宽度  orderNum：处于excel第列 默认为0   replace:替换 例如我的  true 替换为男  suffix：后缀  男生 女生
  * 普通导入导出所需字段注解
  */
 @Data
