@@ -18,6 +18,12 @@ leilei:
       age: 22
       cup: D
   hobbys: baskitball,football,girl
+  zs:
+    1:
+      aa: 111111
+      bb: 222222
+    2:
+      aa: 1111
   family:
     father: lzs
     mother: hjh
@@ -31,3 +37,9 @@ myapplication:
   version: @project.version@
   name: @project.name@
   description: @project.description@
+
+test:
+  zs:
+    v3:
+      aaa: 1111
+

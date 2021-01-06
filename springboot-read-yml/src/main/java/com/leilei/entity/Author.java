@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,4 +27,10 @@ public class Author {
     private List<Girl> girlfriends = new ArrayList<>();
     private List<String> hobbys = new ArrayList<>();
     private ConcurrentHashMap<String, Object> family;
+    private HashMap<Integer, User> zs;
+    @Data
+    public static class User{
+        private Integer aa;
+        private Integer bb;
+    }
 }
