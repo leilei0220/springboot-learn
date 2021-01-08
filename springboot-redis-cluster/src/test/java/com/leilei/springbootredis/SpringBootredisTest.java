@@ -63,16 +63,7 @@
 //     redisUtil.set("user:3", JSON.toJSONString(new User("zs3","11",11)));
 //   }
 //
-//   /**
-//    * test redis单机版  事务测试
-//    */
-//   @Test
-//   @Transactional
-//   public void testa() {
-//     redisUtil.lSet("事务", 123456);
-//     int a = 1 / 0;
-//     redisUtil.set("事务", 456789);
-//   }
+
 //
 //
 //   /**

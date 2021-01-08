@@ -1,12 +1,12 @@
 spring:
   rabbitmq:
-    #ÎÒÕâÀï½öĞ´ÁËip ÆäÓà¶Ë¿ÚÕËºÅÃÜÂëÓÉÓÚÊÇÑİÊ¾ ²ÉÓÃÄ¬ÈÏ¼´¿É£¬²»±ØÒªĞ´
+    #æˆ‘è¿™é‡Œä»…å†™äº†ip å…¶ä½™ç«¯å£è´¦å·å¯†ç ç”±äºæ˜¯æ¼”ç¤º é‡‡ç”¨é»˜è®¤å³å¯ï¼Œä¸å¿…è¦å†™
     host: xxx
-    # ¿ªÆôÏûÏ¢È·ÈÏ»úÖÆ confirm Òì²½
+    # å¼€å¯æ¶ˆæ¯ç¡®è®¤æœºåˆ¶ confirm å¼‚æ­¥
     publisher-confirm-type: correlated
     listener:
       direct:
-        # ÏûÏ¢¿ªÆôÊÖ¶¯È·ÈÏ
+        # æ¶ˆæ¯å¼€å¯æ‰‹åŠ¨ç¡®è®¤
         acknowledge-mode: manual
     publisher-returns: true
   main:

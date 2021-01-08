@@ -15,11 +15,11 @@ import java.util.zip.DataFormatException;
  */
 @Component
 public class TestScheduledLockService {
-    @Scheduled(cron = "*/5 * * * * ?")
-    @SchedulerLock(name = "test", lockAtMostFor = "10", lockAtLeastFor = "10")
-    public void test1()  {
-        System.out.println("当前时间 ----test---1----触发"+new Date());
-    }
+    // @Scheduled(cron = "*/5 * * * * ?")
+    // @SchedulerLock(name = "test", lockAtMostFor = "10", lockAtLeastFor = "10")
+    // public void test1()  {
+    //     System.out.println("当前时间 ----test---1----触发"+new Date());
+    // }
     @Scheduled(cron = "*/5 * * * * ?")
     @SchedulerLock(name = "test", lockAtMostFor = "10", lockAtLeastFor = "10")
     public void test2()  {

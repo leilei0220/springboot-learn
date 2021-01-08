@@ -27,6 +27,8 @@ springboot-https springboot 项目同时支持 http 和 https 两种协议 并�
 
 springboot-interceptor  自定义注解实现登录拦截与放行场景 并获取登录用户信息 自定义NotNeedLogin注解 进行接口放行
 
+springboot-jwt 使用 jwt token权限校验
+
 springboot-jsr303 使用 jsr303 进行参数校验规则 并使用 RestControllerAdvice增强 做统一异常处理 将异常信息以自定义json格式进行返回
 
 springboot-logback 日志管理
@@ -62,6 +64,8 @@ springboot-read-yml springboot 读取配置文件 自定义配置文件 以及PO
 springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型 （String，set，zset,hash,list)使用 以及单机版事务测试
 
 springboot-restful springboot 中使用 restful风格
+
+springboot-scheduledlock springboot 中使用 scheduledlock 定时任务锁
 
 springboot-shiro 整合siro 实现 动态授权 认证 记住我功能 结合thymeleaf 动态显示菜单页等
 
