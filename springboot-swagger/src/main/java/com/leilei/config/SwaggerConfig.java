@@ -27,6 +27,19 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build();
     }
+    private List<Parameter> buildOperationParameters(String token) {
+        List<Parameter> parameters = Lists.newArrayList();
+        parameters.add(new ParameterBuilder()
+                .name("Authorization")
+                .description("TOKEN")
+                .modelRef(new ModelRef("string"))
+                .parameterType("header")
+                .required(false)
+                .defaultValue(token)
+                .build());
+
+        return parameters;
+    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
