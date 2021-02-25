@@ -1,0 +1,31 @@
+# \u914D\u7F6E\u7AEF\u53E3
+server:
+  port: 8080
+spring:
+  # \u914D\u7F6E\u6570\u636E\u6E90
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://42.192.160.109:3306/alarm?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+# mybatis-plus\u76F8\u5173\u914D\u7F6E
+mybatis-plus:
+  type-aliases-package: com.leilei.entity
+  # xml\u626B\u63CF\uFF0C\u591A\u4E2A\u76EE\u5F55\u7528\u9017\u53F7\u6216\u8005\u5206\u53F7\u5206\u9694\uFF08\u544A\u8BC9 Mapper \u6240\u5BF9\u5E94\u7684 XML \u6587\u4EF6\u4F4D\u7F6E\uFF09
+  mapper-locations: classpath:com/leilei/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
+      table-underline: true
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
