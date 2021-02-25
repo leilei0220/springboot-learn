@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  shardingsphere:
+    props:
+      sql:
+        show: true
+    datasource:
+      names: sc
+      sc:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://4xxx:3306/alarm_sc?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
+    sharding:
+      tables:
+        vehicle_alarm:
+          actualDataNodes: sc.vehicle_alarm_$->{1..2}
+          tableStrategy:
+            inline:
+              shardingColumn: id
+              algorithmExpression: vehicle_alarm_$->{id % 2 + 1}
+          keyGenerator:
+            type: SNOWFLAKE
+            column: id
+# mybatis-plus相关配置
+mybatis-plus:
+  type-aliases-package: com.leilei.entity
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:com/leilei/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
+      table-underline: true
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
