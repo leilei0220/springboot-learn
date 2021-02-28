@@ -7,13 +7,13 @@ package com.leilei.entity;
  * @date 2021-02-25 17:37
  */
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * vehicle_alarm
+ * @author lei
+ * @version 1.0
+ * @date 2021/2/28 16:49
  */
 @Data
 @TableName("vehicle_alarm")
@@ -21,7 +21,7 @@ public class VehicleAlarm {
     /**
      * id
      */
-    @TableId(type = IdType.INPUT)
+//    @TableId(type = IdType.INPUT,value = "id")
     private String  id;
 
     /**
@@ -38,5 +38,7 @@ public class VehicleAlarm {
      * deviceTime
      */
     private Long deviceTime;
+
+    private String zone;
 
 }

@@ -1,8 +1,8 @@
 package com.leilei.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.leilei.entity.VehicleAlarm;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 /**
  * @author lei
@@ -11,17 +11,5 @@ import org.springframework.stereotype.Component;
  * @date 2021-02-25 17:37
  */
 @Mapper
-@Component
-public interface VehicleAlarmMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(VehicleAlarm record);
-
-    int insertSelective(VehicleAlarm record);
-
-    VehicleAlarm selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(VehicleAlarm record);
-
-    int updateByPrimaryKey(VehicleAlarm record);
+public interface VehicleAlarmMapper extends BaseMapper<VehicleAlarm> {
 }
