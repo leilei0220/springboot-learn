@@ -1,10 +1,10 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 42.192.160.109
+ Source Server         : xx
  Source Server Type    : MySQL
  Source Server Version : 50730
- Source Host           : 42.192.160.109:3306
+ Source Host           : xx:3306
  Source Schema         : alarm_sc
 
  Target Server Type    : MySQL

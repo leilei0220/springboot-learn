@@ -63,18 +63,25 @@ spring:
         show: true
     # 数据源配置
     datasource:
-      names: sc
-      sc:
+      names: alarm-sc,alarm-bj
+      alarm-sc:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://xxx:3306/alarm_sc?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://42.192.160.109:3306/alarm-sc?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: root
+      alarm-bj:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://xx:3306/alarm-bj?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
         password: root
     sharding:
-#      defaultDatabaseStrategy:
-#        standard:
-#          shardingColumn: zone
-#          preciseAlgorithmClassName:
+      defaultDatabaseStrategy:
+        standard:
+          shardingColumn: zone
+          preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
+          rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
       # 表策略配置
       tables:
         # vehicle_alarm 是逻辑表
@@ -86,14 +93,6 @@ spring:
               preciseAlgorithmClassName: com.leilei.algorithm.TimeSubTablePreciseAlgorithm
               # 范围分片算法
               rangeAlgorithmClassName: com.leilei.algorithm.TimeSubTableRangeAlgorithm
-          # 简单使用，就用这个
-#          tableStrategy:
-#            inline:
-#              # 根据哪列分表
-#              shardingColumn: id
-#              # 分表算法 例如：Id为奇数 则为vehicle_alarm_2 id为偶数 vehicle_alarm_1
-#              algorithmExpression: vehicle_alarm_$->{id % 2 + 1}
-          # 分表后，sharding-jdbc的全局id生成策略
           keyGenerator:
             type: SNOWFLAKE
             # 对id列采用 sharding-jdbc的全局id生成策略

@@ -11,9 +11,14 @@ import java.util.Date;
  * @author lei
  * @version 1.0
  * @date 2021/2/28 16:59
+ * @desc 自定义精准分表算法 （根据时间 按月分表）
  */
-public class TimeSubTablePreciseAlgorithm implements PreciseShardingAlgorithm<Long> {
-
+public class SubTableTimePreciseAlgorithm implements PreciseShardingAlgorithm<Long> {
+    /**
+     * @param availableTargetNames  所有的分片数据库 （names 指定的名字）
+     * @param shardingValue 分片键（指定的那列作为分片条件）
+     * @return
+     */
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
         return shardingValue.getLogicTableName() + "_" + toDate(shardingValue.getValue());

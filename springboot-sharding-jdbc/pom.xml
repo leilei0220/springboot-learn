@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leilei</groupId>
-    <artifactId>springboot-sharding-jdbc-sub-table</artifactId>
+    <artifactId>springboot-sharding-jdbc</artifactId>
     <version>1.0.0</version>
-    <name>springboot-sharding-jdbc-sub-table</name>
+    <name>springboot-sharding-jdbc</name>
     <description>sharding-jdbc 分表</description>
     <properties>
         <java.version>1.8</java.version>

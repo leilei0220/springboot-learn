@@ -15,10 +15,16 @@ import java.util.LinkedHashSet;
  * @author lei
  * @version 1.0
  * @date 2021/2/28 20:59
+ * @desc 自定义范围分表算法 （根据时间范围筛选数据表）
  */
-public class TimeSubTableRangeAlgorithm implements RangeShardingAlgorithm<Long> {
+public class SubTableTimeRangeAlgorithm implements RangeShardingAlgorithm<Long> {
     private static final String ACTUAL_TABLE_PREFIX = "vehicle_alarm_";
 
+    /**
+     * @param availableTargetNames  所有的分片数据库 （names 指定的名字）
+     * @param shardingValue 分片键（指定的那列作为分片条件）
+     * @return
+     */
     @Override
     public Collection<String> doSharding(Collection<String> availableTargetNames, RangeShardingValue<Long> shardingValue) {
         Collection<String> result = new LinkedHashSet<>();
