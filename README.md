@@ -67,6 +67,8 @@ springboot-restful springboot 中使用 restful风格
 
 springboot-scheduledlock springboot 中使用 scheduledlock 定时任务锁
 
+springboot-sharding-jdbc springboot 中使用 sharding-jdbc 分库分表
+
 springboot-shiro 整合siro 实现 动态授权 认证 记住我功能 结合thymeleaf 动态显示菜单页等
 
 springboot-sms 整合阿里云短信发送工具

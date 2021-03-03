@@ -47,6 +47,14 @@ public class ShardingTest {
     }
 
     @Test
+    public void testLtGt() {
+        LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
+        wrapper.lt(VehicleAlarm::getDeviceTime, 1614517065621L);
+        List<VehicleAlarm> vehicleAlarms = vehicleAlarmMapper.selectList(wrapper);
+        System.out.println(vehicleAlarms);
+    }
+
+    @Test
     public void testTableBetween() {
         LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
         wrapper.between(VehicleAlarm::getDeviceTime, 1611827071000L, 1614517065621L);
@@ -78,13 +86,7 @@ public class ShardingTest {
         System.out.println(vehicleAlarms);
     }
 
-    @Test
-    public void testLtGt() {
-        LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
-        wrapper.lt(VehicleAlarm::getDeviceTime, 1614517065621L);
-        List<VehicleAlarm> vehicleAlarms = vehicleAlarmMapper.selectList(wrapper);
-        System.out.println(vehicleAlarms);
-    }
+
 
 
 }
