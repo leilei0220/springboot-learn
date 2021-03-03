@@ -2,6 +2,7 @@ package com.leilei;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.leilei.algorithm.DbSelectUtil;
 import com.leilei.entity.VehicleAlarm;
 import com.leilei.mapper.VehicleAlarmMapper;
@@ -46,6 +47,9 @@ public class ShardingTest {
         System.out.println(vehicleAlarms);
     }
 
+    /**
+     * > 查询会报错 TODO
+     */
     @Test
     public void testLtGt() {
         LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
@@ -62,6 +66,9 @@ public class ShardingTest {
         System.out.println(vehicleAlarms);
     }
 
+    /**
+     * 范围查询 库 与表
+     */
     @Test
     public void testTableDbBetween1() {
         LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
@@ -74,6 +81,9 @@ public class ShardingTest {
         System.out.println(vehicleAlarms);
     }
 
+    /**
+     * 范围查询库，精准匹配表
+     */
     @Test
     public void testTableDbBetween2() {
         LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
@@ -83,6 +93,23 @@ public class ShardingTest {
                 .eq(VehicleAlarm::getDeviceTime,  1614517065621L);
         List<VehicleAlarm> vehicleAlarms = vehicleAlarmMapper.selectList(wrapper);
         DbSelectUtil.DB_SELECTOR.remove();
+        System.out.println(vehicleAlarms);
+    }
+
+    /**
+     * 与sharding-jdbc 整合后后 分页失效了，需要自己实现分页
+     */
+    @Test
+    public void testPage() {
+        LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
+        List<String> zoneList = Arrays.asList("bj","sc");
+        DbSelectUtil.DB_SELECTOR.set(zoneList);
+        wrapper.in(VehicleAlarm::getZone, zoneList)
+                .between(VehicleAlarm::getDeviceTime,1614517065621L,System.currentTimeMillis());
+        Integer count = vehicleAlarmMapper.selectCount(wrapper);
+        List<VehicleAlarm> vehicleAlarms = vehicleAlarmMapper.selectList(wrapper.last("limit 0,10"));
+        DbSelectUtil.DB_SELECTOR.remove();
+        System.out.println(count);
         System.out.println(vehicleAlarms);
     }
 
