@@ -63,6 +63,7 @@ spring:
         show: true
     # 数据源配置
     datasource:
+      # names必须对应数据库的名字，且与下方配置相对应
       names: alarm-sc,alarm-bj
       alarm-sc:
         type: com.alibaba.druid.pool.DruidDataSource
@@ -77,11 +78,11 @@ spring:
         username: root
         password: root
     sharding:
-      # 默认数据库策略
+      # 默认数据库策略 如果不想分库，可不设此配置
       defaultDatabaseStrategy:
         # 分库
         standard:
-          # 分片键 zone  表示根据 数据zone这一列的值进行分片
+          # 分片键 zone  表示根据 数据zone这一列的值与自定义的算法进行分片
           shardingColumn: zone
           # 精准分片算法
           preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
@@ -89,10 +90,11 @@ spring:
           rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
       # 表策略配置
       tables:
-        # vehicle_alarm 是逻辑表
+        # vehicle_alarm 是逻辑名表
         vehicle_alarm:
           table-strategy:
             standard:
+              #分片键 device_time 即根据device_time这列的值与设定的算法进行分表
               shardingColumn: device_time
               # 精准分片算法
               preciseAlgorithmClassName: com.leilei.algorithm.SubTableTimePreciseAlgorithm
@@ -106,8 +108,6 @@ spring:
 # mybatis-plus相关配置
 mybatis-plus:
   type-aliases-package: com.leilei.entity
-  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
-  mapper-locations: classpath:com/leilei/mapper/*Mapper.xml
   global-config:
     db-config:
       id-type: auto
@@ -117,4 +117,3 @@ mybatis-plus:
   configuration:
     cache-enabled: false
     map-underscore-to-camel-case: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

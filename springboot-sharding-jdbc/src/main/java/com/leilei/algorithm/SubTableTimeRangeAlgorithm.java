@@ -21,7 +21,7 @@ public class SubTableTimeRangeAlgorithm implements RangeShardingAlgorithm<Long> 
     private static final String ACTUAL_TABLE_PREFIX = "vehicle_alarm_";
 
     /**
-     * @param availableTargetNames  所有的分片数据库 （names 指定的名字）
+     * @param availableTargetNames 所有的分片集 由于我这个算法是指定了分表算法，则这里是逻辑表名列表 目前则为"vehicle_alarm"
      * @param shardingValue 分片键（指定的那列作为分片条件）
      * @return
      */

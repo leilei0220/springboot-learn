@@ -18,7 +18,7 @@ public class SubDataBaseRangeAlgorithm implements RangeShardingAlgorithm<String>
     public static final String DB_PREFIX = "alarm-";
 
     /**
-     * @param availableTargetNames  所有的分片数据库 （names 指定的名字）
+     * @param availableTargetNames 所有的分片集 由于我这个算法是指定了分表算法，则这里是库列表即names 指定的名字
      * @param shardingValue 分片键（指定的那列作为分片条件）
      * @return
      * @desc 由于我这里指定的一个业务列作为分库策略 比如zone为（四川 sc,北京 bj,山西 sx等）故此这里采用ThreadLocal 每次有涉及到分库操作时，

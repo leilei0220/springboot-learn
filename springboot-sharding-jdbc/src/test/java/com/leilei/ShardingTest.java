@@ -2,7 +2,6 @@ package com.leilei;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.leilei.algorithm.DbSelectUtil;
 import com.leilei.entity.VehicleAlarm;
 import com.leilei.mapper.VehicleAlarmMapper;
@@ -42,7 +41,7 @@ public class ShardingTest {
     @Test
     public void testEq() {
         LambdaQueryWrapper<VehicleAlarm> wrapper = new QueryWrapper<VehicleAlarm>().lambda();
-        wrapper.eq(VehicleAlarm::getDeviceTime, 1612273587000L).eq(VehicleAlarm::getZone, "bj");
+        wrapper.eq(VehicleAlarm::getZone, "bj").eq(VehicleAlarm::getDeviceTime,1612274617000L);
         List<VehicleAlarm> vehicleAlarms = vehicleAlarmMapper.selectList(wrapper);
         System.out.println(vehicleAlarms);
     }

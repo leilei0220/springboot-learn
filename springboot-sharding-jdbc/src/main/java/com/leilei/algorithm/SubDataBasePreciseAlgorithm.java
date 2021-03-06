@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class SubDataBasePreciseAlgorithm implements PreciseShardingAlgorithm<String> {
     /**
-     * @param availableTargetNames  所有的分片数据库 （names 指定的名字）
+     * @param availableTargetNames 所有的分片集 由于我这个算法是指定了分表算法，则这里是库列表即names 指定的名字列表
      * @param shardingValue 分片键（指定的那列作为分片条件）
      * @return
      */

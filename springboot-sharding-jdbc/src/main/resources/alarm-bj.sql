@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : xx
+ Source Server         : xxx
  Source Server Type    : MySQL
  Source Server Version : 50730
- Source Host           : xx:3306
- Source Schema         : alarm_sc
+ Source Host           : xxx:3306
+ Source Schema         : alarm-bj
 
  Target Server Type    : MySQL
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 28/02/2021 21:15:48
+ Date: 06/03/2021 18:58:19
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `vehicle_alarm_202101`  (
   INDEX `license_plate`(`license_plate`) USING BTREE,
   INDEX `plate_color`(`plate_color`) USING BTREE,
   INDEX `device_time`(`device_time`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'vehicle_alarm' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'vehicle_alarm' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for vehicle_alarm_202102
@@ -49,6 +49,23 @@ CREATE TABLE `vehicle_alarm_202102`  (
   INDEX `license_plate`(`license_plate`) USING BTREE,
   INDEX `plate_color`(`plate_color`) USING BTREE,
   INDEX `device_time`(`device_time`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'vehicle_alarm' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'vehicle_alarm' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for vehicle_alarm_202103
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicle_alarm_202103`;
+CREATE TABLE `vehicle_alarm_202103`  (
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'id',
+  `license_plate` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'licensePlate',
+  `plate_color` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'plateColor',
+  `device_time` bigint(15) NULL DEFAULT NULL COMMENT 'deviceTime',
+  `zone` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `id`(`id`) USING BTREE,
+  INDEX `license_plate`(`license_plate`) USING BTREE,
+  INDEX `plate_color`(`plate_color`) USING BTREE,
+  INDEX `device_time`(`device_time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'vehicle_alarm' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
