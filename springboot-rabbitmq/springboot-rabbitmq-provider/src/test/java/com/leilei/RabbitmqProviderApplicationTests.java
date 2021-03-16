@@ -6,6 +6,7 @@ import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
 import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.ttl.TtlProvider;
+import com.leilei.ttlanddead.TtlAndDeadProvider;
 import com.leilei.work.WorkProviderServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ class RabbitmqProviderApplicationTests {
     private TopicRabbitProvider topicRabbitProvider;
     @Autowired
     private TtlProvider ttlProvider;
+    @Autowired
+    private TtlAndDeadProvider ttlAndDeadProvider;
     @Autowired
     private ConfirmServer confirmServer;
     @Test
@@ -107,9 +110,20 @@ class RabbitmqProviderApplicationTests {
         topicRabbitProvider.sendTopMessage();
     }
 
+    /**
+     * ttl 过期队列
+     */
     @Test
     void ttl() {
         ttlProvider.sendMessage();
+    }
+
+    /**
+     * ttl 过期队列+死信
+     */
+    @Test
+    void ttlAndDead() {
+        ttlAndDeadProvider.sendMessage();
     }
 
     /**
