@@ -18,7 +18,7 @@ public class FanoutExchangeProvider {
 
     public void sendFanoutExchangeMessage() {
         for (int i = 0; i < 10; i++) {
-            rabbitTemplate.convertSendAndReceive("fanout_exchange","",new Vehicle(i,i+"发布订阅车车"));
+            rabbitTemplate.convertAndSend("fanout_exchange","",new Vehicle(i,i+"发布订阅车车"));
         }
     }
 }

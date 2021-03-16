@@ -1,5 +1,6 @@
 package com.leilei.work;
 
+import com.alibaba.fastjson.JSON;
 import com.leilei.common.Vehicle;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class WorkProviderServer {
 
     public void sendWorkMessage() {
         for (int i = 0; i < 10; i++) {
-            rabbitTemplate.convertAndSend("rabbit_work_queue",new Vehicle(i,i+"work车车"));
+            rabbitTemplate.convertAndSend("rabbit_work_queue", JSON.toJSONString(new Vehicle(i,i+"work车车")));
         }
     }
 

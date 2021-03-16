@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WorkRabbitConfig {
     @Bean
-    public Queue easyQueue() {
+    public Queue workQueue() {
         return new Queue("rabbit_work_queue");
     }
 }

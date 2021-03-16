@@ -33,7 +33,7 @@ class RabbitmqProviderApplicationTests {
     }
 
     @Test
-    void test() {
+    void testWork() {
         /**
          * 一个生产者 多个消费者 生产者生产的消息被平分到消费者 例如 十条消息 有两个消费者 则每个消费者会消费五次
          */
