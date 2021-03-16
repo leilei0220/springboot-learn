@@ -42,14 +42,15 @@ public class TopicRabbitConfig {
 
     /**
      * 队列一绑定到交换机 且设置路由键为 topic.#
+     *  #可以匹配无限级（0到n），生产者发送消息指定路由键为（topic.xx /  xx.xx.topic.xx.xx / xx.topic 队列一均可以接收到消息 ）
      * @return
      */
     @Bean
     public Binding bindingTopic1() {
-        return BindingBuilder.bind(topicQueueOne()).to(exchangeTopic()).with("topic.#");
+        return BindingBuilder.bind(topicQueueOne()).to(exchangeTopic()).with("#.topic.#");
     }
     /**
-     * 队列一绑定到交换机 且设置路由键为 topic.*
+     * 队列二绑定到交换机 且设置路由键为 topic.*  （* 仅可匹配一级，则只有路由键为topic.xx时 队列二才能接受到消息）
      * @return
      */
     @Bean
