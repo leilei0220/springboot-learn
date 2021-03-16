@@ -1,6 +1,8 @@
 package com.leilei.topic;
 
+import com.alibaba.fastjson.JSON;
 import com.leilei.common.Vehicle;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TopRabbitConsumer {
     @RabbitListener(queues = "rabbit_topic_queue_1")
-    public void listenOne(Vehicle vehicle) {
-        System.out.println("监听到队列一消息" + vehicle);
+    public void listenOne(Message message) {
+        System.out.println("监听到队列一消息:无限路由词" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
     @RabbitListener(queues = "rabbit_topic_queue_2")
-    public void listenOTwo(Vehicle vehicle) {
-        System.out.println("监听到队列二消息" + vehicle);
+    public void listenOTwo(Message message) {
+        System.out.println("监听到队列二消息：一级路由词" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
 }

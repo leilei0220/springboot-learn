@@ -1,5 +1,6 @@
 package com.leilei.fanout;
 
+import com.alibaba.fastjson.JSON;
 import com.leilei.common.Vehicle;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class FanoutExchangeProvider {
 
     public void sendFanoutExchangeMessage() {
         for (int i = 0; i < 10; i++) {
-            rabbitTemplate.convertAndSend("fanout_exchange","",new Vehicle(i,i+"发布订阅车车"));
+            rabbitTemplate.convertAndSend("fanout_exchange","", JSON.toJSONString(new Vehicle(i,i+"发布订阅车车")));
         }
     }
 }

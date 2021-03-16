@@ -1,6 +1,8 @@
 package com.leilei.fanout;
 
+import com.alibaba.fastjson.JSON;
 import com.leilei.common.Vehicle;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -13,20 +15,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class FantoutExchangeConsumer {
     @RabbitListener(queues = "rabbit_fanout_queue_one")
-    public void consumerOne(Vehicle vehicle) {
-        System.out.println("rabbit_fanout_queue_one队列 消费者1：收到消息---" + vehicle);
+    public void consumerOne(Message message) {
+        System.out.println("rabbit_fanout_queue_one队列 消费者1：收到消息---" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
     @RabbitListener(queues = "rabbit_fanout_queue_one")
-    public void consumerOne2(Vehicle vehicle) {
-        System.out.println("rabbit_fanout_queue_one队列 消费者2：收到消息---" + vehicle);
+    public void consumerOne2(Message message) {
+        System.out.println("rabbit_fanout_queue_one队列 消费者2：收到消息---" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
     //-------------一个队列绑定两个消费者 --------------------------------
     @RabbitListener(queues = "rabbit_fanout_queue_two")
-    public void consumerTwo(Vehicle vehicle) {
-        System.out.println("rabbit_fanout_queue_two队列 消费者1：收到消息---" + vehicle);
+    public void consumerTwo(Message message) {
+        System.out.println("rabbit_fanout_queue_two队列 消费者1：收到消息---" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
     @RabbitListener(queues = "rabbit_fanout_queue_two")
-    public void consumerTwo2(Vehicle vehicle) {
-        System.out.println("rabbit_fanout_queue_two队列 消费者2：收到消息---" + vehicle);
+    public void consumerTwo2(Message message) {
+        System.out.println("rabbit_fanout_queue_two队列 消费者2：收到消息---" + JSON.parseObject(new String(message.getBody()),Vehicle.class));
     }
 }

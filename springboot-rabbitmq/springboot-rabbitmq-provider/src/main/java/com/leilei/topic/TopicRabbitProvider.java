@@ -1,5 +1,6 @@
 package com.leilei.topic;
 
+import com.alibaba.fastjson.JSON;
 import com.leilei.common.Vehicle;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ public class TopicRabbitProvider {
     public void sendTopMessage() {
         for (int i = 0; i < 10; i++) {
             if (i%2==0) {
-                rabbitTemplate.convertSendAndReceive("topic_exchange","topic.lei",new Vehicle(i,i+"一个词路由键车车"));
+                rabbitTemplate.convertSendAndReceive("topic_exchange","topic.lei",
+                        JSON.toJSONString(new Vehicle(i,i+"单级路由词==车辆")));
             }else {
-                rabbitTemplate.convertSendAndReceive("topic_exchange","topic.lei.xxl",new Vehicle(i,i+"多个词路由键车车"));
+                rabbitTemplate.convertSendAndReceive("topic_exchange","topic.lei.xxl",
+                        JSON.toJSONString(new Vehicle(i,i+"无限级路由词==车辆")));
             }
         }
     }
