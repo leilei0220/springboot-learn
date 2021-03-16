@@ -18,6 +18,8 @@ topic 包下 为主题模式  队列绑定到topic模式交换机 在指定路�
     #  * 区别
     * 仅仅会匹配路由键的一个词 如果生产者发送消息到路由键 例如 leilei.one / leilei.two 则会被对应绑定的队列监听到
     # 则可以匹配路由键的多个词 如果生产者发送消息到路由键 例如 leilei.one / leilei.one.xxl / leilei.one.xxl.eq  只要是以leilei 路由键为前缀的，无论多少个次都会被监听到
+
+ttl包下 为 rabbitmq 的ttl模式 （设置消息存活时间）
     
 queue 队列默认为持久化状态
     

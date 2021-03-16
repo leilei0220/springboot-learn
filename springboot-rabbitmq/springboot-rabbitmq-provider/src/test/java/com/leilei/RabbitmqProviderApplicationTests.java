@@ -5,6 +5,7 @@ import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
 import com.leilei.topic.TopicRabbitProvider;
+import com.leilei.ttl.TtlProvider;
 import com.leilei.work.WorkProviderServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ class RabbitmqProviderApplicationTests {
     private DirectExchangeProvider directExchangeProvider;
     @Autowired
     private TopicRabbitProvider topicRabbitProvider;
+    @Autowired
+    private TtlProvider ttlProvider;
     @Autowired
     private ConfirmServer confirmServer;
     @Test
@@ -102,6 +105,11 @@ class RabbitmqProviderApplicationTests {
     @Test
     void Topic() {
         topicRabbitProvider.sendTopMessage();
+    }
+
+    @Test
+    void ttl() {
+        ttlProvider.sendMessage();
     }
 
     /**
