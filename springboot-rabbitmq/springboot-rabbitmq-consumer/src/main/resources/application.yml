@@ -5,12 +5,14 @@ spring:
     port: 5673
     username: admin
     password: admin
-    # 开启消息确认机制 confirm 异步
-    publisher-confirm-type: correlated
     listener:
       direct:
         # 消息开启手动确认
         acknowledge-mode: manual
-    publisher-returns: true
-  main:
-    allow-bean-definition-overriding: true
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 3
+          max-interval: 3000
+

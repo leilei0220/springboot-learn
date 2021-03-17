@@ -20,4 +20,14 @@ public class TtlProvider {
     public void sendMessage() {
         rabbitTemplate.convertAndSend("ttl-exchange", "", JSON.toJSONString(new Vehicle(1, "测试ttl")));
     }
+
+    /**
+     * 设置消息存活时间为6秒
+     */
+    public void sendMessage2() {
+        rabbitTemplate.convertAndSend("ttl-exchange", "", JSON.toJSONString(new Vehicle(2, "测试ttl2")),message -> {
+            message.getMessageProperties().setExpiration(1000 * 5 + "");
+            return message;
+        });
+    }
 }

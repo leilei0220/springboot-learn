@@ -27,11 +27,24 @@ public class TtlRabbitConfig {
     }
 
     @Bean
+    public Queue ttlQueue2() {
+        // Map<String, Object> props = new HashMap<>();
+        // 消息存活时间 ,key 固定 value 必须为Int值,此处不设置，当发小时时候设置
+        // props.put("x-message-ttl", 10000);
+        return new Queue("ttl-queue-2", true, false, false);
+    }
+
+    @Bean
     public FanoutExchange fanoutExchange() {
         return new FanoutExchange("ttl-exchange");
     }
     @Bean
     public Binding ttlBinding() {
         return BindingBuilder.bind(ttlQueue()).to(fanoutExchange());
+    }
+
+    @Bean
+    public Binding ttlBinding2() {
+        return BindingBuilder.bind(ttlQueue2()).to(fanoutExchange());
     }
 }
