@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leilei</groupId>
-    <artifactId>springboot-cache-ehcache</artifactId>
+    <artifactId>springboot-cache-redis</artifactId>
     <version>1.0</version>
-    <name>springboot-cache-ehcache</name>
-    <description>整合eh-cache缓存</description>
+    <name>springboot-cache-redis</name>
+    <description>使用spring-cache注解，将数据缓存到redis中</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -26,13 +26,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-
-        <!-- Ehcache 核心依赖 -->
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -50,6 +47,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
