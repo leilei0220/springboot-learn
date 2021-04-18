@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ehcache>
+    <!--cache 存在磁盘中的位置-->
+    <diskStore path="E://ehcache/" />
+    <!--默认缓存策略-->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120" />
+
+    <!--
+    maxElementsInMemory 表示缓存最大个数
+    eternal 表示缓存对象是否永久有效，一旦设置了永久有效，timeout 将不起作用。
+    timeToIdleSeconds 表示缓存对象在失效前的允许闲置时间（单位：秒），当 etemal = false 对象不是永久有效时，该属性才生效。
+    timeToLiveSeconds 表示缓存对象在失效前允许存活的时间（单位：秒），在 etemal = false 对象不是 永久有效时，该属性才生效。
+    overflowToDisk 表示当内存中的对象数量达到 maxElementsInMemory 时，Ehcache 是否将对象写到磁盘中。
+    diskExpiryThreadIntervalSeconds 表示磁盘失效线程运行时间间隔。
+    -->
+
+    <!--自定义缓存-->
+    <cache name="userCache"
+           maxElementsInMemory="10000"
+           eternal="true"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="600" />
+
+    <cache name="userCacheByCreateId"
+           maxElementsInMemory="10000"
+           eternal="true"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="600" />
+</ehcache>
