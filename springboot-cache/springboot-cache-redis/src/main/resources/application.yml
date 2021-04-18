@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   redis:
-    host: 42.192.160.109
+    host: xx
     password: leiRedis..
     database: 15
   datasource:

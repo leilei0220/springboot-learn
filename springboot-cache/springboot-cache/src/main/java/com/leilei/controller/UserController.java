@@ -3,7 +3,6 @@ package com.leilei.controller;
 import com.leilei.entity.User;
 import com.leilei.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
