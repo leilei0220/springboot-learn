@@ -1,0 +1,21 @@
+# springboot-cache-j2cache
+
+## j2cache 二级缓存框架 并整合spring-cache
+
+spring cache相关注解如下
+@Cacheable（获取、添加缓存），
+@CachePut（修改缓存），
+@CacheEvict（删除缓存）
+@Caching (可混用以上三种缓存注解)
+按照以上注解形式自定义注解
+
+## 一级缓存采用caffine （内存中）二级缓存采用redis
+
+## 缓存优先级说明：
+数据优先从一级缓存中获取（内存），一级缓存如果获取到数据，则直接返回
+如一级缓存未获取到数据，则从二级缓存（redis）中获取
+二级缓存（redis）获取到数据：返回数据，并更新一级缓存
+二级缓存（redis）未获取到数据：查询DB 返回数据，添加一级二级缓存
+
+
+

@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://xxx:3306/learn?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: leimysql..
+
+j2cache:
+  config-location: /j2cache-${spring.profiles.active}.properties
+  redis-client: lettuce
+  open-spring-cache: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
