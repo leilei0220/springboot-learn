@@ -76,7 +76,7 @@ public class UserService {
      * @param user
      * @return
      */
-    @CacheEvict(value = {"userCacheByCreateId"},key = "#user.createId")
+    @CacheEvict(value = {"userCacheByCreateId"},allEntries = true )
     public User createUser(User user) {
         userMapper.insert(user);
         return user;
