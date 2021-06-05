@@ -11,8 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AnonymousConsumer {
+    /**
+     *  testAnonymous 定义的匿名队列的bean的名字
+     *  监听队列则 #{匿名队列bean名.name}
+     * @param message
+     */
     @RabbitListener(queues = "#{testAnonymous.name}")
-    public void anonymousListener(String message) throws Exception{
+    public void anonymousListener(String message) {
         System.out.println(message);
     }
 }
