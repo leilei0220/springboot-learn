@@ -1,6 +1,8 @@
 ### springboot 整合rabbitmq
 整合多种模式  测试结果与心得详见 测试类
 
+anonymous 匿名队列使用
+
 common 为多个模式公共所需 我这里为 一个对象实体
 
 
