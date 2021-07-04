@@ -1,0 +1,26 @@
+timely:
+  # \u662F\u5426\u5F00\u542F
+  switch: true
+  # \u504F\u79FB\u91CF\u6587\u4EF6
+  offset-file-name: E://lei/offsets.dat
+  # \u662F\u5426\u542F\u4E1C\u65F6\u6E05\u9664\u504F\u79FB\u91CF\u6587\u4EF6
+  offset-file-clean: true
+  # \u504F\u79FB\u91CF\u63D0\u4EA4\u65F6\u95F4 \u5355\u4F4Dms
+  offset-time: 1
+  # \u8BFB\u53D6\u5386\u53F2\u8BB0\u5F55\u6587\u4EF6
+  history-file-name: E://lei/dbhistory.dat
+  # \u8BFB\u53D6\u7684\u6570\u636E\u5E93\u4FE1\u606F
+  offline:
+    ip: 10.50.100.68
+    port: 1433
+    username: sa
+    password: 8AL16x76NP3R
+    # \u4FDD\u8BC1\u6BCF\u4E2A\u6570\u636E\u5E93\u8BFB\u53D6\u7684 instance-name  logic-name \u4E0D\u80FD\u76F8\u540C
+    # \u5B9E\u4F8B\u540D
+    instance-name: sc-mssql-connector
+    # \u903B\u8F91\u540D
+    logic-name: sc-mssql-customer
+    # \u8BFB\u53D6\u7684\u8868
+    include-table: dbo.PfSObjDeviceBind
+    # \u8BFB\u53D6\u7684\u5E93
+    include-db: GPS
