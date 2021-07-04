@@ -1,5 +1,6 @@
 package com.leilei;
 
+import cn.hutool.core.io.FileUtil;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.debezium.connector.sqlserver.SqlServerConnector;
 import io.debezium.embedded.Connect;
@@ -58,6 +59,9 @@ public class ChangeEventConfig {
     @Autowired
     public ChangeEventConfig(ChangeEventHandler changeEventHandler) {
         this.changeEventHandler = changeEventHandler;
+        if (offsetFileDelete && FileUtil.exist(offsetFileName)) {
+            FileUtil.del(offsetFileName);
+        }
     }
 
     /**
