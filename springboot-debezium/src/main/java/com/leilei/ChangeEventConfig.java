@@ -14,6 +14,7 @@ import org.apache.kafka.connect.source.SourceRecord;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +60,10 @@ public class ChangeEventConfig {
     @Autowired
     public ChangeEventConfig(ChangeEventHandler changeEventHandler) {
         this.changeEventHandler = changeEventHandler;
+    }
+
+    @Bean
+    public void cleanFile() {
         if (offsetFileDelete && FileUtil.exist(offsetFileName)) {
             FileUtil.del(offsetFileName);
         }
@@ -69,43 +74,42 @@ public class ChangeEventConfig {
      *
      * @return configuration
      */
-//    @Bean
-//    io.debezium.config.Configuration debeziumConfig() {
-//        return io.debezium.config.Configuration.create()
-////            连接器的Java类名称
-//                .with("connector.class", MySqlConnector.class.getName())
-////            偏移量持久化，用来容错 默认值
-//                .with("offset.storage", "org.apache.kafka.connect.storage.FileOffsetBackingStore")
-////                偏移量持久化文件路径 默认/tmp/offsets.dat  如果路径配置不正确可能导致无法存储偏移量 可能会导致重复消费变更
-////                如果连接器重新启动，它将使用最后记录的偏移量来知道它应该恢复读取源信息中的哪个位置。
-//                .with("offset.storage.file.filename", "E://spring-boot-debezium/tmp/offsets.dat")
-////                捕获偏移量的周期
-//                .with("offset.flush.interval.ms", "6000")
-////               连接器的唯一名称
-//                .with("name", "mysql-connector")
-////                数据库的hostname
-//                .with("database.hostname", "xx")
-////                端口
-//                .with("database.port", "3306")
-////                用户名
-//                .with("database.user", "root")
-////                密码
-//                .with("database.password", "xx..")
-////                 包含的数据库列表
-//                .with("database.include.list", "etl")
-////                是否包含数据库表结构层面的变更，建议使用默认值true
-//                .with("include.schema.changes", "false")
-////                mysql.cnf 配置的 server-id
-//                .with("database.server.id", "123")
-////                	MySQL 服务器或集群的逻辑名称
-//                .with("database.server.name", "customer-mysql-db-server")
-////                历史变更记录
-//                .with("database.history", "io.debezium.relational.history.FileDatabaseHistory")
-////                历史变更记录存储位置，存储DDL
-//                .with("database.history.file.filename", "E://spring-boot-debezium/tmp/dbhistory.dat")
-//                .build();
-//    }
-
+    //    @Bean
+    //    io.debezium.config.Configuration debeziumConfig() {
+    //        return io.debezium.config.Configuration.create()
+    ////            连接器的Java类名称
+    //                .with("connector.class", MySqlConnector.class.getName())
+    ////            偏移量持久化，用来容错 默认值
+    //                .with("offset.storage", "org.apache.kafka.connect.storage.FileOffsetBackingStore")
+    ////                偏移量持久化文件路径 默认/tmp/offsets.dat  如果路径配置不正确可能导致无法存储偏移量 可能会导致重复消费变更
+    ////                如果连接器重新启动，它将使用最后记录的偏移量来知道它应该恢复读取源信息中的哪个位置。
+    //                .with("offset.storage.file.filename", "E://spring-boot-debezium/tmp/offsets.dat")
+    ////                捕获偏移量的周期
+    //                .with("offset.flush.interval.ms", "6000")
+    ////               连接器的唯一名称
+    //                .with("name", "mysql-connector")
+    ////                数据库的hostname
+    //                .with("database.hostname", "xx")
+    ////                端口
+    //                .with("database.port", "3306")
+    ////                用户名
+    //                .with("database.user", "root")
+    ////                密码
+    //                .with("database.password", "xx..")
+    ////                 包含的数据库列表
+    //                .with("database.include.list", "etl")
+    ////                是否包含数据库表结构层面的变更，建议使用默认值true
+    //                .with("include.schema.changes", "false")
+    ////                mysql.cnf 配置的 server-id
+    //                .with("database.server.id", "123")
+    ////                	MySQL 服务器或集群的逻辑名称
+    //                .with("database.server.name", "customer-mysql-db-server")
+    ////                历史变更记录
+    //                .with("database.history", "io.debezium.relational.history.FileDatabaseHistory")
+    ////                历史变更记录存储位置，存储DDL
+    //                .with("database.history.file.filename", "E://spring-boot-debezium/tmp/dbhistory.dat")
+    //                .build();
+    //    }
     @Bean
     io.debezium.config.Configuration debeziumConfig() {
         return io.debezium.config.Configuration.create()
