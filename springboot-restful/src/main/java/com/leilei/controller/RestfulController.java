@@ -2,6 +2,8 @@ package com.leilei.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author lei
  * @version 1.0
@@ -31,5 +33,15 @@ public class RestfulController {
     @GetMapping("/info")
     public String info() {
         return "额外info";
+    }
+
+    /**
+     *  http://10.50.40.113:8080/user/test/1,2,3,4,5
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/test/{ids}")
+    public String info(@PathVariable("ids") List<Integer> ids) {
+        return ids.toString();
     }
 }

@@ -18,7 +18,7 @@ import java.util.UUID;
  * @desc
  */
 @Service
-public class ConfirmServer2 implements RabbitTemplate.ConfirmCallback,RabbitTemplate.ReturnCallback{
+public class ConfirmServer2 /*implements RabbitTemplate.ConfirmCallback,RabbitTemplate.ReturnCallback*/{
     @Autowired
     private RabbitTemplate rabbitTemplate;
     /**
@@ -32,15 +32,15 @@ public class ConfirmServer2 implements RabbitTemplate.ConfirmCallback,RabbitTemp
                     "",
                     JSON.toJSONString(new Vehicle(1,"confirm功能的车车")),
                     new CorrelationData(UUID.randomUUID().toString()));
-        this.rabbitTemplate.setConfirmCallback(this);
+        // this.rabbitTemplate.setConfirmCallback(this);
     }
 
-    /**
+/*    *//**
      *
      * @param correlationData
      * @param ack
      * @param cause
-     */
+     *//*
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         if (ack) {
@@ -50,14 +50,14 @@ public class ConfirmServer2 implements RabbitTemplate.ConfirmCallback,RabbitTemp
         }
     }
 
-    /**
+    *//**
      * 当 发送消息到交换机或mq失败时，会进入returnedMessage方法，成功不会进入
      * @param message
      * @param replyCode
      * @param replyText
      * @param exchange
      * @param routingKey
-     */
+     *//*
     @Override
     public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
         System.out.println("message: " + SerializationUtils.deserialize(message.getBody()));
@@ -65,5 +65,5 @@ public class ConfirmServer2 implements RabbitTemplate.ConfirmCallback,RabbitTemp
         System.out.println("replyText：" + replyText);
         System.out.println("exchange : " + exchange);
         System.out.println("routing : " + routingKey);
-    }
+    }*/
 }
