@@ -15,4 +15,5 @@ spring:
           enabled: true
           max-attempts: 3
           max-interval: 3000
-
+server:
+  port: 8081
