@@ -21,6 +21,7 @@ public class SubTableTimePreciseAlgorithm implements PreciseShardingAlgorithm<Lo
      */
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
+        System.out.println("精准表策略触发--逻辑表名:" + availableTargetNames);
         return shardingValue.getLogicTableName() + "_" + toDate(shardingValue.getValue());
     }
 

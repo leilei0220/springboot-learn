@@ -20,6 +20,7 @@ public class SubDataBasePreciseAlgorithm implements PreciseShardingAlgorithm<Str
      */
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<String> shardingValue) {
+        System.out.println("真实库列表:" + availableTargetNames);
         for (String databaseName : availableTargetNames) {
             String zoneValue = shardingValue.getValue();
             zoneValue = zoneValue == null || Objects.equals(zoneValue.replace(" ", ""), "") ? "sc" : zoneValue;

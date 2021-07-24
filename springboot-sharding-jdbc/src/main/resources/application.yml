@@ -79,20 +79,29 @@ spring:
         password: root
     sharding:
       # 默认数据库策略 如果不想分库，可不设此配置
-      defaultDatabaseStrategy:
-        # 分库
-        standard:
-          # 分片键 zone  表示根据 数据zone这一列的值与自定义的算法进行分片
-          shardingColumn: zone
-          # 精准分片算法
-          preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
-          # 范围分片算法
-          rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
+#      defaultDatabaseStrategy:
+#        # 分库
+#        standard:
+#          # 分片键 zone  表示根据 数据zone这一列的值与自定义的算法进行分片
+#          shardingColumn: zone
+#          # 精准分片算法
+#          preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
+#          # 范围分片算法
+#          rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
+      # 默认分表策略
+#      defaultTableStrategy:
+#        standard:
+#          #分片键 device_time 即根据device_time这列的值与设定的算法进行分表
+#          shardingColumn: device_time
+#          # 精准分片算法
+#          preciseAlgorithmClassName: com.leilei.algorithm.SubTableTimePreciseAlgorithm
+#          # 范围分片算法
+#          rangeAlgorithmClassName: com.leilei.algorithm.SubTableTimeRangeAlgorithm
       # 表策略配置
       tables:
         # vehicle_alarm 是逻辑名表
         vehicle_alarm:
-          table-strategy:
+          tableStrategy:
             standard:
               #分片键 device_time 即根据device_time这列的值与设定的算法进行分表
               shardingColumn: device_time
@@ -100,6 +109,15 @@ spring:
               preciseAlgorithmClassName: com.leilei.algorithm.SubTableTimePreciseAlgorithm
               # 范围分片算法
               rangeAlgorithmClassName: com.leilei.algorithm.SubTableTimeRangeAlgorithm
+          databaseStrategy:
+            # 分库
+            standard:
+              # 分片键 zone  表示根据 数据zone这一列的值与自定义的算法进行分片
+              shardingColumn: zone
+              # 精准分片算法
+              preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
+              # 范围分片算法
+              rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
           keyGenerator:
             # 唯一值生成类型为雪花算法
             type: SNOWFLAKE
@@ -114,6 +132,7 @@ mybatis-plus:
       table-underline: true
       logic-not-delete-value: 0
       logic-delete-value: 1
+    banner: false
   configuration:
     cache-enabled: false
     map-underscore-to-camel-case: true

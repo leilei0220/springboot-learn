@@ -4,12 +4,13 @@ import com.google.common.collect.Range;
 import org.apache.shardingsphere.api.sharding.standard.RangeShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.RangeShardingValue;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author lei
@@ -19,41 +20,46 @@ import java.util.LinkedHashSet;
  */
 public class SubTableTimeRangeAlgorithm implements RangeShardingAlgorithm<Long> {
     private static final String ACTUAL_TABLE_PREFIX = "vehicle_alarm_";
+    private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
 
     /**
      * @param availableTargetNames 所有的分片集 由于我这个算法是指定了分表算法，则这里是逻辑表名列表 目前则为"vehicle_alarm"
-     * @param shardingValue 分片键（指定的那列作为分片条件）
+     * @param shardingValue        分片键（指定的那列作为分片条件）
      * @return
      */
     @Override
     public Collection<String> doSharding(Collection<String> availableTargetNames, RangeShardingValue<Long> shardingValue) {
-        Collection<String> result = new LinkedHashSet<>();
+        System.out.println("范围表策略触发--逻辑表名:" + availableTargetNames);
         Range<Long> range = shardingValue.getValueRange();
-        Integer start = toDateMonth(range.lowerEndpoint());
-        int end = toDateMonth(range.upperEndpoint());
-        for (int i = start; i <= end; i = toNextDateMonth(i)) {
-            result.add(ACTUAL_TABLE_PREFIX + i);
+        Set<String> collect = buildRangeTime(range.lowerEndpoint(), range.upperEndpoint())
+                .stream()
+                .map(date -> ACTUAL_TABLE_PREFIX + date)
+                .collect(Collectors.toCollection(TreeSet::new));
+        System.out.println(collect);
+        return collect;
+    }
+
+
+    public static Set<Integer> buildRangeTime(Long startMill, Long endMill) {
+        LocalDate startDate = Instant.ofEpochMilli(startMill).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+        LocalDate endDate = Instant.ofEpochMilli(endMill).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+        Integer start = Integer.valueOf(df.format(startDate));
+        Integer end = Integer.valueOf(df.format(endDate));
+        if (end.equals(start)) {
+            return Collections.singleton(end);
+        }
+        Set<Integer> result = new TreeSet<>();
+        long between = ChronoUnit.MONTHS.between(startDate, endDate);
+        result.add(start);
+        result.add(end);
+        for (int i = 1; i <= between; i++) {
+            result.add(Integer.valueOf(df.format(endDate.minusMonths(i))));
         }
         return result;
     }
 
-    public static Integer toDateMonth(Long dateTimeMillSec) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-        return Integer.valueOf(sdf.format(new Date(dateTimeMillSec)));
+    public static void main(String[] args) {
+        System.out.println(buildRangeTime(1616682435000L, System.currentTimeMillis()));
     }
 
-    public static Integer toNextDateMonth(Integer dateMonth) {
-        SimpleDateFormat dft = new SimpleDateFormat("yyyyMM");
-        try {
-            Date date = dft.parse(dateMonth.toString());
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date(date.getTime()));
-            cal.add(Calendar.MONTH, 1);
-            String preMonth = dft.format(cal.getTime());
-            return Integer.valueOf(preMonth);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 }
