@@ -13,11 +13,13 @@ import java.io.Serializable;
  * @date 2021/4/18 14:57
  * @desc
  */
-@TableName("user")
+@TableName("student")
 @Data
-public class User implements Serializable {
+public class Student implements Serializable {
+
     @TableId(type = IdType.AUTO)
     private Integer id;
+
     private String name;
 
     private Integer age;

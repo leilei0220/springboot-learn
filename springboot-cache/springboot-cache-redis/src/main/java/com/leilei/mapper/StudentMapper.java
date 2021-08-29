@@ -1,7 +1,7 @@
 package com.leilei.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.leilei.entity.User;
+import com.leilei.entity.Student;
 
 /**
  * @author lei
@@ -9,5 +9,5 @@ import com.leilei.entity.User;
  * @date 2021/4/18 14:57
  * @desc
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface StudentMapper extends BaseMapper<Student> {
 }
