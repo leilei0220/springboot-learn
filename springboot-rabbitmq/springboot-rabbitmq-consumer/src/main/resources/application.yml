@@ -5,15 +5,15 @@ spring:
     port: 5673
     username: admin
     password: admin
-    listener:
-      direct:
-        #  manual 消息开启手动确认 （在测试confirm的时候设置为manual即可）  auto:自动确认
-        acknowledge-mode: auto
-      simple:
-        acknowledge-mode: auto
-        retry:
-          enabled: true
-          max-attempts: 3
-          max-interval: 3000
+#    listener:
+#      direct:
+#        #  manual 消息开启手动确认 （在测试confirm的时候设置为manual即可）  auto:自动确认
+#        acknowledge-mode: auto
+#      simple:
+#        acknowledge-mode: auto
+#        retry:
+#          enabled: true
+#          max-attempts: 3
+#          max-interval: 3000
 server:
   port: 8081

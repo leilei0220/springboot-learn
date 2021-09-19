@@ -145,6 +145,6 @@ class RabbitmqProviderApplicationTests {
      */
     @Test
     public void testDelayed() {
-        delayedProvider.send(15000, "aaa");
+        delayedProvider.send(0, "小猪佩奇身上纹!");
     }
 }

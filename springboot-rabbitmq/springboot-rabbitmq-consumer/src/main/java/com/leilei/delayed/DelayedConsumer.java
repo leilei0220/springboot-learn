@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author lei
@@ -17,6 +18,7 @@ public class DelayedConsumer {
     @RabbitListener(queues = "test-delayed-queue")
     public void testListenerDelayedMessage(Message message) {
         byte[] body = message.getBody();
-        System.out.println(LocalDateTime.now() + new String(body));
+        System.out.println("消费者接受到消息,接收时间:" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss")) +
+                " 消息内容: " + new String(body));
     }
 }
