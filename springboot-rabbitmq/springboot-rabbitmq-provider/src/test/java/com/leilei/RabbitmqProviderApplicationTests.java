@@ -1,6 +1,7 @@
 package com.leilei;
 
 import com.leilei.confirm.ConfirmServer2;
+import com.leilei.delayed.DelayedProvider;
 import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
@@ -30,6 +31,9 @@ class RabbitmqProviderApplicationTests {
     private TtlAndDeadProvider ttlAndDeadProvider;
     @Autowired
     private ConfirmServer2 confirmServer;
+
+    @Autowired
+    private DelayedProvider delayedProvider;
     @Test
     void contextLoads() {
         /**
@@ -136,5 +140,11 @@ class RabbitmqProviderApplicationTests {
         confirmServer.sendConfirm();
     }
 
-
+    /**
+     * 测试延迟队列
+     */
+    @Test
+    public void testDelayed() {
+        delayedProvider.send(15000, "aaa");
+    }
 }
