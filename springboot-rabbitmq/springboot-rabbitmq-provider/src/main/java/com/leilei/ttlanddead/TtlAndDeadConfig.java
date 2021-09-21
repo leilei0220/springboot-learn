@@ -37,7 +37,7 @@ public class TtlAndDeadConfig {
         return new DirectExchange("ttl-dead-exchange");
     }
     @Bean
-    public Binding ttlBinding() {
+    public Binding ttlAndDeadBinding() {
         return BindingBuilder.bind(ttlAndDeadQueue()).to(ttlAndDeadExchange()).with("test-ttl-and-dead");
     }
 
