@@ -1,2 +1,4 @@
 conditional:
   property: true
+root-name: 'leilei'
+root-age: 1
