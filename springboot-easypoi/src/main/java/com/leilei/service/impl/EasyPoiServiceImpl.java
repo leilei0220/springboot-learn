@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -28,9 +29,13 @@ public class EasyPoiServiceImpl implements IEasyPoiService {
             User user = new User();
             user.setUsername("leilei" + i);
             if (i % 2 == 0) {
+                // 本地图片
+                user.setHeadimg(HeadImgUrl);
                 user.setSex(true);
                 user.setDepartMent(new DepartMent("电商部门"));
             } else {
+                // 网络图片
+                user.setHeadimg("https://leileidev.oss-cn-chengdu.aliyuncs.com/img/image-20211213140623113.png");
                 user.setSex(false);
                 user.setDepartMent(new DepartMent("传统部门"));
 
@@ -38,7 +43,6 @@ public class EasyPoiServiceImpl implements IEasyPoiService {
             user.setPassword("leilei" + i);
             int age = new Random().nextInt(70 - 35) + 35;
             user.setAge(age);
-            user.setHeadimg(HeadImgUrl);
             user.setCreateTime(LocalDateTime.now());
             users.add(user);
         }
