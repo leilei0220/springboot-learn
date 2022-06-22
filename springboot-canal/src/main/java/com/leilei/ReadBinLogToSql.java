@@ -15,6 +15,7 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * @author lei
  * @version 1.0
@@ -39,32 +40,31 @@ public class ReadBinLogToSql implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         CanalConnector conn = getConn();
-        while (true) {
-            try {
-                conn.connect();
-                //订阅实例中所有的数据库和表
-                conn.subscribe(".*\\..*");
-                // 回滚到未进行ack的地方
-                conn.rollback();
+        conn.connect();
+        //订阅实例中所有的数据库和表
+        conn.subscribe(".*\\\\..*");
+        // 回滚到未进行ack的地方
+        conn.rollback();
+        try {
+            while (true) {
                 // 获取数据 每次获取一百条改变数据
                 Message message = conn.getWithoutAck(100);
-
                 long id = message.getId();
                 int size = message.getEntries().size();
                 if (id != -1 && size > 0) {
                     // 数据解析
                     analysis(message.getEntries());
+                    // 确认消息
+                    conn.ack(message.getId());
                 } else {
                     Thread.sleep(1000);
                 }
-                // 确认消息
-                conn.ack(message.getId());
-            } catch (CanalClientException | InvalidProtocolBufferException | InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                // 关闭连接
-                conn.disconnect();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接
+            conn.disconnect();
         }
     }
 
