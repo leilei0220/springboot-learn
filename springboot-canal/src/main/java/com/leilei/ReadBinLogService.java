@@ -1,24 +1,24 @@
-//package com.leilei;
-//import com.alibaba.otter.canal.client.CanalConnector;
-//import com.alibaba.otter.canal.client.CanalConnectors;
-//import com.alibaba.otter.canal.protocol.CanalEntry;
-//import com.alibaba.otter.canal.protocol.Message;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.boot.ApplicationArguments;
-//import org.springframework.boot.ApplicationRunner;
-//import org.springframework.stereotype.Component;
+// package com.leilei;
+// import com.alibaba.otter.canal.client.CanalConnector;
+// import com.alibaba.otter.canal.client.CanalConnectors;
+// import com.alibaba.otter.canal.protocol.CanalEntry;
+// import com.alibaba.otter.canal.protocol.Message;
+// import org.springframework.beans.factory.annotation.Value;
+// import org.springframework.boot.ApplicationArguments;
+// import org.springframework.boot.ApplicationRunner;
+// import org.springframework.stereotype.Component;
 //
-//import java.net.InetSocketAddress;
-//import java.util.List;
+// import java.net.InetSocketAddress;
+// import java.util.List;
 //
-///**
+// /**
 // * @author lei
 // * @version 1.0
 // * @date 2020/9/27 22:23
 // * @desc 读取binlog日志
 // */
-//@Component
-//public class ReadBinLogService implements ApplicationRunner {
+// @Component
+// public class ReadBinLogService implements ApplicationRunner {
 //
 //    @Value("${canal.host}")
 //    private String host;
@@ -34,25 +34,29 @@
 //    @Override
 //    public void run(ApplicationArguments args) throws Exception {
 //        CanalConnector conn = getConn();
-//        while (true) {
-//            conn.connect();
-//            //订阅实例中所有的数据库和表
-//            conn.subscribe(".*\\..*");
-//            // 回滚到未进行ack的地方
-//            conn.rollback();
-//            // 获取数据 每次获取一百条改变数据
-//            Message message = conn.getWithoutAck(100);
-//
-//            long id = message.getId();
-//            int size = message.getEntries().size();
-//            if (id != -1 && size > 0) {
-//                // 数据解析
-//                analysis(message.getEntries());
-//            }else {
-//                Thread.sleep(1000);
+//        conn.connect();
+//        //订阅实例中所有的数据库和表
+//        conn.subscribe(".*\\\\..*");
+//        // 回滚到未进行ack的地方
+//        conn.rollback();
+//        try {
+//            while (true) {
+//                // 获取数据 每次获取一百条改变数据
+//                Message message = conn.getWithoutAck(100);
+//                long id = message.getId();
+//                int size = message.getEntries().size();
+//                if (id != -1 && size > 0) {
+//                    // 数据解析
+//                    analysis(message.getEntries());
+//                    // 确认消息
+//                    conn.ack(message.getId());
+//                } else {
+//                    Thread.sleep(1000);
+//                }
 //            }
-//            // 确认消息
-//            conn.ack(message.getId());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
 //            // 关闭连接
 //            conn.disconnect();
 //        }
@@ -139,5 +143,5 @@
 //    public CanalConnector getConn() {
 //        return CanalConnectors.newSingleConnector(new InetSocketAddress(host, port), instance, username, password);
 //    }
-//}
+// }
 //
