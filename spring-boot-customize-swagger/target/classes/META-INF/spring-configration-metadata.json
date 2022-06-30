@@ -1,0 +1,30 @@
+{"properties": [
+  {
+    "name": "project.swagger.enable",
+    "type": "java.lang.Boolean",
+    "description": "swagger开关,默认为开启"
+  },
+  {
+    "name": "project.swagger.basePackage",
+    "type": "java.lang.String",
+    "description": "文档扫描包路径。"
+  },
+  {
+    "name": "project.swagger.title",
+    "type": "java.lang.String",
+    "defaultValue": "平台系统接口详情",
+    "description": "项目标题"
+  },
+  {
+    "name": "project.swagger.desc",
+    "type": "java.lang.String",
+    "defaultValue": "在线文档",
+    "description": "项目文档描述"
+  },
+  {
+    "name": "project.swagger.version",
+    "type": "java.lang.String",
+    "defaultValue": "V1.0",
+    "description": "接口版本"
+  }
+]}

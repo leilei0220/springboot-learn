@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "name": "project.swagger",
+      "type": "com.leilei.SwaggerProperties",
+      "sourceType": "com.leilei.SwaggerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "project.swagger.base-package",
+      "type": "java.lang.String",
+      "sourceType": "com.leilei.SwaggerProperties"
+    },
+    {
+      "name": "project.swagger.desc",
+      "type": "java.lang.String",
+      "sourceType": "com.leilei.SwaggerProperties"
+    },
+    {
+      "name": "project.swagger.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.leilei.SwaggerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "project.swagger.title",
+      "type": "java.lang.String",
+      "sourceType": "com.leilei.SwaggerProperties"
+    },
+    {
+      "name": "project.swagger.version",
+      "type": "java.lang.String",
+      "sourceType": "com.leilei.SwaggerProperties"
+    }
+  ],
+  "hints": []
+}

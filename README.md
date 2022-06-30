@@ -3,9 +3,17 @@
 
 lei-springboot-starter 自定义简单的自动装配
 
+spring-boot-customize-swagger 自定义swagger自动装配,其他项目引入无需再配置配置类
+
 springboot-activemq active简单使用 点对点 topic 以及virtualtopic 使用
 
+springboot-async 异步注解使用
+
+springboot-batch-collapser 请求合并为批处理工具实现
+
 springboot-canal  整合canal 对于跨机房数据库进行数据同步监听......
+
+springboot-canal115  整合canal 对于跨机房数据库进行数据同步监听......
 
 springboot-easypoi  整合easypoi 导入导出 以及 导入数据校验
 
@@ -27,9 +35,13 @@ springboot-https springboot 项目同时支持 http 和 https 两种协议 并�
 
 springboot-interceptor  自定义注解实现登录拦截与放行场景 并获取登录用户信息 自定义NotNeedLogin注解 进行接口放行
 
+springboot-jsr303 使用 jsr303 进行参数校验规则 并使用 RestControllerAdvice增强 做统一异常处理 将异常信息以自定义json格式进行返回
+
 springboot-jwt 使用 jwt token权限校验
 
-springboot-jsr303 使用 jsr303 进行参数校验规则 并使用 RestControllerAdvice增强 做统一异常处理 将异常信息以自定义json格式进行返回
+springboot-knife4j 整合swagger增强类
+
+springboot-lock-redission 整合redission 实现分布式锁 限流
 
 springboot-logback 日志管理
 
@@ -63,6 +75,10 @@ springboot-read-yml springboot 读取配置文件 自定义配置文件 以及PO
 
 springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型 （String，set，zset,hash,list)使用 以及单机版事务测试
 
+springboot-redis-hash 整合jpa 操作redis hash模式
+
+springboot-redis-serializable redis序列化的区别
+
 springboot-restful springboot 中使用 restful风格
 
 springboot-scheduledlock springboot 中使用 scheduledlock 定时任务锁
@@ -72,6 +88,8 @@ springboot-sharding-jdbc springboot 中使用 sharding-jdbc 分库分表
 springboot-shiro 整合siro 实现 动态授权 认证 记住我功能 结合thymeleaf 动态显示菜单页等
 
 springboot-sms 整合阿里云短信发送工具
+
+springboot-starter-j2cache 整合自定义优化的j2cache,解放双手
 
 springboot-swagger 整合swagger 接口文档工具
 

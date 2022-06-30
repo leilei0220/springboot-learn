@@ -1,11 +1,14 @@
 package com.leilei.service;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.extern.log4j.Log4j2;
 import org.redisson.api.RLock;
+import org.redisson.api.RRateLimiter;
+import org.redisson.api.RateIntervalUnit;
+import org.redisson.api.RateType;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +27,7 @@ public class LockService {
         this.redissonClient = redissonClient;
     }
 
+    RRateLimiter rateLimiter;
 
     /**
      * 可重入非公平锁
@@ -80,7 +84,9 @@ public class LockService {
         //加锁
         try {
             if (!lock.tryLock(1, TimeUnit.SECONDS)) {
-                return "线程:" + Thread.currentThread().getName() + "未获取到锁,直接返回";
+                String message = "线程:" + Thread.currentThread().getName() + "未获取到锁,直接返回";
+                System.out.println(message);
+                return message;
             }
             System.out.println("线程:" + Thread.currentThread().getName() + "获取到锁!");
             Thread.sleep(4000_0);
@@ -95,5 +101,25 @@ public class LockService {
             }
         }
         return "线程:" + Thread.currentThread().getName() + "业务结束!";
+    }
+
+    @PostConstruct
+    public void initRateLimiter(){
+        RRateLimiter ra = redissonClient.getRateLimiter("rate-limiter");
+
+        // setRate 每次服务重启就会强制更新之前的限流配置（也重置了限流状态）,以当前为准
+        ra.setRate(RateType.OVERALL, 6, 1, RateIntervalUnit.MINUTES);
+
+        // trySetRate 服务重启不会更新限流配置与限流状态,但参数更改后亦不会生效!
+        // ra.trySetRate(RateType.OVERALL, 7, 2, RateIntervalUnit.MINUTES);
+        rateLimiter = ra;
+    }
+
+    public String testRateLimiter() {
+        boolean b = rateLimiter.tryAcquire();
+        if (b) {
+            return "ok";
+        }
+        return "fail";
     }
 }

@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: 'test-my-cache'
+  redis:
+    host: 10.50.100.53
+    port: 6379
+    password:
+    database: 10
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 5
+        time-between-eviction-runs: 30s
+        max-wait: 5s
+      shutdown-timeout: 100ms
+j2cache:
+#  open-spring-cache: true
+#  allowNullValues: true
+#  l1:
+#    provider-class: caffeine
+#    caffeine:
+#      region:
+#        testBean: 100,10m
+  l2:
+#    serialization: fastjson
+#    namespace: leilei
+#    sync-ttl-to-redis: false
+    channel: ${spring.application.name}
+logging:
+  level:
+    com.leilei: debug
