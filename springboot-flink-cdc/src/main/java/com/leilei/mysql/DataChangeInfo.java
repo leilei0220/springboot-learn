@@ -17,10 +17,16 @@ public class DataChangeInfo {
      * 变更后数据
      */
     private String afterData;
+
+    /**
+     * 操作的数据
+     */
+    private String data;
+
     /**
      * 变更类型 1新增 2修改 3删除
      */
-    private Integer eventType;
+    private Integer operatorType;
     /**
      * binlog文件名
      */
@@ -40,6 +46,6 @@ public class DataChangeInfo {
     /**
      * 变更时间
      */
-    private Long changeTime;
+    private Long operatorTime;
 
 }

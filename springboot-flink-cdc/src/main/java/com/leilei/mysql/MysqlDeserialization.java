@@ -1,19 +1,15 @@
 package com.leilei.mysql;
 
 
-
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import io.debezium.data.Envelope;
-import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.util.Collector;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
-import com.alibaba.fastjson.JSONObject;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +31,8 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
     public static final String UPDATE = "UPDATE";
 
     /**
-     *
      * 反序列化数据,转为变更JSON对象
+     *
      * @param sourceRecord
      * @param collector
      * @return void
@@ -52,25 +48,32 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         Struct struct = (Struct) sourceRecord.value();
         final Struct source = struct.getStruct(SOURCE);
         DataChangeInfo dataChangeInfo = new DataChangeInfo();
-        dataChangeInfo.setBeforeData( getJsonObject(struct, BEFORE).toJSONString());
-        dataChangeInfo.setAfterData(getJsonObject(struct, AFTER).toJSONString());
-        //5.获取操作类型  CREATE UPDATE DELETE
+        // 获取操作类型  CREATE UPDATE DELETE
         Envelope.Operation operation = Envelope.operationFor(sourceRecord);
         String type = operation.toString().toUpperCase();
-        int eventType = type.equals(CREATE) ? 1 : UPDATE.equals(type) ? 2 : 3;
-        dataChangeInfo.setEventType(eventType);
+        int eventType = type.equals(CREATE) ? OperatorTypeEnum.INSERT.getType() : UPDATE.equals(type) ?
+                OperatorTypeEnum.UPDATE.getType() : OperatorTypeEnum.DELETE.getType();
+        // fixme 一般情况是无需关心其之前之后数据的,直接获取最新的日志数据即可,但这里为了演示,都进行输出
+        dataChangeInfo.setBeforeData(getJsonObject(struct, BEFORE).toJSONString());
+        dataChangeInfo.setAfterData(getJsonObject(struct, AFTER).toJSONString());
+        if (eventType == OperatorTypeEnum.DELETE.getType()) {
+            dataChangeInfo.setData(getJsonObject(struct, BEFORE).toJSONString());
+        } else {
+            dataChangeInfo.setData(getJsonObject(struct, AFTER).toJSONString());
+        }
+        dataChangeInfo.setOperatorType(eventType);
         dataChangeInfo.setFileName(Optional.ofNullable(source.get(BIN_FILE)).map(Object::toString).orElse(""));
-        dataChangeInfo.setFilePos(Optional.ofNullable(source.get(POS)).map(x->Integer.parseInt(x.toString())).orElse(0));
+        dataChangeInfo.setFilePos(Optional.ofNullable(source.get(POS)).map(x -> Integer.parseInt(x.toString())).orElse(0));
         dataChangeInfo.setDatabase(database);
         dataChangeInfo.setTableName(tableName);
-        dataChangeInfo.setChangeTime(Optional.ofNullable(struct.get(TS_MS)).map(x -> Long.parseLong(x.toString())).orElseGet(System::currentTimeMillis));
-        //7.输出数据
+        dataChangeInfo.setOperatorTime(Optional.ofNullable(struct.get(TS_MS)).map(x -> Long.parseLong(x.toString())).orElseGet(System::currentTimeMillis));
+        // 输出数据
         collector.collect(dataChangeInfo);
     }
-    
+
     /**
-     *
      * 从袁术数据获取出变更之前或之后的数据
+     *
      * @param value
      * @param fieldElement
      * @return JSONObject
@@ -90,7 +93,6 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         }
         return jsonObject;
     }
-
 
 
     @Override
