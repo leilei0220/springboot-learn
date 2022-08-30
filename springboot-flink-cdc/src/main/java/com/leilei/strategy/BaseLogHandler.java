@@ -1,11 +1,13 @@
 package com.leilei.strategy;
 
+import java.io.Serializable;
+
 /**
  * @author lei
  * @create 2022-08-29 14:22
  * @desc 日志处理器
  **/
-public interface BaseLogHandler<T> {
+public interface BaseLogHandler<T> extends Serializable {
 
     /**
      * 日志处理

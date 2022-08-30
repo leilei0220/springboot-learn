@@ -3,8 +3,6 @@ package com.leilei.strategy;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-
 /**
  * @author lei
  * @create 2022-08-29 14:15
@@ -12,7 +10,7 @@ import java.io.Serializable;
  **/
 @Service
 @Log4j2
-public class DriverLogLogHandler implements BaseLogHandler<DriverPO>, Serializable {
+public class DriverLogLogHandler implements BaseLogHandler<DriverPO>{
 
 
     @Override
