@@ -3,9 +3,7 @@ package com.leilei.reply;
 import com.rabbitmq.client.Channel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -34,22 +32,21 @@ public class ReplyConsumer {
      * @author lei
      * @date 2022-09-19 16:17:52
      */
-    // @RabbitListener(queues ="bizQueue")
-    // @SendTo("replyQueue")
-    // public String handleEmailMessage(Message message, Channel channel) throws IOException {
-    //
-    //     try {
-    //         String msg=new String(message.getBody(), StandardCharsets.UTF_8);
-    //         log.info("---consumer接收到消息----{}",msg);
-    //         return "客户端响应消息["+"收到的生产端消息为："+msg+"]";
-    //     }
-    //     catch (Exception e) {
-    //         log.info("ReplyConsumerController.handleEmailMessage error",e);
-    //         channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false);
-    //
-    //     }
-    //     return null;
-    // }
+    @RabbitListener(queues ="bizQueue")
+    @SendTo("replyQueue")
+    public String handleEmailMessage(Message message, Channel channel) throws IOException {
+
+        try {
+            String msg=new String(message.getBody(), StandardCharsets.UTF_8);
+            log.info("---consumer接收到消息----{}",msg);
+            return "客户端响应消息["+"收到的生产端消息为："+msg+"]";
+        }
+        catch (Exception e) {
+            log.error("ReplyConsumerController.handleEmailMessage error",e);
+
+        }
+        return null;
+    }
 
     /**
      * 方式2  message消息获取内部reply rabbitmq手动发送
@@ -70,8 +67,29 @@ public class ReplyConsumer {
             rabbitTemplate.convertAndSend(replyTo,"客户端响应消息["+"收到的生产端消息为："+msg+"]");
         }
         catch (Exception e) {
-            log.info("ReplyConsumerController.handleEmailMessage error",e);
-            channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false);
+            log.error("ReplyConsumerController.handleEmailMessage error",e);
         }
+    }
+
+    /**
+     * 方式三  方法有返回值,返回要响应的数据 （reply 由生产者发送消息时指定，消费者不做任何处理）
+     *
+     * @param message
+     * @param channel
+     * @return void
+     * @author lei
+     * @date 2022-09-19 17:42:09
+     */
+    @RabbitListener(queues ="bizQueue")
+    public String handleEmailMessage3(Message message, Channel channel) throws IOException {
+        try {
+            String msg=new String(message.getBody(), StandardCharsets.UTF_8);
+            log.info("---consumer接收到消息----{}",msg);
+            return "客户端响应消息["+"收到的生产端消息为："+msg+"]";
+        }
+        catch (Exception e) {
+            log.error("ReplyConsumerController.handleEmailMessage error",e);
+        }
+        return null;
     }
 }
