@@ -74,9 +74,9 @@ public class ReplyConsumer {
      * 方式三  方法有返回值,返回要响应的数据 （reply 由生产者发送消息时指定，消费者不做任何处理）
      *
      * @param message
-     * @return void
+     * @return String
      * @author lei
-     * @date 2022-09-19 17:42:09
+     * @date 2022-09-19 23:17:47
      */
     @RabbitListener(queues ="bizQueue")
     public String handleEmailMessage3(Message message) {
