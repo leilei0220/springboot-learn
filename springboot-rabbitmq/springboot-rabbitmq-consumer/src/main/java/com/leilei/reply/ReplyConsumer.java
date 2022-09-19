@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author lei
  * @create 2022-09-19 15:22
- * @desc
+ * @desc reply模式 消费者消费消息后给生产者发送回应消息
  **/
 @Component
 @Log4j2

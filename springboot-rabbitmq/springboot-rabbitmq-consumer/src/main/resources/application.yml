@@ -1,8 +1,8 @@
 spring:
     #我这里仅写了ip 其余端口账号密码由于是演示 采用默认即可，不必要写
   rabbitmq:
-    host: 192.168.1.6
-    port: 5672
+    host: 10.50.40.116
+    port: 5673
     username: admin
     password: admin
 #    listener:

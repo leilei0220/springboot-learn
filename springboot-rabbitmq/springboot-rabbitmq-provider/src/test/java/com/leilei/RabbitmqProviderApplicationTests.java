@@ -5,6 +5,7 @@ import com.leilei.delayed.DelayedProvider;
 import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
+import com.leilei.reply.ReplyProvider;
 import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.ttl.TtlProvider;
 import com.leilei.ttlanddead.TtlAndDeadProvider;
@@ -31,6 +32,8 @@ class RabbitmqProviderApplicationTests {
     private TtlAndDeadProvider ttlAndDeadProvider;
     @Autowired
     private ConfirmServer2 confirmServer;
+    @Autowired
+    private ReplyProvider replyProvider;
 
     @Autowired
     private DelayedProvider delayedProvider;
@@ -146,5 +149,10 @@ class RabbitmqProviderApplicationTests {
     @Test
     public void testDelayed() {
         delayedProvider.send(5000, "中秋节快乐!");
+    }
+
+    @Test
+    public void testReply() {
+        replyProvider.send();
     }
 }
