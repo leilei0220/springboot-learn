@@ -1,6 +1,5 @@
-package com.leilei.reply;
+package com.leilei.demo;
 
-import com.rabbitmq.client.Channel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -20,9 +18,9 @@ import java.nio.charset.StandardCharsets;
 @Component
 @Log4j2
 public class ReplyConsumer {
+
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
 
     /**
      * 方式1   SendTo指定响应队列
