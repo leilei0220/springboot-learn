@@ -3,7 +3,11 @@ package com.leilei;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.alibaba.otter.canal.protocol.CanalEntry.*;
+import com.alibaba.otter.canal.protocol.CanalEntry.Column;
+import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
+import com.alibaba.otter.canal.protocol.CanalEntry.EntryType;
+import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
+import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.Message;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,12 +39,12 @@ public class BinLogListener implements ApplicationRunner {
     private String instance;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         CanalConnector conn = getConn();
-        while (true) {
-            conn.connect();
-            conn.subscribe();
-            try {
+        conn.connect();
+        conn.subscribe();
+        try {
+            while (true) {
                 // 获取指定数量的数据
                 Message message = conn.getWithoutAck(1000);
                 long batchId = message.getId();
@@ -51,13 +55,15 @@ public class BinLogListener implements ApplicationRunner {
                 } else {
                     printEntry(message.getEntries());
                 }
-                conn.ack(batchId); // 提交确认
-            } catch (Exception e) {
-                e.printStackTrace();
-                conn.rollback(); // 处理失败, 回滚数据
-            } finally {
-                conn.disconnect();
+                // 提交确认
+                conn.ack(batchId);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 处理失败, 回滚数据
+            conn.rollback();
+        } finally {
+            conn.disconnect();
         }
 
     }
