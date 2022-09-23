@@ -7,7 +7,11 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -17,9 +21,9 @@ import java.util.stream.Collectors;
  * @desc 异步操作工具类
  **/
 public class CompletableFutureUtils<R, E> {
-    private static int LIMIT = 500;
+    private final static int LIMIT = 500;
 
-    private Executor executor =  new ThreadPoolExecutor(
+    private final Executor executor =  new ThreadPoolExecutor(
             5, 20,
             60L, TimeUnit.SECONDS,
             new SynchronousQueue<>(), new ThreadFactoryBuilder().setNameFormat("async-%d").build(),

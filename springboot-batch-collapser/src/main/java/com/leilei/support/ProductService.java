@@ -12,17 +12,17 @@ import java.util.List;
  * @desc
  **/
 @Service
-public class ProductService implements BatchCollapser.BatchHandler<List<Integer>, Integer> {
-    private BatchCollapser<Integer, Integer> batchCollapser;
+public class ProductService implements BatchExecutor.BatchHandler<List<Integer>, Integer> {
+    private BatchExecutor<Integer, Integer> batchExecutor;
 
     @PostConstruct
     private void postConstructorInit() {
         // 当请求数量达到20个，或每过5s合并执行一次请求
-        batchCollapser = BatchCollapser.getInstance(ProductService.this, 20, 5);
+        batchExecutor = BatchExecutor.getInstance(ProductService.this, 20, 5);
     }
 
     @Override
-    public Integer handle(List<Integer> input, BatchCollapser.BatchHandlerType handlerType) {
+    public Integer batchHandle(List<Integer> input, BatchExecutor.BatchHandlerType handlerType) {
         System.out.println("处理类型:" + handlerType + ",接受到批量请求参数:" + input);
         return input.stream().mapToInt(x -> x).sum();
     }
@@ -34,7 +34,7 @@ public class ProductService implements BatchCollapser.BatchHandler<List<Integer>
     @Scheduled(fixedDelay = 300)
     public void aaa() {
         Integer requestParam = (int) (Math.random() * 100) + 1;
-        batchCollapser.addRequestParam(requestParam);
+        batchExecutor.submitEvent(requestParam);
         System.out.println("当前请求参数:" + requestParam);
 
     }

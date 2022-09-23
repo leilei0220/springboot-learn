@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lei
@@ -14,8 +18,8 @@ import java.util.concurrent.*;
  * @desc 请求合并工具类
  **/
 @Log4j2
-public class BatchCollapser<T, R> {
-    private static final Map<Class, BatchCollapser> BATCH_INSTANCE =new ConcurrentHashMap<>();
+public class BatchExecutor<T, R> {
+    private static final Map<Class<?>, BatchExecutor> BATCH_INSTANCE =new ConcurrentHashMap<>();
     private static final ScheduledExecutorService SCHEDULE_EXECUTOR = Executors.newScheduledThreadPool(1);
 
     private final LinkedBlockingDeque<T> batchContainer = new LinkedBlockingDeque<>();
@@ -29,14 +33,14 @@ public class BatchCollapser<T, R> {
      * @param countThreshold 数量阈值，达到此阈值后触发处理器
      * @param timeThreshold  时间阈值，达到此时间后触发处理器
      */
-    private BatchCollapser(BatchHandler<List<T>, R> handler, int countThreshold, long timeThreshold) {
+    private BatchExecutor(BatchHandler<List<T>, R> handler, int countThreshold, long timeThreshold) {
         this.handler = handler;
         this.countThreshold = countThreshold;
         SCHEDULE_EXECUTOR.scheduleAtFixedRate(() -> {
             try {
-                this.popUpAndHandler(BatchHandlerType.BATCH_HANDLER_TYPE_TIME);
+                this.pullAndHandler(BatchHandlerType.BATCH_HANDLER_TYPE_TIME);
             } catch (Exception e) {
-                log.error("pop-up container exception", e);
+                log.error("pull container exception", e);
             }
         }, timeThreshold, timeThreshold, TimeUnit.SECONDS);
     }
@@ -45,10 +49,10 @@ public class BatchCollapser<T, R> {
      * 添加请求元素入队
      * @param event
      */
-    public void addRequestParam(T event) {
+    public void submitEvent(T event) {
         batchContainer.add(event);
         if (batchContainer.size() >= countThreshold) {
-            popUpAndHandler(BatchHandlerType.BATCH_HANDLER_TYPE_DATA);
+            pullAndHandler(BatchHandlerType.BATCH_HANDLER_TYPE_DATA);
         }
     }
 
@@ -56,36 +60,35 @@ public class BatchCollapser<T, R> {
      * 从队列获取请求,并进行批量处理
      * @param handlerType
      */
-    private void popUpAndHandler(BatchHandlerType handlerType) {
+    private void pullAndHandler(BatchHandlerType handlerType) {
         List<T> tryHandlerList = Collections.synchronizedList(new ArrayList<>(countThreshold));
         batchContainer.drainTo(tryHandlerList, countThreshold);
         if (tryHandlerList.size() < 1) {
             return;
         }
-
         try {
-            R handle = handler.handle(tryHandlerList, handlerType);
+            R handle = handler.batchHandle(tryHandlerList, handlerType);
             log.info("批处理工具执行result:{}", handle);
         } catch (Exception e) {
             log.error("batch execute error, transferList:{}", tryHandlerList, e);
         }
     }
 
-    /**
-     * 获取合并器实例
-     *
-     * @param batchHandler   处理执行器
-     * @param countThreshold 阈值数量(队列数量)
-     * @param timeThreshold  阈值时间 单位秒（目前设置是触发后获取阈值数量请求，可根据需要修改）
-     * @param <E>
-     * @param <R>
-     * @return
-     */
-    public static <E, R> BatchCollapser<E, R> getInstance(BatchHandler<List<E>, R> batchHandler, int countThreshold, long timeThreshold) {
-        Class jobClass = batchHandler.getClass();
+   /**
+    * 获取合并器实例
+    *
+    * @param batchHandler 处理执行器
+    * @param countThreshold  阈值数量(队列数量)
+    * @param timeThreshold 阈值时间 单位秒（目前设置是触发后获取阈值数量请求，可根据需要修改）
+    * @return BatchExecutor<T,R>
+    * @author lei
+    * @date 2022-09-23 15:10:17
+    */
+    public static <T, R> BatchExecutor<T,R> getInstance(BatchHandler<List<T>, R> batchHandler, int countThreshold, long timeThreshold) {
+        Class<?> jobClass = batchHandler.getClass();
         if (BATCH_INSTANCE.get(jobClass) == null) {
-            synchronized (BatchCollapser.class) {
-                BATCH_INSTANCE.putIfAbsent(jobClass, new BatchCollapser<>(batchHandler, countThreshold, timeThreshold));
+            synchronized (BatchExecutor.class) {
+                BATCH_INSTANCE.putIfAbsent(jobClass, new BatchExecutor<>(batchHandler, countThreshold, timeThreshold));
             }
         }
         return BATCH_INSTANCE.get(jobClass);
@@ -94,10 +97,10 @@ public class BatchCollapser<T, R> {
     /**
      * 请求处理接口
      *
-     * @param <T>
-     * @param <R>
+     * @param <IN> 批输入
+     * @param <OUT> 结果输出
      */
-    public interface BatchHandler<T, R> {
+    public interface BatchHandler<IN, OUT> {
         /**
          * 处理用户具体请求
          *
@@ -105,7 +108,7 @@ public class BatchCollapser<T, R> {
          * @param handlerType
          * @return
          */
-        R handle(T input, BatchHandlerType handlerType);
+        OUT batchHandle(IN input, BatchHandlerType handlerType);
     }
 
     /**
