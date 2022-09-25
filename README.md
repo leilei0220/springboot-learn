@@ -79,6 +79,8 @@ springboot-redis-cluster 整合 redis单机版 cluster 集群 五种存储类型
 
 springboot-redis-hash 整合jpa 操作redis hash模式
 
+springboot-redis-key-expire 监听redis过期事件 （所有DB/指定DB）
+
 springboot-redis-serializable redis序列化的区别
 
 springboot-restful springboot 中使用 restful风格
