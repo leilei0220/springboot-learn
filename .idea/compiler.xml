@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="8" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springboot-debezium" />
+        <module name="springboot-batch-collapser" />
+        <module name="springboot-redis-key-expire" />
+        <module name="springboot-flink-cdc-2.2.x" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springboot-batch-collapser" target="1.8" />
+      <module name="springboot-canal-115" target="1.8" />
+      <module name="springboot-debezium" target="1.8" />
+      <module name="springboot-flink-cdc-2.2.x" target="1.8" />
+      <module name="springboot-redis-key-expire" target="1.8" />
+      <module name="springboot-scheduledlock" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springboot-batch-collapser" options="-parameters" />
+      <module name="springboot-canal-115" options="-parameters" />
+      <module name="springboot-debezium" options="-parameters" />
+      <module name="springboot-flink-cdc-2.2.x" options="-parameters" />
+      <module name="springboot-redis-key-expire" options="-parameters" />
+      <module name="springboot-scheduledlock" options="-parameters" />
+    </option>
   </component>
 </project>

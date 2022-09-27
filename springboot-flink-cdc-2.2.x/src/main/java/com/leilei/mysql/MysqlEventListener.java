@@ -60,7 +60,9 @@ public class MysqlEventListener implements ApplicationRunner {
                 .hostname("10.50.40.145")
                 .port(3306)
                 .databaseList("paas_common_db")
-                .tableList("paas_common_db.base_business_driver_score")
+                // 支持正则匹配
+                .tableList("^(paas_common_db.base_business_driver_score).*")
+                // .tableList("paas_common_db.base_business_driver_score")
                 .username("root")
                 .password("cdwk-3g-145")
 

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="PROJECT" charset="UTF-8" />
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/springboot-batch-collapser/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-canal-115/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-debezium/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-flink-cdc-2.2.x/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-redis-key-expire/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-scheduledlock/src/main/java" charset="UTF-8" />
   </component>
 </project>
