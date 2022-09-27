@@ -52,6 +52,5 @@ public class SqlServerEventListener implements ApplicationRunner {
             ex.printStackTrace();
             return null;
         });
-        ;
     }
 }
