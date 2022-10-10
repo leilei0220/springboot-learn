@@ -1,12 +1,12 @@
 package com.leilei.controller;
 
-
-
-import com.leilei.entity.Student;
-import com.leilei.service.IStudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.entity.PageVO;
+import com.example.demo.entity.Student;
+import com.example.demo.entity.StudentQueryForm;
+import com.example.demo.service.StudentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +21,11 @@ import java.util.List;
 @RequestMapping("/lei")
 public class StudentController {
 
-    @Autowired
-    private IStudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping("add")
     public String add(Student student) {
@@ -51,36 +54,31 @@ public class StudentController {
         return "false";
     }
 
-    @PostMapping("findone")
-    public Student findone(Student student) {
-        Student one = studentService.findOne(student);
-        return one;
+    @PostMapping("findOne")
+    public Student findOne(Student student) {
+        return studentService.findOne(student);
 
     }
 
-    @PostMapping("findlike")
-    public List<Student> findlike(Student student) {
-        List<Student> findlike = studentService.findlike(student);
-        return findlike;
+    @PostMapping("findLike")
+    public List<Student> findLike(Student student) {
+        return studentService.findLike(student);
 
     }
 
-    @PostMapping("findmore")
-    public List<Student> findmore(Student student) {
-        List<Student> findlike = studentService.findmore(student);
-        return findlike;
+    @PostMapping("findMore")
+    public List<Student> findMore(Student student) {
+        return studentService.findMore(student);
 
     }
-    @PostMapping("findtime")
-    public List<Student> findtime(Student student) {
-        List<Student> findlike = studentService.findtime(student);
-        return findlike;
+    @PostMapping("findTime")
+    public List<Student> findTime(Student student) {
+        return studentService.findTime(student);
 
     }
-    @PostMapping("findtimeByPage")
-    public List<Student> findtimeByPage(Student student) {
-        List<Student> findlike = studentService.findtimeByPage(student);
-        return findlike;
+    @PostMapping("findByPage")
+    public PageVO<Student> findByPage(@RequestBody StudentQueryForm queryForm) {
+        return studentService.findByPage(queryForm);
 
     }
 }
