@@ -1,9 +1,10 @@
 package com.leilei.controller;
 
-import com.example.demo.entity.PageVO;
-import com.example.demo.entity.Student;
-import com.example.demo.entity.StudentQueryForm;
-import com.example.demo.service.StudentService;
+
+import com.leilei.entity.PageVO;
+import com.leilei.entity.Student;
+import com.leilei.entity.StudentQueryForm;
+import com.leilei.service.StudentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
