@@ -48,6 +48,9 @@ public class SqlServerEventListener implements ApplicationRunner {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
         });
     }
 }

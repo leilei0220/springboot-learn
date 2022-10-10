@@ -44,6 +44,9 @@ public class MysqlEventListener implements ApplicationRunner {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
         });
     }
 
@@ -60,13 +63,16 @@ public class MysqlEventListener implements ApplicationRunner {
                 .hostname("10.50.40.145")
                 .port(3306)
                 .databaseList("paas_common_db")
-                .tableList("paas_common_db.base_business_driver_score")
+                // 支持正则匹配
+                .tableList("^(paas_common_db.base_business_driver_score).*")
+                // .tableList("paas_common_db.base_business_driver_score")
                 .username("root")
                 .password("cdwk-3g-145")
 
                 /**initial初始化快照,即全量导入后增量导入(检测更新数据写入)
                  * latest:只进行增量导入(不读取历史变化)
                  * timestamp:指定时间戳进行数据导入(大于等于指定时间错读取数据)
+                 * 注：点击查看源码发现目前只支持initial以及latest了
                  */
                 .startupOptions(StartupOptions.latest())
                 .deserializer(new MysqlDeserialization())
