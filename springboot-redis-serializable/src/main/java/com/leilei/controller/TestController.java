@@ -39,10 +39,11 @@ public class TestController {
         Student mw = new Student("蛮王", 234);
         students.add(ys);
         students.add(mw);
+        redisTemplate.opsForValue().set("大山", new Student("大山", 12345));
         redisTemplate.executePipelined((RedisCallback<String>) conn -> {
             students.forEach(s -> conn.set(s.getName().getBytes(), JSON.toJSONString(s).getBytes()));
             return null;
-        });
+        },redisTemplate.getValueSerializer());
         List<Object> cacheList = redisTemplate.opsForValue().multiGet(students.stream().map(Student::getName).collect(Collectors.toList()));
         if (CollectionUtils.isEmpty(cacheList)) {
             return null;
