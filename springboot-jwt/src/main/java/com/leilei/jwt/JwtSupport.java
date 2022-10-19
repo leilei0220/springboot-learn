@@ -35,7 +35,7 @@ public class JwtSupport {
         // 设置payload
         jwt.withSubject(JSON.toJSONString(payload));
         // 设置过期时间
-        jwt.withExpiresAt(new Date(System.currentTimeMillis() + 1000));
+        jwt.withExpiresAt(new Date(System.currentTimeMillis() + expireTime * 60 * 60 * 1000));
         return jwt.sign(Algorithm.HMAC256(secret));
     }
 

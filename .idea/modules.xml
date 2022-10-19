@@ -5,8 +5,12 @@
       <module fileurl="file://$PROJECT_DIR$/springboot-batch-collapser/springboot-batch-collapser.iml" filepath="$PROJECT_DIR$/springboot-batch-collapser/springboot-batch-collapser.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-debezium/springboot-debezium.iml" filepath="$PROJECT_DIR$/springboot-debezium/springboot-debezium.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-flink-cdc-2.2.x/springboot-flink-cdc-2.2.x.iml" filepath="$PROJECT_DIR$/springboot-flink-cdc-2.2.x/springboot-flink-cdc-2.2.x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" filepath="$PROJECT_DIR$/springboot-jwt/springboot-jwt.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/springboot-learn.iml" filepath="$PROJECT_DIR$/.idea/springboot-learn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-lock-redission/springboot-lock-redission.iml" filepath="$PROJECT_DIR$/springboot-lock-redission/springboot-lock-redission.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis-key-expire/springboot-redis-key-expire.iml" filepath="$PROJECT_DIR$/springboot-redis-key-expire/springboot-redis-key-expire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-redis-serializable/springboot-redis-serializable.iml" filepath="$PROJECT_DIR$/springboot-redis-serializable/springboot-redis-serializable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-ssh/springboot-ssh.iml" filepath="$PROJECT_DIR$/springboot-ssh/springboot-ssh.iml" />
     </modules>
   </component>
 </project>

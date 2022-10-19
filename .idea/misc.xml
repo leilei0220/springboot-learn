@@ -10,6 +10,10 @@
         <option value="$PROJECT_DIR$/springboot-debezium/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-batch-collapser/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-redis-key-expire/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-ssh/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-redis-serializable/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-lock-redission/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-jwt/pom.xml" />
       </list>
     </option>
   </component>
