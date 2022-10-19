@@ -33,8 +33,8 @@ public class WebConfiguration implements WebMvcConfigurer {
    * @return
    */
   @Bean
-  public JWTInterceptor getJwtInterceptor() {
-    return new JWTInterceptor();
+  public JwtInterceptor getJwtInterceptor() {
+    return new JwtInterceptor();
   }
 
 }

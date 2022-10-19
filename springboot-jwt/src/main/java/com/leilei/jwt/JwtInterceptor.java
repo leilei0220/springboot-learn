@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 @Log4j2
-public class JWTInterceptor implements HandlerInterceptor {
+public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
-    private JWTSupport jwtSupport;
+    private JwtSupport jwtSupport;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -34,7 +34,8 @@ public class JWTInterceptor implements HandlerInterceptor {
                 annotation = handlerMethod.getMethodAnnotation(AccPermission.class);
                 //无校验注解，则仍默认校验JWT合法性
                 if (annotation == null) {
-                    return checkJWT(request,response,url);
+                    return true;
+                    // return checkJWT(request,response,url);
                 }
             }
             //如果设置了jwt=false，则直接放行
@@ -42,34 +43,32 @@ public class JWTInterceptor implements HandlerInterceptor {
                 return true;
             }
             //jwt=true，则开始校验
-            return checkJWT(request,response,url);
+            return checkJwt(request, response, url);
         }
         return true;
     }
 
     /**
      * 校验JWT
+     *
      * @param request
      * @param response
      * @param url
      * @return
      * @throws Exception
      */
-    public boolean checkJWT(HttpServletRequest request,HttpServletResponse response, String url) throws Exception {
+    public boolean checkJwt(HttpServletRequest request, HttpServletResponse response, String url) throws Exception {
         String authToken = request.getHeader("Authorization");
         if (StringUtils.isBlank(authToken)) {
             return checkError(response, url);
         }
-        try {
-            jwtSupport.verify(authToken);
-            return true;
-        } catch (Exception e) {
-            return checkError(response, url);
-        }
+        jwtSupport.verify(authToken);
+        return true;
     }
 
     /**
      * 校验失败
+     *
      * @param response
      * @param url
      * @return

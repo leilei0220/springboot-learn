@@ -1,6 +1,10 @@
 package com.leilei.common;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author lei
@@ -13,20 +17,22 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AjaxResult {
+public class AjaxResult<T> {
     private Integer code;
     private String message;
-    private Object data;
+    private T data;
 
 
-    public static AjaxResult success(Object data) {
-       return AjaxResult.builder().code(200).message("success").data(data).build();
+    public static <T> AjaxResult<T> success(T data) {
+        return AjaxResult.<T>builder().code(200).message("success").data(data).build();
     }
-    public static AjaxResult error(String message, Integer code) {
-       return AjaxResult.builder().code(code).message(message).build();
+
+    public static <T> AjaxResult<T> error(String message, Integer code) {
+        return AjaxResult.<T>builder().code(code).message(message).build();
     }
-    public static AjaxResult error(String message) {
-       return AjaxResult.builder().code(-1).message(message).build();
+
+    public static <T> AjaxResult<T> error(String message) {
+        return AjaxResult.<T>builder().code(-1).message(message).build();
     }
 
 }

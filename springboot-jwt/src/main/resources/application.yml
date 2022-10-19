@@ -5,8 +5,8 @@ jwt:
   expireTime: 12
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://10.50.40.145:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: cdwk-3g-145
 
