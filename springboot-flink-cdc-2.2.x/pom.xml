@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leilei</groupId>
-    <artifactId>springboot-flink-cdc</artifactId>
+    <artifactId>springboot-flink-cdc-2.2.x</artifactId>
     <version>1.0.0</version>
     <name>springboot-flink-cdc-2.2.x</name>
     <description>使用flink-cdc技术,监听数据库变更</description>
