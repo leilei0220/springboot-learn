@@ -7,14 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springboot-jwt" />
-        <module name="springboot-redis-serializable" />
-        <module name="springboot-flink-cdc-2.2.x" />
-        <module name="springboot-lock-redission" />
-        <module name="springboot-ssh" />
-        <module name="springboot-debezium" />
-        <module name="springboot-batch-collapser" />
-        <module name="springboot-redis-key-expire" />
+        <module name="springboot-mongo-moredatasource" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +17,8 @@
       <module name="springboot-flink-cdc-2.2.x" target="1.8" />
       <module name="springboot-jwt" target="1.8" />
       <module name="springboot-lock-redission" target="1.8" />
+      <module name="springboot-mongo-linkedlist" target="1.8" />
+      <module name="springboot-mongo-moredatasource" target="1.8" />
       <module name="springboot-redis-key-expire" target="1.8" />
       <module name="springboot-redis-serializable" target="1.8" />
       <module name="springboot-scheduledlock" target="1.8" />
@@ -38,6 +33,8 @@
       <module name="springboot-flink-cdc-2.2.x" options="-parameters" />
       <module name="springboot-jwt" options="-parameters" />
       <module name="springboot-lock-redission" options="-parameters" />
+      <module name="springboot-mongo-linkedlist" options="-parameters" />
+      <module name="springboot-mongo-moredatasource" options="-parameters" />
       <module name="springboot-redis-key-expire" options="-parameters" />
       <module name="springboot-redis-serializable" options="-parameters" />
       <module name="springboot-scheduledlock" options="-parameters" />

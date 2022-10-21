@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 @Slf4j
-public class ExceptorHander {
+public class ExceptionAdvice {
 
   /** 除数不能为0 */
   @ExceptionHandler({ArithmeticException.class})

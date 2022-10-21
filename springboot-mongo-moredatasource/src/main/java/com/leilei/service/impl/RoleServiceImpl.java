@@ -32,14 +32,9 @@ public class RoleServiceImpl implements IRoleService {
   @Transactional(transactionManager = "twoTransactionManager", rollbackFor = Exception.class)
   public AjaxResult insertRole(Role role) throws Exception{
     role.setCreatTime(LocalDateTime.now());
-    try {
       twoMongoTemplate.insert(role);
       int a = 1 / 0;
       return AjaxResult.buildSuccess("role保存成功", null);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new LeileiException("role保存失败，当前数据会进行回滚");
-    }
   }
 
   @Override
