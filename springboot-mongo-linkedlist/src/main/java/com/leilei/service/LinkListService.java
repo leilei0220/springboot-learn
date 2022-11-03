@@ -1,12 +1,10 @@
-package com.leilei.service.impl;
+package com.leilei.service;
 
 import com.leilei.entity.City;
+import com.leilei.entity.ResultVO;
 import com.leilei.entity.School;
 import com.leilei.entity.Student;
 import com.leilei.entity.StudentClass;
-import com.leilei.service.ILinkListService;
-import com.leilei.util.response.JsonReturn;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -26,17 +24,19 @@ import java.util.Map;
  * @desc :
  */
 @Service
-public class ILinkListServiceImpl implements ILinkListService {
-    @Autowired
-    private MongoTemplate mongoTemplate;
+public class LinkListService {
+    private final MongoTemplate mongoTemplate;
+
+    public LinkListService(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     /**
      * 添加测试数据
      *
      * @return
      */
-    @Override
-    public JsonReturn addData() {
+    public ResultVO<HashMap<String, Object>> addData() {
         List<Student> students = Arrays.asList(
                 new Student(1L, "小明", 1L),
                 new Student(2L, "小红", 2L),
@@ -55,25 +55,17 @@ public class ILinkListServiceImpl implements ILinkListService {
         City city = new City();
         city.setId(1L);
         city.setCityName("希望市");
-
-        try {
-            mongoTemplate.insertAll(students);
-            mongoTemplate.insertAll(studentClasses);
-            mongoTemplate.insertAll(schools);
-            mongoTemplate.save(city);
-            HashMap<String, Object> map = new HashMap<>(4);
-            map.put("student", students);
-            map.put("studentClass", studentClasses);
-            map.put("schools", schools);
-            map.put("city", city);
-            return JsonReturn.buildSuccess(map);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonReturn.buildFailure("error");
-
-        }
+        mongoTemplate.insertAll(students);
+        mongoTemplate.insertAll(studentClasses);
+        mongoTemplate.insertAll(schools);
+        mongoTemplate.save(city);
+        HashMap<String, Object> map = new HashMap<>(4);
+        map.put("student", students);
+        map.put("studentClass", studentClasses);
+        map.put("schools", schools);
+        map.put("city", city);
+        return ResultVO.ok(map);
     }
-
     /**
      * 多对一查询
      *
@@ -81,8 +73,7 @@ public class ILinkListServiceImpl implements ILinkListService {
      * @param classId
      * @return
      */
-    @Override
-    public JsonReturn MoreToOne(Long studentId, Long classId) {
+    public ResultVO<List<Map>> moreToOne(Long studentId, Long classId) {
         LookupOperation lookup = LookupOperation.newLookup()
                 //关联的从表名字
                 .from("studentClass")
@@ -104,23 +95,17 @@ public class ILinkListServiceImpl implements ILinkListService {
         }
         //将筛选条件放入管道中
         MatchOperation match = Aggregation.match(criteria);
-        Aggregation agg = Aggregation.newAggregation(lookup, match,Aggregation.unwind("class"));
-        try {
-            AggregationResults<Map> studentAggregation = mongoTemplate.aggregate(agg, "student", Map.class);
-            return JsonReturn.buildSuccess(studentAggregation.getMappedResults());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonReturn.buildFailure("error");
-        }
+        Aggregation agg = Aggregation.newAggregation(lookup, match, Aggregation.unwind("class"));
+        AggregationResults<Map> studentAggregation = mongoTemplate.aggregate(agg, "student", Map.class);
+        List<Map> mappedResults = studentAggregation.getMappedResults();
+        return ResultVO.ok(mappedResults);
     }
-
     /**
-     *一对多
+     * 一对多
      *
      * @return
      */
-    @Override
-    public JsonReturn oneToMany() {
+    public ResultVO<List<Map>> oneToMany() {
         LookupOperation lookupOperation = LookupOperation.newLookup()
                 //关联的表
                 .from("student")
@@ -131,13 +116,10 @@ public class ILinkListServiceImpl implements ILinkListService {
                 //定义的从表数据查询出的结果结合
                 .as("studentList");
         Aggregation agg = Aggregation.newAggregation(lookupOperation);
-        try {
-            AggregationResults<Map> studentAggregation = mongoTemplate.aggregate(agg, "studentClass", Map.class);
-            return JsonReturn.buildSuccess(studentAggregation.getMappedResults());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonReturn.buildFailure("error");
-        }
+        AggregationResults<Map> studentAggregation = mongoTemplate.aggregate(agg, "studentClass", Map.class);
+        List<Map> mappedResults = studentAggregation.getMappedResults();
+        return ResultVO.ok(mappedResults);
+
     }
 
     /**
@@ -145,8 +127,7 @@ public class ILinkListServiceImpl implements ILinkListService {
      *
      * @return
      */
-    @Override
-    public JsonReturn moreTableOneToOne() {
+    public ResultVO<List<Map>> moreTableOneToOne() {
         //学生关联班级
         LookupOperation lookupOne = LookupOperation.newLookup()
                 //关联的从表  （班级)
@@ -177,14 +158,11 @@ public class ILinkListServiceImpl implements ILinkListService {
                 .as("city");
         //将几者关联关系放入管道中 作为条件进行查询
         Aggregation aggregation = Aggregation.newAggregation(lookupOne, lookupTwo, lookupThree);
-        try {
-            //注意，我这里还是以student为主表  那么查询结果第一视角（最外层）还是为student
-            AggregationResults<Map> aggregate = mongoTemplate.aggregate(aggregation, "student", Map.class);
-            return JsonReturn.buildSuccess(aggregate.getMappedResults());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonReturn.buildFailure("error");
-        }
+        //注意，我这里还是以student为主表  那么查询结果第一视角（最外层）还是为student
+        AggregationResults<Map> aggregate = mongoTemplate.aggregate(aggregation, "student", Map.class);
+        List<Map> mappedResults = aggregate.getMappedResults();
+        return ResultVO.ok(mappedResults);
+
 
     }
 }

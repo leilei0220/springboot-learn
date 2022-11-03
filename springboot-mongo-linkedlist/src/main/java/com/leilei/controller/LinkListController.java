@@ -1,11 +1,14 @@
 package com.leilei.controller;
 
-import com.leilei.service.ILinkListService;
-import com.leilei.util.response.JsonReturn;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.leilei.entity.ResultVO;
+import com.leilei.service.LinkListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author : leilei
@@ -15,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("mongo")
 public class LinkListController {
-    @Autowired
-    private ILinkListService linkListService;
+    private final LinkListService linkListService;
+
+    public LinkListController(LinkListService linkListService) {
+        this.linkListService = linkListService;
+    }
 
     /**
      * 添加测试数据
@@ -24,7 +30,7 @@ public class LinkListController {
      * @return
      */
     @GetMapping("addData")
-    public JsonReturn addData() {
+    public ResultVO<HashMap<String, Object>> addData() {
         return linkListService.addData();
     }
 
@@ -32,15 +38,15 @@ public class LinkListController {
      * 两张表 多对一测试
      */
     @GetMapping("moreToOne")
-    public JsonReturn MoreToOne(Long studentId, Long classId) {
-        return linkListService.MoreToOne(studentId, classId);
+    public ResultVO<List<Map>> moreToOne(Long studentId, Long classId) {
+        return linkListService.moreToOne(studentId, classId);
     }
 
     /**
      * 多张表一对一  一个学生 对应一个教室 一个教室对应一个学校
      */
     @GetMapping("moreTableOneToOne")
-    public JsonReturn moreTableOneToOne() {
+    public ResultVO<List<Map>> moreTableOneToOne() {
         return linkListService.moreTableOneToOne();
     }
 
@@ -48,7 +54,7 @@ public class LinkListController {
      * 一对多测试
      */
     @GetMapping("oneToMany")
-    public JsonReturn oneToMany() {
+    public ResultVO<List<Map>> oneToMany() {
 
         return linkListService.oneToMany();
     }

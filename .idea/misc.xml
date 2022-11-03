@@ -6,10 +6,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/springboot-flink-cdc-2.2.x/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-debezium/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-batch-collapser/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-redis-key-expire/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-mongo-moredatasource/pom.xml" />
       </list>
     </option>
   </component>
