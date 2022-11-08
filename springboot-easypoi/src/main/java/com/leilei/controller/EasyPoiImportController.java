@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -76,7 +78,7 @@ public class EasyPoiImportController {
             //mime类型
             resp.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             resp.setHeader("Content-disposition", "attachment;filename=error.xlsx");
-            result.getFailWorkbook().write(fos);
+            failWorkbook.write(fos);
             fos.close();
         }
         return failList;
