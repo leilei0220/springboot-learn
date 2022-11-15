@@ -1,5 +1,7 @@
 package com.leilei.demo;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +26,12 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    FanoutExchange bizExchange() {
+    public FanoutExchange bizExchange() {
         return new FanoutExchange("bizExchange");
+    }
+
+    @Bean
+    public Binding bizBind(Queue bizQueue, FanoutExchange bizExchange) {
+        return BindingBuilder.bind(bizQueue).to(bizExchange);
     }
 }
