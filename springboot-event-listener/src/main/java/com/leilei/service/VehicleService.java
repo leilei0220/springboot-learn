@@ -37,6 +37,7 @@ public class VehicleService {
     public void pushVehicleRegister() {
         Vehicle vehicle = new Vehicle( "川A00001-translation", "黄");
         vehicleMapper.insert(vehicle);
+        // 这里方法操作完成后，下方vehicleEvent会立即收到消息,即使我们当前事务未真正提交或有回滚风险
         eventPublisher.publishEvent(new VehicleEvent("aa", vehicle));
         try {
             Thread.sleep(2000);
@@ -44,6 +45,7 @@ public class VehicleService {
             e.printStackTrace();
         }
         log.info("注册完成");
+        // 事务提交后，下发translationVehicleEvent方法才会收到消息（设置了alter_commit），此时收到的消息一定是已经落库了的（）
         // throw new RuntimeException("aaa");
     }
 
