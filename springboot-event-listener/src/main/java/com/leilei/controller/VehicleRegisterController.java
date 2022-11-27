@@ -1,9 +1,8 @@
 package com.leilei.controller;
 
-import com.leilei.service.VehiclePublishService;
+import com.leilei.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/vehicle")
 @RequiredArgsConstructor
 public class VehicleRegisterController {
-    private final VehiclePublishService publishService;
+    private final VehicleService publishService;
 
-    @GetMapping("/register/{id}")
-    public void register(@PathVariable("id") Integer id) {
-        publishService.pushVehicleRegister(id);
+    @GetMapping("/register")
+    public void register() {
+        publishService.pushVehicleRegister();
     }
 }

@@ -1,0 +1,7 @@
+spring:
+  # 配置数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.50.40.145:3306/test?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: cdwk-3g-145

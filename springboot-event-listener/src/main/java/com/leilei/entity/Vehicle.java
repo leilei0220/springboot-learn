@@ -1,5 +1,8 @@
 package com.leilei.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,28 +16,19 @@ import org.springframework.context.ApplicationEvent;
  * @create 2022-11-27 19:04
  * @desc
  **/
-@Getter
-@Setter
-public class Vehicle extends ApplicationEvent  {
+@TableName("vehicle")
+@Data
+public class Vehicle {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String plate;
     private String color;
 
-
-    public Vehicle(Object source, Integer id, String plate, String color) {
-        super(source);
-        this.id = id;
+    public Vehicle(String plate, String color) {
         this.plate = plate;
         this.color = color;
     }
 
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "id=" + id +
-                ", plate='" + plate + '\'' +
-                ", color='" + color + '\'' +
-                ", source=" + source +
-                '}';
+    public Vehicle() {
     }
 }
