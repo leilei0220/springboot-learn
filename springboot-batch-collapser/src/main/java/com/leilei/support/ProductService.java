@@ -1,10 +1,12 @@
 package com.leilei.support;
 
+import cn.hutool.core.util.RandomUtil;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author lei
@@ -33,7 +35,7 @@ public class ProductService implements BatchExecutor.BatchHandler<List<Integer>,
      */
     @Scheduled(fixedDelay = 300)
     public void aaa() {
-        Integer requestParam = (int) (Math.random() * 100) + 1;
+        Integer requestParam = RandomUtil.randomInt(1, 100);
         batchExecutor.submitEvent(requestParam);
         System.out.println("当前请求参数:" + requestParam);
 

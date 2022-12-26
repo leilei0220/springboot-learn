@@ -1,5 +1,7 @@
 package com.leilei.support;
 
+import cn.hutool.core.collection.CollUtil;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
@@ -7,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 public class BatchExecutor<T, R> {
     private static final Map<Class<?>, BatchExecutor> BATCH_INSTANCE =new ConcurrentHashMap<>();
-    private static final ScheduledExecutorService SCHEDULE_EXECUTOR = Executors.newScheduledThreadPool(1);
-
     private final LinkedBlockingDeque<T> batchContainer = new LinkedBlockingDeque<>();
     private final BatchHandler<List<T>, R> handler;
     private final int countThreshold;
@@ -36,8 +36,11 @@ public class BatchExecutor<T, R> {
     private BatchExecutor(BatchHandler<List<T>, R> handler, int countThreshold, long timeThreshold) {
         this.handler = handler;
         this.countThreshold = countThreshold;
-        SCHEDULE_EXECUTOR.scheduleAtFixedRate(() -> {
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1, new ThreadFactoryBuilder()
+                .setNameFormat(handler.getClass().getSimpleName()).build(), new ThreadPoolExecutor.DiscardPolicy());
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(() -> {
             try {
+                log.info("定时任务触发-执行定时任务");
                 this.pullAndHandler(BatchHandlerType.BATCH_HANDLER_TYPE_TIME);
             } catch (Exception e) {
                 log.error("pull container exception", e);
@@ -63,7 +66,7 @@ public class BatchExecutor<T, R> {
     private void pullAndHandler(BatchHandlerType handlerType) {
         List<T> tryHandlerList = Collections.synchronizedList(new ArrayList<>(countThreshold));
         batchContainer.drainTo(tryHandlerList, countThreshold);
-        if (tryHandlerList.size() < 1) {
+        if (CollUtil.isEmpty(tryHandlerList)) {
             return;
         }
         try {
@@ -97,10 +100,10 @@ public class BatchExecutor<T, R> {
     /**
      * 请求处理接口
      *
-     * @param <IN> 批输入
-     * @param <OUT> 结果输出
+     * @param <T> 批输入
+     * @param <R> 结果输出
      */
-    public interface BatchHandler<IN, OUT> {
+    public interface BatchHandler<T, R> {
         /**
          * 处理用户具体请求
          *
@@ -108,7 +111,7 @@ public class BatchExecutor<T, R> {
          * @param handlerType
          * @return
          */
-        OUT batchHandle(IN input, BatchHandlerType handlerType);
+        R batchHandle(T input, BatchHandlerType handlerType);
     }
 
     /**
