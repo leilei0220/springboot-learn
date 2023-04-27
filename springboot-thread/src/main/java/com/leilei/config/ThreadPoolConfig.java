@@ -24,6 +24,7 @@ public class ThreadPoolConfig {
         taskExecutor.setTaskDecorator(new MyContextDecorator());
         taskExecutor.setThreadNamePrefix("bizExecutor-");
         taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        taskExecutor.initialize();
         return taskExecutor;
     }
 }
