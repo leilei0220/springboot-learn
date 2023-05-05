@@ -18,6 +18,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @create 2023-05-05 11:00
  * @desc  Spring Boot默认将每个客户端连接视为独立的会话，并为每个客户端连接创建一个新的WebSocketHandler实例
  * (类似于原型模式 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE))
+ *
+ *
+ * @ServerEndpoint：使用此注解可以将一个 Java 类标记为 WebSocket 服务器端点。它接受一个 value 参数，用于指定 URI。
+ * 当客户端连接到该 URI 时，将会使用标注了 @ServerEndpoint 注解的类进行处理
  **/
 @Component
 @Log4j2
@@ -43,8 +47,10 @@ public class WebSocketService {
      */
     private static final CopyOnWriteArraySet<WebSocketService> SOCKET_SET = new CopyOnWriteArraySet<>();
 
-    /**
-     * 连接建立成功调用的方法*/
+   /**
+    * @OnOpen：使用此注解可以指定一个方法，该方法在 WebSocket 连接建立时调用。它可以接受一个 javax.websocket.Session 参数，用于表示与客户端的连接
+    *
+    */
     @OnOpen
     public void onOpen(Session session,@PathParam("userId") String userId) {
         this.session = session;
@@ -56,15 +62,18 @@ public class WebSocketService {
 
     /**
      * 连接关闭调用的方法
+     * @OnClose：使用此注解可以指定一个方法，该方法在 WebSocket 连接关闭时调用。它可以接受一个 javax.websocket.Session 参数，用于表示与客户端的连接
      */
     @OnClose
-    public void onClose() {
+    public void onClose(Session session) {
         log.info("用户:{}关闭连接", userId);
         SOCKET_SET.remove(this);
     }
 
     /**
      * 收到客户端消息后调用的方法
+     * @OnMessage：使用此注解可以指定一个方法，该方法在 WebSocket 接收到消息时调用。它可以接受一个 javax.websocket.Session 参数，用于表示与客户端的连接，
+     * 以及一个 String 参数，用于表示收到的消息内容
      * @param message 客户端发送过来的消息*/
     @OnMessage
     public void onMessage(String message, Session session) {
@@ -72,6 +81,7 @@ public class WebSocketService {
     }
 
     /**
+     * @OnError：使用此注解可以指定一个方法，该方法在 WebSocket 发生错误时调用。它可以接受一个 javax.websocket.Session 参数，用于表示与客户端的连接，以及一个 Throwable 参数，用于表示发生的错误
      *  错误回调函数
      * @param session
      * @param error
