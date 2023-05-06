@@ -1,0 +1,5 @@
+spring:
+  kafka:
+    listener:
+      type: single
+    bootstrap-servers: 10.50.125.10:9092
