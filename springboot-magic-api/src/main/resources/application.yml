@@ -1,0 +1,39 @@
+server:
+  port: 9999
+magic-api:
+  #配置web页面入口
+  web: /magic/web
+  resource:
+    #配置文件存储位置。当以classpath开头时，为只读模式
+    #mac用户请改为可读写的目录
+    #如果不想存到文件中，可以参考配置将接口信息存到数据库、Redis中（或自定义）
+    location: D:/data/magic-api
+    type: database
+    tableName: magic_api_file_v2
+  backup: #备份相关配置
+    enable: true #是否启用
+    max-history: -1 #备份保留天数，-1为永久保留
+    datasource: #指定数据源（单数据源时无需配置，多数据源时默认使用主数据源，如果存在其他数据源中需要指定。）
+    table-name: magic_backup_record_v2 #使用数据库存储备份时的表名
+  page:
+    size: size # 页大小的请求参数名称 缺省时为size
+    page: page # 页码的请求参数名称 缺省时为page
+    default-page: 1 # 自定义默认首页 缺省时为1
+    default-size: 10 # 自定义为默认页大小 缺省时为10
+  swagger:
+    version: 1.0
+    description: magic使用演示
+    title: MagicAPI Swagger Docs
+    name: MagicAPI 接口
+    location: /v2/api-docs/magic-api/swagger2.json
+  security:
+    password: 123456
+    username: lei
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.50.50.72:3306/magic-api-test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: cdwk-3g-145
