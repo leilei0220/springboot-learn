@@ -140,9 +140,11 @@ class RabbitmqProviderApplicationTests {
      */
     @Test
     void ttlAndDead2() {
-        ttlAndDeadProvider.sendMessage2(40000);
+        ttlAndDeadProvider.sendMessage2(1,40000);
         // 头阻塞问题导致，即使第二个消息延时时间远远小于前一个，但还是需要等前一个消息出列后第二个才会被消费
-        ttlAndDeadProvider.sendMessage2(4000);
+        ttlAndDeadProvider.sendMessage2(2,4000);
+
+        ttlAndDeadProvider.sendMessage2(3,15000);
     }
 
     /**

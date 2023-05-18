@@ -23,18 +23,19 @@ public class TtlAndDeadProvider {
      * 固定延迟 ttl队列设置了x-message-ttl属性，时间到了后，消息会流转至死信队列
      */
     public void sendMessage() {
-        rabbitTemplate.convertAndSend("ttl-dead-exchange","test-ttl-and-dead", JSON.toJSONString(new Vehicle(1,"ttl+死信")));
+        rabbitTemplate.convertAndSend("ttl-dead-exchange", "test-ttl-and-dead", JSON.toJSONString(new Vehicle(1, "ttl+死信")));
     }
 
 
     /**
      * 动态延迟 ,ttl队列Bean定义需要删除x-message-ttl属性,以传入为准，传入时间到了后，消息会流转至死信队列
      */
-    public void sendMessage2(long expirationTime) {
-        rabbitTemplate.convertAndSend("ttl-dead-exchange","test-ttl-and-dead", JSON.toJSONString(new Vehicle(1,"ttl+死信")),message -> {
+    public void sendMessage2(Integer id,long expirationTime) {
+        String s = JSON.toJSONString(new Vehicle(id, "ttl+死信"+id));
+        rabbitTemplate.convertAndSend("ttl-dead-exchange", "test-ttl-and-dead", s, message -> {
             message.getMessageProperties().setExpiration(Long.toString(expirationTime));
             message.getMessageProperties().setContentEncoding("UTF-8");
-            System.out.println("延迟消息发送时间：" + LocalDateTime.now());
+            System.out.println("延迟消息发送时间：" + LocalDateTime.now() + s + "消息延迟：" + expirationTime / 1000 + "s");
             return message;
         });
     }
