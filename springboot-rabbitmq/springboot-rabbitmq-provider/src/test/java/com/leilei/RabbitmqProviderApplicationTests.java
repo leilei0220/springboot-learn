@@ -133,6 +133,10 @@ class RabbitmqProviderApplicationTests {
     void ttlAndDead() {
         ttlAndDeadProvider.sendMessage();
     }
+    @Test
+    void ttlAndDead2() {
+        ttlAndDeadProvider.sendMessage2(40000);
+    }
 
     /**
      * confirm 消息发送确认成功...消息ID为：1594825498345

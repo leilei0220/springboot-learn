@@ -3,8 +3,6 @@ package com.leilei.ttlanddead;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Exchange;
-import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +21,7 @@ public class TtlAndDeadConfig {
     @Bean
     public Queue ttlAndDeadQueue() {
         Map<String, Object> props = new HashMap<>();
-        // 消息存活时间 ,key 固定 value 必须为Int值
+        // 消息存活时间 ,key 固定 value 必须为Int值,此种方式则消息存活时间固定，如需动态延迟则将该属性移除
         props.put("x-message-ttl", 10000);
         // 设置该队列所关联的死信交换器（当队列消息TTL到期后依然没有消费，则加入死信队列）
         props.put("x-dead-letter-exchange", "test-dead-exchange");

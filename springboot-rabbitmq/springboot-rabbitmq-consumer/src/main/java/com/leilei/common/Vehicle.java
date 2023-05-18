@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author lei
@@ -17,4 +18,10 @@ import java.io.Serializable;
 public class Vehicle implements Serializable {
     private Integer id;
     private String name;
+    private LocalDateTime sendDate;
+
+    public Vehicle(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

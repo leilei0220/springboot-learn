@@ -6,6 +6,9 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author lei
  * @version 1.0
@@ -16,6 +19,6 @@ import org.springframework.stereotype.Component;
 public class DeadConsumer {
     @RabbitListener(queues = "dead-queue")
     public void listenOne(Message message) {
-        System.out.println("死信队列收到消息：" + JSON.parseObject(new String(message.getBody()), Vehicle.class));
+        System.out.println("当前时间:"+ LocalDateTime.now() +",死信队列收到消息：" + JSON.parseObject(new String(message.getBody()), Vehicle.class));
     }
 }
