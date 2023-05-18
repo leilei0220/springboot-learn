@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @desc rabbitmq 消费者消费消息模拟
  * @date 2021-03-16 10:07
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.leilei.ttlanddead")
 public class RabbitmqConsumerApplication {
 
     public static void main(String[] args) {

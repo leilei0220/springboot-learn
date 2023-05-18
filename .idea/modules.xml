@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/springboot-learn.iml" filepath="$PROJECT_DIR$/.idea/springboot-learn.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-mongo-moredatasource/springboot-mongo-moredatasource.iml" filepath="$PROJECT_DIR$/springboot-mongo-moredatasource/springboot-mongo-moredatasource.iml" />
     </modules>
   </component>
 </project>

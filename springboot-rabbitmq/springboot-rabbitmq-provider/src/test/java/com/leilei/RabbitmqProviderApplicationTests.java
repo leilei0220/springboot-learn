@@ -16,26 +16,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class RabbitmqProviderApplicationTests {
-    @Autowired
+    @Autowired(required = false)
     private EasyProviderServer easyProviderServer;
-    @Autowired
+    @Autowired(required = false)
     private WorkProviderServer workProviderServer;
-    @Autowired
+    @Autowired(required = false)
     private FanoutExchangeProvider fanoutExchangeProvider;
-    @Autowired
+    @Autowired(required = false)
     private DirectExchangeProvider directExchangeProvider;
-    @Autowired
+    @Autowired(required = false)
     private TopicRabbitProvider topicRabbitProvider;
-    @Autowired
+    @Autowired(required = false)
     private TtlProvider ttlProvider;
     @Autowired
     private TtlAndDeadProvider ttlAndDeadProvider;
-    @Autowired
+    @Autowired(required = false)
     private ConfirmServer2 confirmServer;
-    @Autowired
+    @Autowired(required = false)
     private ReplyProvider replyProvider;
 
-    @Autowired
+    @Autowired(required = false)
     private DelayedProvider delayedProvider;
     @Test
     void contextLoads() {
@@ -133,9 +133,16 @@ class RabbitmqProviderApplicationTests {
     void ttlAndDead() {
         ttlAndDeadProvider.sendMessage();
     }
+
+    /**
+     * 当前时间:2023-05-18T11:46:58.951,死信队列收到消息：Vehicle(id=1, name=ttl+死信, sendDate=2023-05-18T11:44:28.778)
+     * 当前时间:2023-05-18T11:46:58.953,死信队列收到消息：Vehicle(id=1, name=ttl+死信, sendDate=2023-05-18T11:44:49.743)
+     */
     @Test
     void ttlAndDead2() {
         ttlAndDeadProvider.sendMessage2(40000);
+        // 头阻塞问题导致，即使第二个消息延时时间远远小于前一个，但还是需要等前一个消息出列后第二个才会被消费
+        ttlAndDeadProvider.sendMessage2(4000);
     }
 
     /**
