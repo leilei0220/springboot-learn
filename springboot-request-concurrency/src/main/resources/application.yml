@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      # 最小工作线程 （默认值为10）
+      min-spare: 5
+      # 最大工作线程（默认值200）
+      max: 10
+    # 最大请求连接数为（默认值8192）
+    max-connections: 20
+    # 等待队列长度为（可等待10个请求）（默认值100）
+    accept-count: 5
