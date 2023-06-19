@@ -1,0 +1,11 @@
+mqtt:
+  brokerUrl: tcp://10.50.125.10:1883
+  clientId: ${spring.application.name}
+  username: lei_mqtt_test
+  password: 12345678
+spring:
+  application:
+    name: springboot-mqtt-lei
+
+server:
+  port: 8080
