@@ -27,7 +27,7 @@ public class ThreadLocalTest {
             System.out.println("当前线程：" + Thread.currentThread().getName() + " 获取值:" + s1);
             //---------------------------------------------------------------------------
             userThreadLocal.set("小马哥");
-            System.out.println("当前线程：" + Thread.currentThread().getName() + " 设置值:" + mainUser);
+            System.out.println("当前线程：" + Thread.currentThread().getName() + " 设置值:" + "小马哥");
             //这里可以获取到值,因为set get调用者为同一个线程
             System.out.println("当前线程：" + Thread.currentThread().getName() + " 获取值:" + userThreadLocal.get());
         });
