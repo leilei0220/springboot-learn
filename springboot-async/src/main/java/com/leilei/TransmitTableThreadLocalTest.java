@@ -22,7 +22,7 @@ public class TransmitTableThreadLocalTest {
         String s = userThreadLocal.get();
         System.out.println("当前线程：" + Thread.currentThread().getName() + " 获取值:" + s);
 
-        Executor threadPool =TtlExecutors.getTtlExecutor(Executors.newFixedThreadPool(1)) ;
+        ExecutorService threadPool =TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(1)) ;
         threadPool.execute(() -> {
             String s1 = userThreadLocal.get();
             // 这里会获取到值,TransmittableThreadLocal做了包装处理，每次调用任务的时，都会将当前的主线程的TTL数据copy到子线程里面
@@ -37,5 +37,6 @@ public class TransmitTableThreadLocalTest {
             // 这里会获取到值,TransmittableThreadLocal做了包装处理，每次调用任务的时，都会将当前的主线程的TTL数据copy到子线程里面
             System.out.println("当前线程：" + Thread.currentThread().getName() + "第二次获取值:" + s1);
         });
+        threadPool.shutdown();
     }
 }
