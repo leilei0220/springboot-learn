@@ -3,14 +3,13 @@ package com.leilei;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.alibaba.ttl.threadpool.TtlExecutors;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * @author lei
  * @create 2023-07-05 17:26
- * @desc 阿里 可转让线程变量框架使用
+ * @desc 阿里 可跨线程传输线程变量框架使用
  **/
 public class TransmitTableThreadLocalTest {
     public static void main(String[] args) throws InterruptedException {
