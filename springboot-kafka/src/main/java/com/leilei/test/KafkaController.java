@@ -1,6 +1,9 @@
 package com.leilei.test;
 
+import com.alibaba.fastjson.JSON;
+import com.leilei.entity.Location;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,19 +22,27 @@ public class KafkaController {
  
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
- 
-    private static final String TOPIC = "test_topic";
+
+    @Value("${kafka.calcTopic}")
+    private String topic;
  
     @GetMapping("/send/{message}")
     public String sendMessage(@PathVariable String message) {
-        kafkaTemplate.send(TOPIC, message);
+        kafkaTemplate.send(topic, message);
         return "Message sent successfully";
     }
 
 
-    @GetMapping("/send2")
-    public String sendMessage2() {
-        kafkaTemplate.send(TOPIC, "some_key", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd Hh:mm:ss")));
-        return "Message sent successfully";
+    @GetMapping("/send2/{sendNum}")
+    public String sendMessage2(@PathVariable Integer sendNum) {
+        for (int i = 0; i < sendNum; i++) {
+            Location location = new Location();
+            location.setPlate("川A000-" + i + 1);
+            location.setColor("蓝");
+            location.setSendTime(LocalDateTime.now());
+            kafkaTemplate.send(topic, JSON.toJSONString(location));
+        }
+        return sendNum + "条定位信息已发送完成";
     }
+
 }

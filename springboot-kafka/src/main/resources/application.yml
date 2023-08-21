@@ -1,5 +1,11 @@
 spring:
   kafka:
     listener:
-      type: single
+      type: batch
     bootstrap-servers: 10.50.125.10:9092
+
+
+kafka:
+  calcTopic: pos-test
+  groupId: calc-test
+  calcSleep: 200
