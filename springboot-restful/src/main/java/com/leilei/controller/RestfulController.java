@@ -3,6 +3,7 @@ package com.leilei.controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lei
@@ -43,5 +44,15 @@ public class RestfulController {
     @DeleteMapping("/test/{ids}")
     public String info(@PathVariable("ids") List<Integer> ids) {
         return ids.toString();
+    }
+
+    @PostMapping("/test/lock")
+    public String testLock(@RequestBody User user) throws InterruptedException {
+        Long id = user.getId();
+        String intern = id.toString().intern();
+        synchronized (intern) {
+            TimeUnit.SECONDS.sleep(10);
+        }
+        return "POST请求--新增"+user.toString();
     }
 }
