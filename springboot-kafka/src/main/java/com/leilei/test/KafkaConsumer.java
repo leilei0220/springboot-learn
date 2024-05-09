@@ -49,7 +49,7 @@ public class KafkaConsumer {
     }
 
     /**
-     * nm
+     *
      * 批量消费  spring.kafka.listener.type=batch
      *
      * @param consumerRecords
@@ -58,7 +58,7 @@ public class KafkaConsumer {
     public void consume1(List<ConsumerRecord<String, String>> consumerRecords) {
         consumerRecords.forEach(consumerRecord -> executorService.execute(()->{
             Location location = JSON.parseObject(consumerRecord.value(), Location.class);
-
+            log.info(("Batch-Consumed message: " + consumerRecord.key() + "--" + consumerRecord.value()) + "--" + location);
         }));
     }
 
