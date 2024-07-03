@@ -64,43 +64,33 @@ spring:
     # 数据源配置
     datasource:
       # names必须对应数据库的名字，且与下方配置相对应
-      names: alarm-sc,alarm-bj
+      names: master,alarm-sc,alarm-bj
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.50.124.190:3307/gov_youbu?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: Zwcpx2024@vcolco
       alarm-sc:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://xxx:3306/alarm-sc?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://10.50.124.190:3307/alarm-sc?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
-        password: root
+        password: Zwcpx2024@vcolco
       alarm-bj:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://xxx:3306/alarm-bj?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://10.50.124.190:3307/alarm-bj?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
-        password: root
+        password: Zwcpx2024@vcolco
     sharding:
-      # 默认数据库策略 如果不想分库，可不设此配置
-#      defaultDatabaseStrategy:
-#        # 分库
-#        standard:
-#          # 分片键 zone  表示根据 数据zone这一列的值与自定义的算法进行分片
-#          shardingColumn: zone
-#          # 精准分片算法
-#          preciseAlgorithmClassName: com.leilei.algorithm.SubDataBasePreciseAlgorithm
-#          # 范围分片算法
-#          rangeAlgorithmClassName: com.leilei.algorithm.SubDataBaseRangeAlgorithm
-      # 默认分表策略
-#      defaultTableStrategy:
-#        standard:
-#          #分片键 device_time 即根据device_time这列的值与设定的算法进行分表
-#          shardingColumn: device_time
-#          # 精准分片算法
-#          preciseAlgorithmClassName: com.leilei.algorithm.SubTableTimePreciseAlgorithm
-#          # 范围分片算法
-#          rangeAlgorithmClassName: com.leilei.algorithm.SubTableTimeRangeAlgorithm
+      # 不使用分库分表时的操作库
+      default-data-source-name: master
       # 表策略配置
       tables:
         # vehicle_alarm 是逻辑名表
         vehicle_alarm:
+          actualDataNodes: alarm-sc.vehicle_alarm,alarm-bj.vehicle_alarm
           tableStrategy:
             standard:
               #分片键 device_time 即根据device_time这列的值与设定的算法进行分表

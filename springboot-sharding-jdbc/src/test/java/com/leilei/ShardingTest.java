@@ -3,7 +3,9 @@ package com.leilei;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.leilei.algorithm.DbSelectUtil;
+import com.leilei.entity.Person;
 import com.leilei.entity.VehicleAlarm;
+import com.leilei.mapper.PersonMapper;
 import com.leilei.mapper.VehicleAlarmMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,17 @@ import java.util.List;
 public class ShardingTest {
     @Autowired
     private VehicleAlarmMapper vehicleAlarmMapper;
+    @Autowired
+    private PersonMapper personMapper;
+
+    @Test
+    public void testDefaultDb() {
+        Person person = new Person();
+        person.setName("测试默认库");
+        person.setAge(1);
+        personMapper.insert(person);
+
+    }
 
     @Test
     public void testInsertAlarm() {
