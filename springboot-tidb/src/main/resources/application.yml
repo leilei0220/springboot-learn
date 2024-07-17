@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  # 配置数据源 tdib仍使用mysql驱动
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.50.125.10:4000/test-tidb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password:
