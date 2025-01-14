@@ -25,7 +25,7 @@ class SpringbootEmailApplicationTests {
             "    <h1>这是Html格式邮件!,不信你看邮件，我字体比一般字体还要大</h1>\n" +
             "</body>\n" +
             "</html>";
-        toEmailService.htmlEmail(new ToEmail(new String[]{"248721866@qq.com"},"Html邮件",content));
+        toEmailService.htmlEmail(new ToEmail(new String[]{"接收的邮箱"},"Html邮件",content));
     }
 
 }
