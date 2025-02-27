@@ -2,3 +2,16 @@ deepseek:
   api-key: sk-xxx  # 必填项：你的 API 密钥
   model: deepseek-reasoner
   base-url: https://api.deepseek.com  # 可选，默认为官方 API 地址
+
+
+
+spring:
+  ai:
+    openai:
+      api-key: sk-sxxx
+      # 使用额硅基流动
+      base-url: https://api.siliconflow.cn
+      chat:
+        options:
+          # 模型名
+          model: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B

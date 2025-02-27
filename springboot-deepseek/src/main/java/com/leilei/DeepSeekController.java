@@ -26,7 +26,6 @@ public class DeepSeekController {
     @CrossOrigin("*")
     @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ChatCompletionResponse> chat(String prompt) {
-        String a ="";
         return deepSeekClient.chatFluxCompletion(prompt);
     }
 

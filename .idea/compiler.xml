@@ -7,70 +7,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springboot-rabbitmq-provider" />
-        <module name="springboot-rabbitmq-consumer" />
-        <module name="springboot-xxl" />
+        <module name="springboot-jimu-report" />
+        <module name="springboot-deepseek" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="springboot-batch-collapser" target="1.8" />
-      <module name="springboot-canal-115" target="1.8" />
-      <module name="springboot-debezium" target="1.8" />
-      <module name="springboot-deploy-monitor" target="1.8" />
-      <module name="springboot-easypoi" target="1.8" />
-      <module name="springboot-event-listener" target="1.8" />
-      <module name="springboot-flink-cdc-2.2.x" target="1.8" />
-      <module name="springboot-jwt" target="1.8" />
-      <module name="springboot-kafka" target="8" />
-      <module name="springboot-lock-redission" target="1.8" />
-      <module name="springboot-magic-api" target="1.8" />
-      <module name="springboot-mongo-linkedlist" target="1.8" />
-      <module name="springboot-mongo-moredatasource" target="1.8" />
-      <module name="springboot-mybatis-plus" target="1.8" />
-      <module name="springboot-rabbitmq-reply" target="1.8" />
-      <module name="springboot-redis-cluster" target="1.8" />
-      <module name="springboot-redis-geo" target="1.8" />
-      <module name="springboot-redis-key-expire" target="1.8" />
-      <module name="springboot-redis-serializable" target="1.8" />
-      <module name="springboot-restful" target="1.8" />
-      <module name="springboot-restful.main" target="1.8" />
-      <module name="springboot-restful.test" target="1.8" />
-      <module name="springboot-scheduledlock" target="1.8" />
-      <module name="springboot-ssh" target="1.8" />
-      <module name="springboot-starter-j2cache" target="1.8" />
-      <module name="springboot-thread" target="1.8" />
-      <module name="springboot-websocket" target="1.8" />
+      <module name="springboot-encrypt-req-resp" target="17" />
+      <module name="springboot-mybatis" target="1.8" />
+      <module name="springboot-mybatis-plus-oracle" target="1.8" />
+      <module name="springboot-swagger" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="springboot-batch-collapser" options="-parameters" />
-      <module name="springboot-canal-115" options="-parameters" />
-      <module name="springboot-debezium" options="-parameters" />
-      <module name="springboot-deploy-monitor" options="-parameters" />
-      <module name="springboot-easypoi" options="-parameters" />
-      <module name="springboot-event-listener" options="-parameters" />
-      <module name="springboot-flink-cdc-2.2.x" options="-parameters" />
-      <module name="springboot-jwt" options="-parameters" />
-      <module name="springboot-kafka" options="-parameters" />
-      <module name="springboot-lock-redission" options="-parameters" />
-      <module name="springboot-magic-api" options="-parameters" />
-      <module name="springboot-mongo-linkedlist" options="-parameters" />
-      <module name="springboot-mongo-moredatasource" options="-parameters" />
-      <module name="springboot-mybatis-plus" options="-parameters" />
-      <module name="springboot-rabbitmq-consumer" options="-parameters" />
-      <module name="springboot-rabbitmq-provider" options="-parameters" />
-      <module name="springboot-rabbitmq-reply" options="-parameters" />
-      <module name="springboot-redis-cluster" options="-parameters" />
-      <module name="springboot-redis-geo" options="-parameters" />
-      <module name="springboot-redis-key-expire" options="-parameters" />
-      <module name="springboot-redis-serializable" options="-parameters" />
-      <module name="springboot-scheduledlock" options="-parameters" />
-      <module name="springboot-ssh" options="-parameters" />
-      <module name="springboot-starter-j2cache" options="-parameters" />
-      <module name="springboot-thread" options="-parameters" />
-      <module name="springboot-websocket" options="-parameters" />
-      <module name="springboot-xxl" options="-parameters" />
+      <module name="springboot-deepseek" options="-parameters" />
+      <module name="springboot-encrypt-req-resp" options="-parameters" />
+      <module name="springboot-mybatis" options="-parameters" />
+      <module name="springboot-mybatis-plus-oracle" options="-parameters" />
+      <module name="springboot-swagger" options="-parameters" />
     </option>
   </component>
 </project>

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/springboot-deepseek" />
     <file type="web" url="file://$PROJECT_DIR$/springboot-redis-geo" />
+    <file type="web" url="file://$PROJECT_DIR$/springboot-req-resp-encrypt/springboot-req-resp-encrypt" />
     <file type="web" url="file://$PROJECT_DIR$/springboot-restful" />
   </component>
   <component name="JavaScriptSettings">
@@ -12,11 +14,15 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/springboot-webscoket/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-xxl/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq-consumer/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-encrypt-req-resp/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-deepseek/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/springboot-encrypt-req-resp/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK" />
 </project>
