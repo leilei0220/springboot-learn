@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -41,12 +42,13 @@ public class KafkaConsumer {
      *
      * @param consumerRecord
      */
-    @KafkaListener(topics = "${kafka.calcTopic}", groupId = "${kafka.groupId}")
-    public void consume1(ConsumerRecord<String, String> consumerRecord) {
-        log.info("收到单条消息");
-        log.info(consumerRecord);
-        log.info(("Consumed message: " + consumerRecord.key() + "--" + consumerRecord.value()));
-    }
+    // @KafkaListener(topics = "${kafka.calcTopic}", groupId = "${kafka.groupId}", containerFactory = "singleFactory")
+    // public void consume1(ConsumerRecord<String, String> consumerRecord, Acknowledgment acknowledgment) {
+    //     log.info("收到单条消息");
+    //     log.info(consumerRecord);
+    //     log.info(("Consumed message: " + consumerRecord.key() + "--" + consumerRecord.value()));
+    //     acknowledgment.acknowledge();
+    // }
 
     /**
      *
@@ -54,12 +56,14 @@ public class KafkaConsumer {
      *
      * @param consumerRecords
      */
-    @KafkaListener(topics = "${kafka.calcTopic}", groupId = "${kafka.groupId}")
-    public void consume1(List<ConsumerRecord<String, String>> consumerRecords) {
-        consumerRecords.forEach(consumerRecord -> executorService.execute(()->{
+    @KafkaListener(topics = "${kafka.calcTopic}", groupId = "${kafka.groupId}",containerFactory = "batchFactory")
+    public void consume1(List<ConsumerRecord<String, String>> consumerRecords,Acknowledgment acknowledgment) {
+        log.info("收到批量消息{}条", consumerRecords.size());
+        consumerRecords.forEach(consumerRecord -> {
             Location location = JSON.parseObject(consumerRecord.value(), Location.class);
             log.info(("Batch-Consumed message: " + consumerRecord.key() + "--" + consumerRecord.value()) + "--" + location);
-        }));
+        });
+        acknowledgment.acknowledge();
     }
 
 

@@ -15,5 +15,6 @@ public class Location {
     private String plate;
     private String color;
     private LocalDateTime sendTime;
+    private Integer num;
 
 }

@@ -1,8 +1,15 @@
 spring:
   kafka:
+    bootstrap-servers: 10.50.125.194:9092
+    producer:
+      properties:
+        linger.ms: 100
+    consumer:
+      max-poll-records: 20
+      enable-auto-commit: false
     listener:
+      ack-mode: manual_immediate
       type: batch
-    bootstrap-servers: 10.50.125.10:9092
 
 
 kafka:

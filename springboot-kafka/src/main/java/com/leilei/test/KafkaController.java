@@ -19,18 +19,12 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/kafka")
 public class KafkaController {
- 
+
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Value("${kafka.calcTopic}")
     private String topic;
- 
-    @GetMapping("/send/{message}")
-    public String sendMessage(@PathVariable String message) {
-        kafkaTemplate.send(topic, message);
-        return "Message sent successfully";
-    }
 
 
     @GetMapping("/send2/{sendNum}")
@@ -40,7 +34,7 @@ public class KafkaController {
             location.setPlate("川A000-" + i + 1);
             location.setColor("蓝");
             location.setSendTime(LocalDateTime.now());
-            kafkaTemplate.send(topic, JSON.toJSONString(location));
+            kafkaTemplate.send(topic, String.valueOf(i), JSON.toJSONString(location));
         }
         return sendNum + "条定位信息已发送完成";
     }
