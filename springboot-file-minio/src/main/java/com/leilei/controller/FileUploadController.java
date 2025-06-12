@@ -50,8 +50,8 @@ public class FileUploadController {
         String minoKey = "";
         // 小文件上传
         if (totalChunks == null || totalChunks == 1) {
-            minoKey = "files/" + fileMd5 + "/" + fileName;
-            minioUtil.upload(file, minoKey);
+            minoKey = "files/" + fileMd5 + "_" + fileName;
+            minioUtil.upload(minoKey, file.getInputStream(), file.getSize(), file.getContentType());
             fileService.markUploadComplete(fileMd5, minoKey, fileName, fileSize);
             return ResultVO.ok(minoKey);
         }
