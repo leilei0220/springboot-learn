@@ -8,14 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="springboot-jimu-report" />
-        <module name="springboot-kafka" />
+        <module name="springboot-file-minio" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springboot-api-version" target="1.8" />
       <module name="springboot-deepseek" target="17" />
       <module name="springboot-encrypt-req-resp" target="17" />
+      <module name="springboot-kafka" target="1.8" />
       <module name="springboot-mybatis" target="1.8" />
+      <module name="springboot-mybatis-flex" target="1.8" />
       <module name="springboot-mybatis-plus-oracle" target="1.8" />
       <module name="springboot-swagger" target="1.8" />
     </bytecodeTargetLevel>
@@ -25,8 +27,10 @@
       <module name="springboot-api-version" options="-parameters" />
       <module name="springboot-deepseek" options="-parameters" />
       <module name="springboot-encrypt-req-resp" options="-parameters" />
+      <module name="springboot-file-minio" options="-parameters" />
       <module name="springboot-kafka" options="-parameters" />
       <module name="springboot-mybatis" options="-parameters" />
+      <module name="springboot-mybatis-flex" options="-parameters" />
       <module name="springboot-mybatis-plus-oracle" options="-parameters" />
       <module name="springboot-swagger" options="-parameters" />
     </option>
