@@ -4,6 +4,7 @@ import io.minio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -24,6 +25,17 @@ public class MinioUtil {
             .bucket(bucket).object(objectName).stream(in, size, -1)
             .contentType(contentType).build());
     }
+
+    public void upload(MultipartFile file, String objectName) throws Exception {
+        PutObjectArgs args = PutObjectArgs.builder()
+                .bucket(bucket)
+                .object(objectName)
+                .stream(file.getInputStream(), file.getSize(), -1)
+                .contentType(file.getContentType())
+                .build();
+        minioClient.putObject(args);
+    }
+
 
     public boolean exists(String objectName) {
         try {

@@ -28,4 +28,6 @@ public class FileInfo {
     private Boolean uploadComplete;
 
     private String createTime;
+
+
 }

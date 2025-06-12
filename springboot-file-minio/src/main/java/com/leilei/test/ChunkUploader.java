@@ -20,7 +20,7 @@ import java.util.Collections;
 @Component
 public class ChunkUploader {
 
-    private final String uploadUrl = "http://localhost:8080/file/uploadChunk"; // 改为你的后端接口地址
+    private final String uploadUrl = "http://localhost:8080/file/upload"; // 改为你的后端接口地址
 
     public void uploadInChunks(File file, int chunkSizeMB) throws Exception {
         int chunkSize = chunkSizeMB * 1024 * 1024;
