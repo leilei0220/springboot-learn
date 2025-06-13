@@ -52,7 +52,7 @@ public class FileUploadController {
         if (totalChunks == null || totalChunks == 1) {
             minoKey = "files/" + fileMd5 + "_" + fileName;
             minioUtil.upload(minoKey, file.getInputStream(), file.getSize(), file.getContentType());
-            fileService.markUploadComplete(fileMd5, minoKey, fileName, fileSize);
+            fileService.markUploadComplete(fileMd5, minoKey, fileName, fileSize,totalChunks);
             return ResultVO.ok(minoKey);
         }
         minoKey = "chunks/" + fileMd5 + "/" + chunkIndex;
@@ -66,7 +66,7 @@ public class FileUploadController {
             List<String> chunkPaths = fileService.getChunkPaths(fileMd5, totalChunks);
             minoKey = "files/" + fileMd5 + "_" + fileName;
             minioUtil.merge(minoKey, chunkPaths);
-            fileService.markUploadComplete(fileMd5, minoKey, fileMd5, fileSize);
+            fileService.markUploadComplete(fileMd5, minoKey, fileMd5, fileSize, totalChunks);
         }
         return ResultVO.ok(minoKey);
     }

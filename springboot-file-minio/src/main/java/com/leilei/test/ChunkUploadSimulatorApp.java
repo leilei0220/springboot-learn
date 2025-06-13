@@ -20,7 +20,7 @@ public class ChunkUploadSimulatorApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // 替换为你的本地测试大文件路径
-        File file = new File("F:/google_down/_eamp-business-service_logs (3).txt");
+        File file = new File("F:/google_down/test.7z");
         if (!file.exists()) {
             System.err.println("文件不存在");
             return;

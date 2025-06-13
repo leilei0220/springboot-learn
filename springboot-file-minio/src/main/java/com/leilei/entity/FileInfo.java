@@ -23,6 +23,8 @@ public class FileInfo {
 
     private Long fileSize;
 
+    private Integer totalChunks;
+
     private String filePath;
 
     private Boolean uploadComplete;

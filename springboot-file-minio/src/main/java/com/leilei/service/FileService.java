@@ -47,13 +47,14 @@ public class FileService {
         return paths;
     }
 
-    public void markUploadComplete(String fileMd5, String finalObjectName, String fileName, long fileSize) {
+    public void markUploadComplete(String fileMd5, String finalObjectName, String fileName, long fileSize,Integer totalChunks) {
         FileInfo info = new FileInfo();
         info.setFileMd5(fileMd5);
         info.setFileName(fileName);
         info.setFileSize(fileSize);
+        info.setTotalChunks(totalChunks);
         info.setFilePath(finalObjectName);
         info.setUploadComplete(true);
-        fileInfoMapper.insertData(info);
+        fileInfoMapper.insert(info);
     }
 }

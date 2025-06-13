@@ -11,6 +11,4 @@ public interface FileInfoMapper extends BaseMapper<FileInfo> {
     @Select("SELECT * FROM file_info WHERE file_md5 = #{fileMd5}")
     FileInfo selectByMd5(String fileMd5);
 
-    @Insert("INSERT INTO file_info (file_md5, file_name, file_size, file_path, upload_complete) VALUES (#{fileMd5}, #{fileName}, #{fileSize}, #{filePath}, #{uploadComplete})")
-    void insertData(FileInfo fileInfo);
 }
