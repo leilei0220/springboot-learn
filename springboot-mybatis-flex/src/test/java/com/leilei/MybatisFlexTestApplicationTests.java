@@ -3,6 +3,7 @@ package com.leilei;
 import com.leilei.entity.Account;
 import com.leilei.mapper.AccountMapper;
 
+import com.mybatisflex.core.mask.MaskManager;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.leilei.entity.table.AccountTableDef.ACCOUNT;
+import static com.mybatisflex.core.mask.MaskManager.skipMask;
 
 
 @SpringBootTest
@@ -42,10 +44,21 @@ class MybatisFlexTestApplicationTests {
     @Test
     void insert() {
         Account account = new Account();
-        account.setUserName("leilei");
+        account.setUserName("ABC");
         account.setAge(18);
         accountMapper.insert(account);
         System.out.println(account.getId());
     }
+
+    @Test
+    void mask() {
+        Account account1 = accountMapper.selectOneById(1);
+        System.out.println(account1);
+        MaskManager.execWithoutMask(()->{
+            Account account = accountMapper.selectOneById(1);
+            System.out.println(account);
+        });
+    }
+
 
 }
