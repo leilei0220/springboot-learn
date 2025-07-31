@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 public class EasyConsumer {
     @RabbitListener(queues = "rabbit_easy_queue")
     public void process(Message message) {
+        long deliveryTag = message.getMessageProperties().getDeliveryTag();
+        System.out.println(deliveryTag);
         System.out.println("easy模式：消费者接收到车辆消息: " + JSON.parseObject(new String(message.getBody()), Vehicle.class));
     }
 }

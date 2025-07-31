@@ -38,6 +38,7 @@ public class TtlRabbitConfig {
     public FanoutExchange ttlFanoutExchange() {
         return new FanoutExchange("ttl-exchange");
     }
+
     @Bean
     public Binding ttlBinding() {
         return BindingBuilder.bind(ttlQueue()).to(ttlFanoutExchange());

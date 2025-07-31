@@ -28,7 +28,7 @@ class RabbitmqProviderApplicationTests {
     private TopicRabbitProvider topicRabbitProvider;
     @Autowired(required = false)
     private TtlProvider ttlProvider;
-    @Autowired
+    @Autowired(required = false)
     private TtlAndDeadProvider ttlAndDeadProvider;
     @Autowired(required = false)
     private ConfirmServer2 confirmServer;
@@ -118,12 +118,15 @@ class RabbitmqProviderApplicationTests {
     }
 
     /**
-     * ttl 过期队列
+     * ttl 过期队列,当一定时间内没有被消费的话，会删除,
+     * 当设置的队列属性x-message-ttl 和单独消息设置 message.getMessageProperties().setExpiration();不一致时，会采用取最小值
+     * 如果，多个消息设置了TTL,但时间长短不一致,比如TTL长的先入列，TTL短的后入列,此时TTL长的未删除前，短的也不会被删除（队列，先进先出，先一个没死后一个不会检测）
      */
     @Test
     void ttl() {
         // ttlProvider.sendMessage();
-        ttlProvider.sendMessage2();
+        // ttlProvider.sendMessage2();
+        ttlProvider.sendMessage3();
     }
 
     /**
