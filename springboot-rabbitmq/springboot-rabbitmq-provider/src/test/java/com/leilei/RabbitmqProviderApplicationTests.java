@@ -5,6 +5,7 @@ import com.leilei.delayed.DelayedProvider;
 import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
+import com.leilei.lazy.LazyProvider;
 import com.leilei.reply.ReplyProvider;
 import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.ttl.TtlProvider;
@@ -37,6 +38,9 @@ class RabbitmqProviderApplicationTests {
 
     @Autowired(required = false)
     private DelayedProvider delayedProvider;
+
+    @Autowired(required = false)
+    private LazyProvider lazyProvider;
     @Test
     void contextLoads() {
         /**
@@ -170,5 +174,13 @@ class RabbitmqProviderApplicationTests {
     @Test
     public void testReply() {
         replyProvider.send();
+    }
+
+    /**
+     * lazy
+     */
+    @Test
+    public void testLazy() {
+        lazyProvider.sendTask("lazy");
     }
 }
