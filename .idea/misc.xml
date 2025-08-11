@@ -15,7 +15,9 @@
       <list>
         <option value="$PROJECT_DIR$/springboot-webscoket/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-encrypt-req-resp/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-file-minio/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-rabbitmq/springboot-rabbitmq-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-kafka/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

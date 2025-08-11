@@ -6,11 +6,14 @@ spring:
     username: admin
     password: Zwcpx2024@vcolco
     # 开启消息确认机制 confirm 异步
-#    publisher-confirm-type: correlated
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
 #    listener:
 #      direct:
 #        # 消息开启手动确认 （ confirm 测试时开启）
 #        acknowledge-mode: manual
-#    publisher-returns: true
+
 #  main:
 #    allow-bean-definition-overriding: true

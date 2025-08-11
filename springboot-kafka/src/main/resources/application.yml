@@ -8,11 +8,11 @@ spring:
       max-poll-records: 20
       enable-auto-commit: false
     listener:
-      ack-mode: manual_immediate
+      ack-mode: manual
       type: batch
 
 
 kafka:
-  calcTopic: pos-test
-  groupId: calc-test
+  calcTopic: pos-test-aaa
+  groupId: calc-test12312
   calcSleep: 200

@@ -1,6 +1,5 @@
 package com.leilei;
 
-import com.leilei.confirm.ConfirmServer2;
 import com.leilei.delayed.DelayedProvider;
 import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
@@ -12,8 +11,12 @@ import com.leilei.ttl.TtlProvider;
 import com.leilei.ttlanddead.TtlAndDeadProvider;
 import com.leilei.work.WorkProviderServer;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
 
 @SpringBootTest
 class RabbitmqProviderApplicationTests {
@@ -31,8 +34,8 @@ class RabbitmqProviderApplicationTests {
     private TtlProvider ttlProvider;
     @Autowired(required = false)
     private TtlAndDeadProvider ttlAndDeadProvider;
-    @Autowired(required = false)
-    private ConfirmServer2 confirmServer;
+    @Resource
+    private RabbitTemplate rabbitTemplateConfirm;
     @Autowired(required = false)
     private ReplyProvider replyProvider;
 
@@ -159,8 +162,23 @@ class RabbitmqProviderApplicationTests {
      * 正常收到消息：Optional[Vehicle(id=1, name=confirm功能的车车)]
      */
     @Test
-    void testConfirm() {
-        confirmServer.sendConfirm();
+    public void testConfirm() throws InterruptedException {
+        // 正常路由 ConfirmCallback
+        // rabbitTemplateConfirm.convertAndSend("test-exchange", "rk", "Message 1",new CorrelationData("1"));
+
+        // 交换机存在但 routingKey 不匹配，无法路由到对应队列
+        // 消息会被交换机接收（Confirm 里 ack=true），
+        // 但因为没有匹配的队列，消息无法路由，Broker 会把这条消息通过 Return 机制返回给生产者，
+        // 生产者会触发 ReturnCallback 回调，拿到这条“无法路由的消息”，可以做日志记录、重试、告警等处理。
+        //  rabbitTemplateConfirm.convertAndSend("test-exchange", "wrong-key", "Message 2" ,new CorrelationData("2"));
+
+
+        // 交换机不存在
+        // confirm ack=false
+        // 同时会报错  Channel shutdown: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no exchange 'aa' in vhost '/', class-id=60, method-id=40)
+        rabbitTemplateConfirm.convertAndSend("aa", "wrong-key2", "Message 2",new CorrelationData("3"));
+
+        Thread.sleep(2000); // 等回调
     }
 
     /**
@@ -183,4 +201,6 @@ class RabbitmqProviderApplicationTests {
     public void testLazy() {
         lazyProvider.sendTask("lazy");
     }
+
+
 }
