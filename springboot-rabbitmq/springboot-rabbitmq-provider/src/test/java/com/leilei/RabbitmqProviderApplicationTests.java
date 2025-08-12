@@ -5,6 +5,7 @@ import com.leilei.direct.DirectExchangeProvider;
 import com.leilei.easy.EasyProviderServer;
 import com.leilei.fanout.FanoutExchangeProvider;
 import com.leilei.lazy.LazyProvider;
+import com.leilei.priority.PriorityProducer;
 import com.leilei.reply.ReplyProvider;
 import com.leilei.topic.TopicRabbitProvider;
 import com.leilei.ttl.TtlProvider;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootTest
 class RabbitmqProviderApplicationTests {
@@ -44,6 +47,10 @@ class RabbitmqProviderApplicationTests {
 
     @Autowired(required = false)
     private LazyProvider lazyProvider;
+
+    @Resource
+    private PriorityProducer priorityProducer;
+
     @Test
     void contextLoads() {
         /**
@@ -200,6 +207,25 @@ class RabbitmqProviderApplicationTests {
     @Test
     public void testLazy() {
         lazyProvider.sendTask("lazy");
+    }
+
+    @Test
+    void testPriorityQueue() throws InterruptedException {
+        // priorityProducer.send("低优先级消息", 1);
+        // priorityProducer.send("中优先级消息", 5);
+        // priorityProducer.send("高优先级消息", 9);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        // 模拟多个生产者并发发消息
+        for (int i = 0; i < 10; i++) {
+            int index = i;
+            executor.submit(() -> {
+                int priority = (int) (Math.random() * 10); // 随机优先级
+                priorityProducer.send("消息-优先级" + priority, priority);
+            });
+        }
+
+        executor.shutdown();
+        Thread.sleep(15000); // 等待消费者处理完
     }
 
 
