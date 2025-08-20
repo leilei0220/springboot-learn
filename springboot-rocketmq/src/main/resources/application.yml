@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: rocketmq-demo
+
+rocketmq:
+  name-server: 10.50.125.10:9876  # 如果是 Docker 外部访问，改成宿主机 IP
+  producer:
+    group: demo-producer-group
+    send-message-timeout: 4000
