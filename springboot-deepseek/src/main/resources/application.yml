@@ -10,8 +10,8 @@ spring:
     openai:
       api-key: sk-sxxx
       # 使用额硅基流动
-      base-url: https://api.siliconflow.cn
+      base-url: https://api.deepseek.com
       chat:
         options:
           # 模型名
-          model: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+          model: deepseek-reasoner

@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mysql://10.50.125.200:3306/demotest?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      initialization-fail-timeout: 1
+      maximum-pool-size: 1
+      minimum-idle: 1
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+
+minio:
+  endpoint: http://10.50.125.197:9000
+  access-key: admin
+  secret-key: 123456789
+  bucket: eamp-dev
+
+# 阿里云OSS配置（使用OSS时启用）
+oss:
+  endpoint: oss-cn-hangzhou.aliyuncs.com
+  access-key-id: your-access-key-id
+  access-key-secret: your-access-key-secret
+  bucket: your-bucket-name
+
+# 文件服务配置
+file:
+  # 存储类型：minio 或 oss（默认minio）
+  storage:
+    type: minio
+  # 临时文件路径前缀
+  temp-path: temp
+  # 预签名URL有效期（秒，默认3600秒=1小时）
+  presigned-url-expiry: 3600
+
+logging:
+  level:
+    org.springframework.jdbc: debug
+    org.springframework.transaction: trace
