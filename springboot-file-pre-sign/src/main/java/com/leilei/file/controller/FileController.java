@@ -42,6 +42,19 @@ public class FileController {
         PreSignResponse response = fileService.generatePresignedUrl(request);
         return ResponseEntity.ok(response);
     }
+
+    /** 模拟前端直接对接文件服务器
+     * 请求 URL:
+     * PUThttp://10.50.125.197:9000/eamp-dev/temp/c79d795a564748a4ad9c421eadf71f65/rabbit.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20251128%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251128T065355Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=content-length%3Bhost&X-Amz-Signature=40982dc387c3e67ca7904623809f8d910f9b7a254cd08a0bb1796f793fe6d399
+     * Header:
+     * 名称	值
+     * Content-MD5	1Vvd+NYpEIee2fYFUiFJqA==
+     * Content-Length	1055736
+     * Content-Type	application/octet-stream
+     *
+     *
+     * Body 类型 :application/octet-stream
+     */
     
     /**
      * 通知文件上传完成
